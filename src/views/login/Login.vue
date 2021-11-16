@@ -37,7 +37,7 @@
     #header .loginHeader, .registryHeader {
         float: left;
         width: 50%;
-        height: 40px;
+        height: 50px;
         line-height: 40px;
         text-align: center;
         box-sizing: border-box;
@@ -47,9 +47,4 @@
         display: block;
     }
 
-    #header .content {
-        width: 10px;
-        height: 10px;
-        background-color: green;
-    }
 </style>

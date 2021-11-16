@@ -1,6 +1,6 @@
 <template>
-  <div>
-      注册
+  <div id="registryContent">
+      
   </div>
 </template>
 
@@ -11,5 +11,10 @@
 </script>
 
 <style>
-
+    #registryContent {
+        float: left;
+        width: 100%;
+        height: 450px;
+        background-color: green;
+    }
 </style>
