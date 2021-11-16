@@ -1,0 +1,37 @@
+{
+  "id": "2940026",
+  "name": "graduation_design",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1718359",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "9795863",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "201571",
+      "name": "3.1-搜索",
+      "font_class": "31sousuo",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "6056176",
+      "name": "收缩下箭头",
+      "font_class": "shousuoxiajiantou",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    }
+  ]
+}
