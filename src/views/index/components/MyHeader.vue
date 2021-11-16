@@ -11,7 +11,7 @@
           <button class="questionBtn">提问</button>
       </div>
       <div class="userInfo">
-          <a href="login.html" v-if="userInfo === null"><button class="loginBtn">登录 / 注册</button></a>
+          <a href="login.html" target="_blank" v-if="userInfo === null"><button class="loginBtn">登录 / 注册</button></a>
           <div class="userFunction" v-else>
               <img class="userImg" :src="userInfo.img" alt="头像">
               <div class="iconfont logout">&#xe60e; 退出登录</div>
