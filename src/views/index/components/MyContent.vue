@@ -1,16 +1,18 @@
 <template>
   <div id="content">
       <MySelector></MySelector>
+      <MyArticleList></MyArticleList>
   </div>
 </template>
 
 <script>
     import MySelector from './MySelector'
+    import MyArticleList from './MyArticleList'
 
     export default {
         name: 'MyContent',
         components: {
-            MySelector
+            MySelector, MyArticleList
         }
     }
 </script>

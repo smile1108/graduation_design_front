@@ -12,6 +12,7 @@
           <li>美术类</li>
           <li>音乐类</li>
           <li>体育类</li>
+          <li>体育类</li>
           <li>其他</li>
       </ul>
   </div>
@@ -26,12 +27,12 @@
 <style>
     #selector {
         float: left;
-        height: 90%;
+        height: 95%;
         width: 120px;
-        margin: 30px 30px 0 50px;
+        margin: 15px 30px 0 100px;
         background-color: #fff;
         border-radius: 12px;
-        padding: 10px;
+        padding: 5px;
         box-sizing: border-box;
     }
 
