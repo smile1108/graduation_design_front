@@ -1,10 +1,8 @@
 <template>
   <div id="loginContent">
-      <form action="#">
-          <input class="username" type="text" placeholder="学号">
-          <input class="password" type="password" placeholder="密码">
-          <button class="loginBtn">登录</button>
-      </form>
+        <input class="username" type="text" placeholder="学号">
+        <input class="password" type="password" placeholder="密码">
+        <button class="loginBtn">登录</button>
   </div>
 </template>
 
