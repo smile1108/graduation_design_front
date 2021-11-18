@@ -1,9 +1,8 @@
 <template>
   <div id="header">
       <ul class="tabs">
-          <li class="active">首页</li>
-          <li>发现</li>
-          <li>等你来答</li>
+          <router-link class="tabItem" to="/home" active-class="active">首页</router-link>
+          <router-link class="tabItem" to="/problem" active-class="active">等你来答</router-link>
       </ul>
       <div class="search">
           <input class="inputText" type="text">
@@ -83,7 +82,7 @@
         float: left;
     }
 
-    #header .tabs li {
+    #header .tabs .tabItem {
         padding: 0 15px;
         box-sizing: border-box;
         font-size: 15px;
@@ -95,7 +94,7 @@
         color: #8590A6;
     }
 
-    #header .tabs li:hover{
+    #header .tabs .tabItem:hover{
         cursor: pointer;
         color: #121212;
     }
