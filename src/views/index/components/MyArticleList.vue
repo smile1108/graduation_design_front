@@ -7,7 +7,7 @@
               <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
               <div class="authorName">作者姓名</div>
               <div class="userOperator">
-                  <span class="iconfont like">&#xe870; 喜欢</span>
+                  <span class="iconfont like">&#xe86f; 喜欢</span>
               </div>
           </div>
       </div>
@@ -18,7 +18,7 @@
               <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
               <div class="authorName">作者姓名</div>
               <div class="userOperator">
-                  <span class="iconfont like">&#xe870; 喜欢</span>
+                  <span class="iconfont like">&#xe86f; 喜欢</span>
               </div>
           </div>
       </div>
@@ -29,7 +29,7 @@
               <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
               <div class="authorName">作者姓名</div>
               <div class="userOperator">
-                  <span class="iconfont like">&#xe870; 喜欢</span>
+                  <span class="iconfont like">&#xe86f; 喜欢</span>
               </div>
           </div>
       </div>
@@ -40,7 +40,7 @@
               <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
               <div class="authorName">作者姓名</div>
               <div class="userOperator">
-                  <span class="iconfont like">&#xe870; 喜欢</span>
+                  <span class="iconfont like">&#xe86f; 喜欢</span>
               </div>
           </div>
       </div>
@@ -51,7 +51,7 @@
               <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
               <div class="authorName">作者姓名</div>
               <div class="userOperator">
-                  <span class="iconfont like">&#xe870; 喜欢</span>
+                  <span class="iconfont like">&#xe86f; 喜欢</span>
               </div>
           </div>
       </div>

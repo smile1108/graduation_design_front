@@ -1,19 +1,24 @@
 <template>
-  <div id="problemContent">
-
+  <div id="problem">
+      <RightFunction></RightFunction>
   </div>
 </template>
 
 <script>
+    import RightFunction from './RightFunction'
+
     export default {
-        name: 'MyProblem'
+        name: 'MyProblem',
+        components: {
+            RightFunction
+        }
     }
 </script>
 
 <style>
-    #problemContent {
+    #problem {
         width: 100%;
         height: calc(100vh - 52px);
-        background-color: green;
+        background-color: #f6f6f6;
     }
 </style>

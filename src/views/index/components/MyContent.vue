@@ -2,17 +2,19 @@
   <div id="content">
       <MySelector></MySelector>
       <MyArticleList></MyArticleList>
+      <RightFunction></RightFunction>
   </div>
 </template>
 
 <script>
     import MySelector from './MySelector'
     import MyArticleList from './MyArticleList'
+    import RightFunction from './RightFunction'
 
     export default {
         name: 'MyContent',
         components: {
-            MySelector, MyArticleList
+            MySelector, MyArticleList, RightFunction
         }
     }
 </script>
