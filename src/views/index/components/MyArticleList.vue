@@ -55,12 +55,18 @@
               </div>
           </div>
       </div>
+      <PageComponent></PageComponent>
   </div>
 </template>
 
 <script>
+    import PageComponent from './pageComponent'
+
     export default {
-        name: 'MyArticleList'
+        name: 'MyArticleList',
+        components: {
+            PageComponent
+        }
     }
 </script>
 
