@@ -3,6 +3,7 @@
       <ul class="tabs">
           <router-link class="tabItem" to="/home" active-class="active">首页</router-link>
           <router-link class="tabItem" to="/problem" active-class="active">等你来答</router-link>
+          <router-link class="tabItem" to="/todoList" active-class="active">待办事项</router-link>
       </ul>
       <div class="search">
           <input class="inputText" type="text">

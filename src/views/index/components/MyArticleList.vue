@@ -92,7 +92,7 @@
         margin-top: 15px;
         padding: 10px 0;
         box-sizing: border-box;
-        width: 700px;
+        width: 900px;
         height: 95%;
         border-radius: 3px;
         background-color: #fff;
@@ -110,6 +110,7 @@
 
     #articleList .articleDiv .articleTitle {
         font-weight: 600;
+        font-size: 18px;
     }
 
     #articleList .articleDiv .articleTitle:hover {

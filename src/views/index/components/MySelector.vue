@@ -29,7 +29,7 @@
         float: left;
         height: 95%;
         width: 120px;
-        margin: 15px 30px 0 100px;
+        margin: 15px 50px 0 100px;
         background-color: #fff;
         border-radius: 12px;
         padding: 5px;

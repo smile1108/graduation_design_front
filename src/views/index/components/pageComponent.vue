@@ -35,7 +35,7 @@
 
     .page {
         margin-top: 20px;
-        padding-left: 200px;
+        padding-left: 300px;
         padding-top: 10px;
         padding-bottom: 10px;
         background-color: #fff;
