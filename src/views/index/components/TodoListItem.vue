@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        name: "MyItem",
+        name: "TodoListItem",
         props: ["todo", "deleteTodo"],
         methods: {
             // 删除对应的todo

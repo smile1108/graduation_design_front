@@ -3,7 +3,7 @@
       <ul class="tabs">
           <router-link class="tabItem" to="/home" active-class="active">首页</router-link>
           <router-link class="tabItem" to="/problem" active-class="active">等你来答</router-link>
-          <router-link class="tabItem" to="/todoList" active-class="active">待办事项</router-link>
+          <router-link class="tabItem" to="/todoList" active-class="active" v-if="userInfo !== null">待办事项</router-link>
       </ul>
       <div class="search">
           <input class="inputText" type="text">
@@ -26,10 +26,10 @@
         name: "MyHeader",
         data() {
             return {
-                // userInfo: {
-                //     img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727"
-                // }
-                userInfo: null
+                userInfo: {
+                    img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727"
+                }
+                // userInfo: null
             }
         },
         methods: {
@@ -187,14 +187,19 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
+        float: left;
     }
 
     #header .userInfo .userFunction .logout {
-        display: inline-block;
         margin-left: 20px;
         color: rgb(221, 61, 61);
         font-size: 14px;
         font-weight: 600;
+        height: 30px;
+        line-height: 30px;
+        margin-top: 5px;
+        padding: 0 5px;
+        float: left;
     }
 
     #header .userInfo .userFunction .logout:hover {

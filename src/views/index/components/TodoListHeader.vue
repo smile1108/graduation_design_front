@@ -7,7 +7,7 @@
 <script>
     import {nanoid} from 'nanoid'
     export default {
-        name: "MyHeader",
+        name: "TodoListHeader",
         props: ["addTodo"],
         data() {
             return {
