@@ -10,6 +10,7 @@
               <router-link class="checkTodoListBtn" to="/todoList">查看全部待办事项</router-link>
           </div>
       </div>
+      <a href="write.html" target="_blank">写文章</a>
   </div>
 </template>
 
