@@ -1,6 +1,6 @@
 <template>
   <div id="writeArea">
-      <WriteHeader :userInfo="userInfo"></WriteHeader>
+      <WriteHeader></WriteHeader>
       <WriteArticle></WriteArticle>
   </div>
 </template>
