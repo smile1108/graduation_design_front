@@ -20,6 +20,13 @@ module.exports = {
             filename: "write.html", // 打包后的html文件名称
             title: "写文章", // 打包后的html中<title>标签的文本内容
             faviconPath: "favicon.ico"
+        },
+        home: {
+            entry: "./src/views/home/home.js", // 配置入口js文件
+            template: "./src/views/home/home.html", // 主页面
+            filename: "home.html", // 打包后的html文件名称
+            title: "主页", // 打包后的html中<title>标签的文本内容
+            faviconPath: "favicon.ico"
         }
     }
   }

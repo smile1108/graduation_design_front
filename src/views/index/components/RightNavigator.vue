@@ -2,18 +2,24 @@
   <div id="rightNavigator">
       <div class="navTitle"><span class="iconfont">&#xe651;</span> 页面导航</div>
       <div class="navContent">
-          <div class="home">
-              <div class="iconfont">&#xe602;</div>
-              <div class="homeTitle">主页</div>
-          </div>
-          <div class="writeArticle">
-              <div class="iconfont">&#xe62e;</div>
-              <div class="writeArticleTitle">写文章</div>
-          </div>
-          <div class="ask">
-              <div class="iconfont">&#xe6e2;</div>
-              <div class="askTitle">提问</div>
-          </div>
+          <a href="home.html" target="_blank">
+              <div class="home">
+                <div class="iconfont">&#xe602;</div>
+                <div class="homeTitle">主页</div>
+              </div>
+          </a>
+          <a href="write.html" target="_blank">
+              <div class="writeArticle">
+                <div class="iconfont">&#xe62e;</div>
+                <div class="writeArticleTitle">写文章</div>
+              </div>
+          </a>
+          <a href="write.html" target="_blank">
+              <div class="ask">
+                <div class="iconfont">&#xe6e2;</div>
+                <div class="askTitle">提问</div>
+              </div>
+          </a>
       </div>
   </div>
 </template>
@@ -64,19 +70,19 @@
         margin-top: 14px;
     }
 
-    #rightNavigator .navContent > div {
+    #rightNavigator .navContent a > div {
         border-radius: 6px;
         width: 60px;
         height: 90px;
         float: left;
     }
 
-    #rightNavigator .navContent > div:hover {
+    #rightNavigator .navContent a > div:hover {
         cursor: pointer;
         background-color: rgb(240, 242, 247);
     }
 
-    #rightNavigator .navContent > div .iconfont {
+    #rightNavigator .navContent a > div .iconfont {
         height: 60px;
         line-height: 60px;
         text-align: center;
@@ -84,7 +90,7 @@
         font-size: 34px;
     }
 
-    #rightNavigator .navContent > div div:last-child {
+    #rightNavigator .navContent a > div div:last-child {
         line-height: 30px;
         font-size: 14px;
         text-align: center;
