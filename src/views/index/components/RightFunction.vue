@@ -1,16 +1,18 @@
 <template>
   <div id="rightFunction">
       <RightTodoList></RightTodoList>
+      <RightNavigator></RightNavigator>
   </div>
 </template>
 
 <script>
     import RightTodoList from './RightTodoList'
+    import RightNavigator from './RightNavigator'
 
     export default {
         name: 'RightFunction',
         components: {
-            RightTodoList
+            RightTodoList, RightNavigator
         }
     }
 </script>
@@ -21,8 +23,6 @@
         height: 95%;
         width: 200px;
         margin: 15px 30px 0 50px;
-        background-color: #fff;
-        padding: 5px;
         box-sizing: border-box;
     }
 </style>

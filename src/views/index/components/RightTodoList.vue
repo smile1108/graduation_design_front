@@ -10,7 +10,6 @@
               <router-link class="checkTodoListBtn" to="/todoList">查看全部待办事项</router-link>
           </div>
       </div>
-      <a href="write.html" target="_blank">写文章</a>
   </div>
 </template>
 
@@ -58,16 +57,19 @@
     }
 
     #todoList {
-        width: 95%;
+        width: 100%;
         height: 200px;
-        margin: 5px auto;
-        border: 1px solid black;
+        margin: 0 auto;
+        padding: 10px 5px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        background-color: #fff;
     }
 
     #todoList .todoListTitle {
         height: 30px;
         line-height: 30px;
-        font-size: 16px;
+        font-size: 18px;
     }
 
     #todoList .todoListTitle span {
