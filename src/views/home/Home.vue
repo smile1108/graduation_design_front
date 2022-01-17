@@ -1,14 +1,18 @@
 <template>
   <div id="home">
-      home
+      <PersonalMessage></PersonalMessage>
+      <AvatarCutter></AvatarCutter>
   </div>
 </template>
 
 <script>
+    import PersonalMessage from './components/PersonalMessage'
+    import AvatarCutter from './components/AvatarCutter'
 
     export default {
         name: 'Home',
         components: {
+            AvatarCutter, PersonalMessage
         },
         data() {
             return {
@@ -17,9 +21,15 @@
                 }
                 // userInfo: null
             }
+        },
+        methods: {
+            
         }
     }
 </script>
 
 <style>
+    #home {
+        background-color: #f6f6f6;
+    }
 </style>
