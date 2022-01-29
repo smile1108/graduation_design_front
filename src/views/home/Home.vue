@@ -1,18 +1,16 @@
 <template>
   <div id="home">
       <PersonalMessage></PersonalMessage>
-      <AvatarCutter></AvatarCutter>
   </div>
 </template>
 
 <script>
     import PersonalMessage from './components/PersonalMessage'
-    import AvatarCutter from './components/AvatarCutter'
 
     export default {
         name: 'Home',
         components: {
-            AvatarCutter, PersonalMessage
+            PersonalMessage
         },
         data() {
             return {

@@ -1,22 +1,13 @@
 <template>
-<div style="height: 800px;">
+<div style="height: 460px;">
   <el-tabs v-model="activeName" @tab-click="handleClick" class="tabs">
-    <el-tab-pane label="个人信息" name="first">
-    </el-tab-pane>
-    <el-tab-pane label="更换头像" name="second">
-      <div class="avatar_header">
-        <span>当前头像</span>
-      </div>
-      <div class="avatar_current">
-        <img :src="currentimg">
-      </div>
       <div class="avatar_select">
         <!-- 这里这样做是因为
         原来的 <input type="file">标签太丑了，可以自己去尝试一下，看看有多丑
         所以使用button来控制触发input来进行选择文件
         -->
         <input type="file"  ref="uploads" id="uploads" accept="image/png, image/jpeg, image/gif, image/jpg" hidden @change="setImage($event)">
-        <el-button type="primary" @click="selectAvatar">选择图片</el-button>
+        <el-button class="select" type="primary" @click="selectAvatar">选择图片</el-button>
 
         <el-button type="success" style="margin-left:100px;" @click="uploadImg('blob')">上传图片</el-button>
       </div>
@@ -58,11 +49,6 @@
         </div>
       </div>
       </div>
-    </el-tab-pane>
-
-    <el-tab-pane label="修改密码" name="third">
-
-    </el-tab-pane>
   </el-tabs>
 </div>
 </template>
@@ -74,7 +60,7 @@ export default {
 data() {
   return {
     activeName:'second',
-    currentimg:this.$store.getters.getAvatar,    //这里我是将用户信息保存在Vuex进行管理
+    currentimg: 'http://pic4.zhimg.com/50/v2-d100ae274ecb9fd1aabedba3055772ef_hd.jpg', 
     previews:{},
     option:{
       img:'',                //裁剪图片的地址,
@@ -151,7 +137,6 @@ methods: {
       this.$refs.cropper.getCropBlob(async (data) => {
         let formData = new FormData();
         // 发数据传递到后端,注意这里请根据自己的后端逻辑进行处理，我是将用户名保存在Vuex中，可以直接进行命名
-        formData.append("username",this.$store.getters.getUsername);
         formData.append('file',data,this.$store.getters.getUsername+".jpg");
         this.axios.post('/updateavatar',formData).then(function(response){
           console.log(response);
@@ -182,29 +167,12 @@ margin-top: 5px;
 z-index: 999;
 }
 
-.avatar_header{
-width: 100%;
-height: 50px;
-font-size: 14;
-line-height: 50px;
-font-weight: 550;
-padding-left: 20px;
-text-align: left;
-}
-
-.avatar_current{
-width: 100%;
-height: 260px;
-text-align: left;
-}
-.avatar_current img{
-width: 240px;
-height: 240px;
-margin-left: 20px;
-
-}
 .avatar_select{
 text-align: left;
+}
+
+.avatar_select .select {
+  margin-left: 60px;
 }
 
 .cropper_box{

@@ -8,17 +8,21 @@
                 <span class="school">{{userInfo.school}}</span>
             </div>
             <div class="functionalButton">
-                <div class="checkAllMsg">查看所有信息</div>
-                <div class="editMsg">编辑个人信息</div>
+                <div class="modifyAvatar" @click="showAvatarBox()">修改头像</div>
             </div>
         </div>
+        <div id="popLayer" :class="{active: !showAvatar}"></div>
+        <AvatarCutterBox :showAvatar="showAvatar" @changeShowAvatar="changeShowAvatar"></AvatarCutterBox>
     </div>
 </template>
 
 <script>
+    import AvatarCutterBox from './AvatarCutterBox'
+
     export default {
         name: 'PersonalMessage',
         components: {
+            AvatarCutterBox
         },  
         data() {
             return {
@@ -26,17 +30,42 @@
                     img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727",
                     nickName: '一只小菜鸡',
                     school: '山西大学'
-                }
+                },
+                showAvatar: false
+            }
+        },
+        methods: {
+            showAvatarBox() {
+                this.showAvatar= true
+            },
+            changeShowAvatar(param) {
+                this.showAvatar = param
             }
         }
     }
 </script>
 
 <style>
+
+    .active {
+        display: none;
+    }
+
     #personalMsg {
         height: 250px;
         width: 70%;
         margin: 10px auto 0;
+        border: 1px solid red;
+    }
+
+    #personalMsg #popLayer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10;
+        background-color: rgba(136, 132, 132, 0.9);
     }
 
     #personalMsg .topDiv {
@@ -105,8 +134,8 @@
         background-color: #005ce6;
     }
 
-    #personalMsg .bottomDiv .functionalButton .checkAllMsg {
-        margin-left: 540px;
+    #personalMsg .bottomDiv .functionalButton .modifyAvatar {
+        margin-left: 600px;
         margin-right: 50px;
     }
 </style>
