@@ -1,16 +1,19 @@
 <template>
   <div id="home">
       <PersonalMessage></PersonalMessage>
+      <PersonalContent></PersonalContent>
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
     import PersonalMessage from './components/PersonalMessage'
+    import PersonalContent from './components/PersonalContent'
 
     export default {
         name: 'Home',
         components: {
-            PersonalMessage
+            PersonalMessage, PersonalContent
         },
         data() {
             return {

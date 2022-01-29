@@ -45,7 +45,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 
     .active {
         display: none;
@@ -55,7 +55,6 @@
         height: 250px;
         width: 70%;
         margin: 10px auto 0;
-        border: 1px solid red;
     }
 
     #personalMsg #popLayer {
