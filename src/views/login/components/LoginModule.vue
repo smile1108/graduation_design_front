@@ -9,6 +9,8 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         name: 'LoginModule',
         components: {
@@ -20,8 +22,8 @@
                 password: '',
                 usernameHolder: '学号',
                 passwordHolder: '密码',
-                usernameErrorMsg: '学号长度不能超过20',
-                passwordErrorMsg: '密码长度不能超过20',
+                usernameErrorMsg: '',
+                passwordErrorMsg: '',
             }
         },
         methods: {
@@ -40,23 +42,55 @@
                 }
             },
             login() {
+                console.log(this)
                 let username = this.username;
                 let password = this.password;
                 let usernameDom = this.$refs.username;
                 let passwordDom = this.$refs.password;
                 let usernameErrorDom = this.$refs.usernameError;
                 let passwordErrorDom = this.$refs.passwordError;
+                let usernameError = false
+                let passwordError = false
                 if(username.length > 20) {
-                    usernameDom.style.setProperty('border-bottom', '2px solid red')
                     this.username = ''
-                    this.usernameErrorMsg = '学号长度不能超过20'
-                    usernameErrorDom.style.setProperty('visibility', 'visible')
+                    this.usernameErrorMsg = '学号长度不能超过20位'
+                    usernameError = true
                 }
                 if(password.length > 20) {
-                    passwordDom.style.setProperty('border-bottom', '2px solid red');
                     this.password = ''
-                    this.passwordErrorMsg = '密码长度不能超过20'
+                    this.passwordErrorMsg = '密码长度不能超过20位'
+                    passwordError = true
+                }
+                if(password.length < 8) {
+                    this.password = ''
+                    this.passwordErrorMsg = '密码长度不能小于8位'
+                    passwordError = true
+                }
+                if(usernameError) {
+                    usernameDom.style.setProperty('border-bottom', '2px solid red')
+                    usernameErrorDom.style.setProperty('visibility', 'visible')
+                }
+                if(passwordError) {
+                    passwordDom.style.setProperty('border-bottom', '2px solid red')
                     passwordErrorDom.style.setProperty('visibility', 'visible')
+                }
+
+                if(!usernameError && !passwordError) {
+                    // 如果用户名和密码都没有问题 然后向后端发送请求
+                    let formData = new FormData();
+                    formData.append('username', username);
+                    formData.append('password', password);
+                    axios.post('http://localhost:9527/user/login',formData).then((response) => {
+                        console.log(response);
+                        if(response.data.code == 200){
+                            // 跳转页面
+                            window.location.href = 'index.html'                            
+                        } else {
+                            this.username = ''
+                            this.password = ''
+                            alert(response.data.msg)
+                        }
+                    })
                 }
             }
         }
