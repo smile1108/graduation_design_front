@@ -51,19 +51,22 @@
                 let passwordErrorDom = this.$refs.passwordError;
                 let usernameError = false
                 let passwordError = false
+                // 密码验证的正则表达式
+                var patt = /^(?![A-z0-9]+$)(?=.[^%&',;=?$\x22])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$/;
+                patt.test("The best things in life are free!");
                 if(username.length > 20) {
                     this.username = ''
-                    this.usernameErrorMsg = '学号长度不能超过20位'
+                    this.usernameErrorMsg = '学号长度必须大于8位并且小于20位'
                     usernameError = true
                 }
-                if(password.length > 20) {
+                if(password.length > 20 || password.length < 8) {
                     this.password = ''
-                    this.passwordErrorMsg = '密码长度不能超过20位'
+                    this.passwordErrorMsg = '密码长度必须大于8位并且小于20位'
                     passwordError = true
                 }
-                if(password.length < 8) {
+                if(!patt.test(password)) {
                     this.password = ''
-                    this.passwordErrorMsg = '密码长度不能小于8位'
+                    this.passwordErrorMsg = '密码必须至少包含大小写字母、数字以及特殊字符'
                     passwordError = true
                 }
                 if(usernameError) {
@@ -102,7 +105,7 @@
     .errorMsg {
         color: red;
         font-size: 14px;
-        margin-left: 80px;
+        margin-left: 60px;
         visibility: hidden;
     }
 
