@@ -78,6 +78,9 @@
                     formData.append('password', password);
                     axios.post('http://localhost:9527/user/login',formData).then((response) => {
                         if(response.data.code == 200){
+                            sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))
+                            // 使用LocalStorage存储用户信息
+                            // window.localStorage.setItem('userInfo', JSON.stringify(response.data.data))
                             // 跳转页面
                             window.location.href = 'index.html'                            
                         } else {

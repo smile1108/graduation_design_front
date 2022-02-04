@@ -1,6 +1,6 @@
 <template>
   <div id="rightFunction">
-      <RightTodoList></RightTodoList>
+      <RightTodoList :userInfo="userInfo"></RightTodoList>
       <RightNavigator></RightNavigator>
   </div>
 </template>
@@ -13,6 +13,9 @@
         name: 'RightFunction',
         components: {
             RightTodoList, RightNavigator
+        },
+        props: {
+            userInfo: Object
         }
     }
 </script>

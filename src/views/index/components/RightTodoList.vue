@@ -2,7 +2,7 @@
   <div id="todoList">
       <div class="todoListTitle"><span class="iconfont">&#xe65d;</span> 我的代办事项</div>
       <div class="content clearfix">
-          <a href="login.html" target="_blank" class="loginBtn" v-if="userInfo === null">请先登录</a>
+          <a href="login.html" class="loginBtn" v-if="userInfo === null">请先登录</a>
           <div class="todoList" v-else>
               <ul class="todoListContent">
                   <li v-for="todoObj in todoList" :key="todoObj.id">{{todoObj.title}}</li>
@@ -16,12 +16,14 @@
 <script>
     export default {
         name: 'RightTodoList',
+        components: {
+
+        },
+        props: {
+            userInfo: Object
+        },
         data() {
             return {
-                // userInfo: {
-                //     img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727"
-                // },
-                userInfo: null,
                 todoList: [
                     {id: "001", title: "吃饭", done: false},
                     {id: "002", title: "游戏", done: false},

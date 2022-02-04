@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MyHeader></MyHeader>
-    <router-view></router-view>
+    <MyHeader :userInfo="userInfo"></MyHeader>
+    <router-view :userInfo="userInfo"></router-view>
   </div>
 </template>
 
@@ -12,6 +12,16 @@
     name: 'App',
     components: {
       MyHeader
+    },
+    data() {
+      return {
+        userInfo: {
+
+        }
+      }
+    },
+    created() {
+      this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
     }
   }
 </script>

@@ -2,7 +2,7 @@
   <div id="content">
       <MySelector></MySelector>
       <MyArticleList></MyArticleList>
-      <RightFunction></RightFunction>
+      <RightFunction :userInfo="userInfo"></RightFunction>
   </div>
 </template>
 
@@ -15,6 +15,9 @@
         name: 'MyContent',
         components: {
             MySelector, MyArticleList, RightFunction
+        },
+        props: {
+            userInfo: Object
         }
     }
 </script>
