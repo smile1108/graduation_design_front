@@ -89,9 +89,9 @@
                             // 跳转页面
                             window.location.href = 'index.html'                            
                         } else {
+                            window.alert(response.data.msg)
                             this.username = ''
                             this.password = ''
-                            alert(response.data.msg)
                         }
                     })
                 }
