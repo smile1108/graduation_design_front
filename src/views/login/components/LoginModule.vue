@@ -42,7 +42,6 @@
                 }
             },
             login() {
-                console.log(this)
                 let username = this.username;
                 let password = this.password;
                 let usernameDom = this.$refs.username;
@@ -53,20 +52,14 @@
                 let passwordError = false
                 // 密码验证的正则表达式
                 var patt = /^(?![A-z0-9]+$)(?=.[^%&',;=?$\x22])(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,20}$/;
-                patt.test("The best things in life are free!");
-                if(username.length > 20) {
+                if(username.length > 20 || username.length < 8) {
                     this.username = ''
                     this.usernameErrorMsg = '学号长度必须大于8位并且小于20位'
                     usernameError = true
                 }
-                if(password.length > 20 || password.length < 8) {
-                    this.password = ''
-                    this.passwordErrorMsg = '密码长度必须大于8位并且小于20位'
-                    passwordError = true
-                }
                 if(!patt.test(password)) {
                     this.password = ''
-                    this.passwordErrorMsg = '密码必须至少包含大小写字母、数字以及特殊字符'
+                    this.passwordErrorMsg = '密码必须包含大小写字母、数字以及特殊字符,并且长度大于8位小于20位'
                     passwordError = true
                 }
                 if(usernameError) {
@@ -84,7 +77,6 @@
                     formData.append('username', username);
                     formData.append('password', password);
                     axios.post('http://localhost:9527/user/login',formData).then((response) => {
-                        console.log(response);
                         if(response.data.code == 200){
                             // 跳转页面
                             window.location.href = 'index.html'                            
