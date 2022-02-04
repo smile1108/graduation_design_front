@@ -100,7 +100,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 
     .errorMsg {
         color: red;
@@ -119,7 +119,6 @@
         display: block;
         width: 70%;
         height: 30px;
-        margin-top: 50px;
         margin: 40px auto 5px;
         border-top: none;
         border-left: none;
