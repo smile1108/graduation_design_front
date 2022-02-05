@@ -12,7 +12,7 @@
             </div>
         </div>
         <div id="popLayer" :class="{active: !showAvatar}"></div>
-        <AvatarCutterBox :showAvatar="showAvatar" @changeShowAvatar="changeShowAvatar"></AvatarCutterBox>
+        <AvatarCutterBox :showAvatar="showAvatar" @changeShowAvatar="changeShowAvatar" :userInfo="userInfo"></AvatarCutterBox>
     </div>
 </template>
 

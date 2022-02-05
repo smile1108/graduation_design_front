@@ -55,105 +55,108 @@
 
 <script>
 import { VueCropper }  from 'vue-cropper'
+import axios from 'axios'
 
 export default {
-data() {
-  return {
-    activeName:'second',
-    currentimg: 'http://pic4.zhimg.com/50/v2-d100ae274ecb9fd1aabedba3055772ef_hd.jpg', 
-    previews:{},
-    option:{
-      img:'',                //裁剪图片的地址,
-      outputSize:1,          //裁剪生成的图片质量可选(0,1,-1)
-      outputType:'jpeg',     //裁剪生成图片的格式
-      info:true,             //图片大小信息
-      canScale:true,         //是否允许滚轮缩放
-      autoCrop:true,         //是否默认生成截图框
-      autoCropWidth:240,
-      autoCropHeight:240,    //默认生成截图框大小
-      fixed:true,            //是否开启截图框宽高固定比例
-      fixedNumber:[1,1],     //截图框的宽高比,
-      full:false,            //按原比例裁剪图片，不失真
-      fixedBox:true,         //固定截图框大小，不允许改变
-      canMove:false,         //上传图片是否可以移动,
-      canMoveBox:true,       //截图框是否可以拖动
-      original:false,        //上传图片按照原始比例渲染
-      centerBox:false,       //截图框是否被限制在图片里面
-      height:true,           //是否按照设备的dpr，输出等比例图片
-      infoTrue:false,        //true为展示真实输出图片宽高，false展示看到的截图框宽高，
-      maxImgSize:3000,       //限制图片最大宽度和高度
-      enlarge:1,             //图片根据截图框输出比例倍数
-      mode:'400px 300px'     //图片渲染方式 
-    }
-  }
-},
-methods: {
-  // 标签页切换调用方法，不重要！删掉了一些不必要的代码
-  handleClick(){
+  props: {
+    userInfo: Object
   },
-
-  // 选择图片调用方法
-  selectAvatar(){
-    this.$refs.uploads.click();
-  },
-  // 真正的选择图片方法，姑且先这么命名吧
-  setImage(e){
-    let file = e.target.files[0];
-    if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
-      // this.$message.info("图片类型不正确");
-      console.log("图片类型不正确");
-      return false;
-    }
-    //转化为blob,使用blob是为了在页面中展示上传的那张图片
-    let reader = new FileReader();
-    // 文件读取成功后触发onload方法
-    reader.onload = (e) => {
-      let data;
-      // 要在页面中展示，转化为url形式
-      if(typeof e.target.result === 'object'){
-        data = window.URL.createObjectURL(new Blob([e.target.result]))
-      }else{
-        data = e.target.result
+  data() {
+    return {
+      activeName:'second',
+      previews:{},
+      option:{
+        img:'',                //裁剪图片的地址,
+        outputSize:1,          //裁剪生成的图片质量可选(0,1,-1)
+        outputType:'jpeg',     //裁剪生成图片的格式
+        info:true,             //图片大小信息
+        canScale:true,         //是否允许滚轮缩放
+        autoCrop:true,         //是否默认生成截图框
+        autoCropWidth:240,
+        autoCropHeight:240,    //默认生成截图框大小
+        fixed:true,            //是否开启截图框宽高固定比例
+        fixedNumber:[1,1],     //截图框的宽高比,
+        full:false,            //按原比例裁剪图片，不失真
+        fixedBox:true,         //固定截图框大小，不允许改变
+        canMove:false,         //上传图片是否可以移动,
+        canMoveBox:true,       //截图框是否可以拖动
+        original:false,        //上传图片按照原始比例渲染
+        centerBox:false,       //截图框是否被限制在图片里面
+        height:true,           //是否按照设备的dpr，输出等比例图片
+        infoTrue:false,        //true为展示真实输出图片宽高，false展示看到的截图框宽高，
+        maxImgSize:3000,       //限制图片最大宽度和高度
+        enlarge:1,             //图片根据截图框输出比例倍数
+        mode:'400px 300px'     //图片渲染方式 
       }
-      this.option.img = data
-      //转化为base64
     }
-    reader.readAsDataURL(file)
   },
+  methods: {
+    // 标签页切换调用方法，不重要！删掉了一些不必要的代码
+    handleClick(){
+    },
 
-  realTime(data){
-    this.previews = data;
-  },
-  //初始化函数 
-  imgLoad(msg){
-    console.log("工具初始化函数====="+msg);
-  },
+    // 选择图片调用方法
+    selectAvatar(){
+      this.$refs.uploads.click();
+    },
+    // 真正的选择图片方法，姑且先这么命名吧
+    setImage(e){
+      let file = e.target.files[0];
+      if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
+        // this.$message.info("图片类型不正确");
+        console.log("图片类型不正确");
+        return false;
+      }
+      //转化为blob,使用blob是为了在页面中展示上传的那张图片
+      let reader = new FileReader();
+      // 文件读取成功后触发onload方法
+      reader.onload = (e) => {
+        let data;
+        // 要在页面中展示，转化为url形式
+        if(typeof e.target.result === 'object'){
+          data = window.URL.createObjectURL(new Blob([e.target.result]))
+        }else{
+          data = e.target.result
+        }
+        this.option.img = data
+        //转化为base64
+      }
+      reader.readAsDataURL(file)
+    },
 
-  // 头像上传调用方法
-  uploadImg(type){
-    let _this = this;
-    if(type === 'blob'){
-      //获取截图的blob数据类型
-      this.$refs.cropper.getCropBlob(async (data) => {
-        let formData = new FormData();
-        // 发数据传递到后端,注意这里请根据自己的后端逻辑进行处理，我是将用户名保存在Vuex中，可以直接进行命名
-        formData.append('file',data,this.$store.getters.getUsername+".jpg");
-        this.axios.post('/updateavatar',formData).then(function(response){
-          console.log(response);
-          if(response.data.code == 200){
-            console.log(response);
-            _this.currentimg = response.data.data;
-            _this.$store.commit('setAvatar',response.data.data);   //把新头像重新保存回Vuex
-            _this.$router.go(0);                                   //刷新网页            
-            }
+    realTime(data){
+      this.previews = data;
+    },
+    //初始化函数 
+    imgLoad(msg){
+      console.log("工具初始化函数====="+msg);
+    },
+
+    // 头像上传调用方法
+    uploadImg(type){
+      let _this = this;
+      if(type === 'blob'){
+        //获取截图的blob数据类型
+        this.$refs.cropper.getCropBlob(async (data) => {
+          let formData = new FormData();
+          // 发数据传递到后端,注意这里请根据自己的后端逻辑进行处理，我是将用户名保存在Vuex中，可以直接进行命名
+          formData.append('username', this.userInfo.username);
+          formData.append('file',data);
+          axios.post('http://localhost:9527/user/uploadAvatar',formData).then(function(response){
+            if(response.data.code == 200){
+              // 重新存储新的用户信息
+              sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))
+              _this.userInfo = JSON.stringify(response.data.data)
+              _this.$router.go(0);                                   //刷新网页            
+              }
+          })
         })
-      })
+      }
+
     }
+  },
 
-  }
-},
-
-components:{VueCropper}
+  components:{VueCropper}
 };
 
 </script>

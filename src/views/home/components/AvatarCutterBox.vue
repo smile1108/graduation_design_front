@@ -1,6 +1,6 @@
 <template>
     <div id="avatarCutterBox" :class="{ showAvatar: !showAvatar }">
-        <AvatarCutter></AvatarCutter>
+        <AvatarCutter :userInfo="userInfo"></AvatarCutter>
         <div class="closeBtn" @click="closeBox()">关闭</div>
     </div>
 </template>
@@ -14,7 +14,8 @@
             AvatarCutter
         },
         props: {
-            showAvatar: Boolean
+            showAvatar: Boolean,
+            userInfo: Object
         },
         data() {
             return {
