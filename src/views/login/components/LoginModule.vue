@@ -4,7 +4,7 @@
         <div class="errorMsg" ref="usernameError">{{usernameErrorMsg}}</div>
         <input class="password" type="password" :placeholder="passwordHolder" v-model="password" ref="password" @focus="inputFocus('password')">
         <div class="errorMsg" ref="passwordError">{{passwordErrorMsg}}</div>
-        <button class="loginBtn" @click="login()">登录</button>
+        <button class="loginBtn" @click="login()" @keyup.enter="login()">登录</button>
   </div>
 </template>
 
@@ -15,6 +15,16 @@
         name: 'LoginModule',
         components: {
 
+        },
+        created() {
+            document.onkeydown = (e) => {
+                e = window.event || e;
+                // 验证在登录页面并且按下回车键
+                if(this.$route.path == '/login' && (e.code == 'NumpadEnter' || e.code == 'enter') || e.code == 'Enter') {
+                    // 调用登录函数
+                    this.login();
+                }
+            }
         },
         data() {
             return {

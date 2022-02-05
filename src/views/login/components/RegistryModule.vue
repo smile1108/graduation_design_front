@@ -19,6 +19,16 @@
         components: {
 
         },
+        created() {
+            document.onkeydown = (e) => {
+                e = window.event || e;
+                // 验证在登录页面并且按下回车键
+                if(this.$route.path == '/registry' && (e.code == 'NumpadEnter' || e.code == 'enter') || e.code == 'Enter') {
+                    // 调用登录函数
+                    this.register();
+                }
+            }
+        },
         data() {
             return {
                 username: '',
