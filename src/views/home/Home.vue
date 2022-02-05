@@ -1,8 +1,8 @@
 <template>
   <div id="home">
-      <PersonalMessage></PersonalMessage>
+      <PersonalMessage :userInfo="userInfo"></PersonalMessage>
       <PersonalContent></PersonalContent>
-      <router-view></router-view>
+      <router-view :userInfo="userInfo"></router-view>
   </div>
 </template>
 
@@ -15,12 +15,14 @@
         components: {
             PersonalMessage, PersonalContent
         },
+        created() {
+            // 该页面created之后通过sessionStorage获取用户信息
+            this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+            console.log(this.userInfo)
+        },
         data() {
             return {
-                userInfo: {
-                    img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727"
-                }
-                // userInfo: null
+                userInfo: {}
             }
         },
         methods: {

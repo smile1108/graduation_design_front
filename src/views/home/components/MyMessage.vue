@@ -36,16 +36,11 @@
         components: {
 
         },
+        props: {
+            userInfo: Object
+        },
         data() {
             return {
-                userInfo: {
-                    nickname: '一只小菜鸡',
-                    school: '山西大学',
-                    college: '计算机与信息技术学院',
-                    specialty: '计算机科学与技术',
-                    gender: 'male',
-                    individualResume: '我是一只小菜鸡'
-                },
                 canEdit: false,
             }
         },

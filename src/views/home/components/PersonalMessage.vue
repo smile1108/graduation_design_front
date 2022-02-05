@@ -2,9 +2,9 @@
     <div id="personalMsg">
         <div class="topDiv"></div>
         <div class="bottomDiv">
-            <img :src="userInfo.img" alt="头像" class="personalAvatar">
+            <img :src="userInfo.profile" alt="头像" class="personalAvatar">
             <div class="message">
-                <span class="nickName">{{userInfo.nickName}}</span>
+                <span class="nickName">{{userInfo.nickname}}</span>
                 <span class="school">{{userInfo.school}}</span>
             </div>
             <div class="functionalButton">
@@ -24,13 +24,11 @@
         components: {
             AvatarCutterBox
         },  
+        props: {
+            userInfo: Object
+        },
         data() {
             return {
-                userInfo: {
-                    img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727",
-                    nickName: '一只小菜鸡',
-                    school: '山西大学'
-                },
                 showAvatar: false
             }
         },
