@@ -2,28 +2,33 @@
     <div id="myMessage">
         <div id="nickname">
             <span class="msgTitle">昵称</span>
-            <input class="nicknameMsg" type="text" :value="userInfo.nickname" placeholder="请输入用户昵称" :disabled="!canEdit">
+            <input class="nicknameMsg" type="text" v-model="nickname" placeholder="请输入用户昵称" :disabled="!canEdit" ref="nickname">
+            <span class="errorMsg" ref="nicknameError">{{nicknameErrorMsg}}</span>
         </div>
         <div id="school">
             <span class="msgTitle">学校</span>
-            <input class="schoolMsg" type="text" :value="userInfo.school" placeholder="请输入用户学校" :disabled="!canEdit">
+            <input class="schoolMsg" type="text" v-model="school" placeholder="请输入用户学校" :disabled="!canEdit" ref="school">
+            <span class="errorMsg" ref="schoolError">{{schoolErrorMsg}}</span>
         </div>
         <div id="college">
             <span class="msgTitle">学院</span>
-            <input class="collegeMsg" type="text" :value="userInfo.college" placeholder="请输入用户所在学院" :disabled="!canEdit">
+            <input class="collegeMsg" type="text" v-model="college" placeholder="请输入用户所在学院" :disabled="!canEdit" ref="college">
+            <span class="errorMsg" ref="collegeError">{{collegeErrorMsg}}</span>
         </div>
         <div id="specialty">
             <span class="msgTitle">专业</span>
-            <input class="specialtyMsg" type="text" :value="userInfo.specialty" placeholder="请输入用户专业" :disabled="!canEdit">
+            <input class="specialtyMsg" type="text" v-model="specialty" placeholder="请输入用户专业" :disabled="!canEdit" ref="specialty">
+            <span class="errorMsg" ref="specialtyError">{{specialtyErrorMsg}}</span>
         </div>
         <div id="gender">
             <span class="msgTitle">性别</span>
-            <label><input class="gender" name="gender" type="radio" value="male" :checked="isMale" :disabled="!canEdit"/><span class="maleRadio">男</span></label>
-            <label><input class="gender" name="gender" type="radio" value="female" :checked="isFemale" :disabled="!canEdit"/><span class="femaleRadio">女</span></label>
+            <label><input class="gender" name="gender" type="radio" value="male" :checked="isMale" :disabled="!canEdit" v-model="sex"/><span class="maleRadio">男</span></label>
+            <label><input class="gender" name="gender" type="radio" value="female" :checked="isFemale" :disabled="!canEdit" v-model="sex"/><span class="femaleRadio">女</span></label>
         </div>
         <div id="individualResume">
             <span class="msgTitle">简介</span>
-            <textarea class="individualText" placeholder="请输入简短的自我介绍" :disabled="!canEdit" v-model="userInfo.individualResume"></textarea>
+            <textarea class="individualText" placeholder="请输入简短的自我介绍" :disabled="!canEdit" v-model="resume" ref="resume"></textarea>
+            <span class="errorMsg" ref="resumeError">{{resumeErrorMsg}}</span>
         </div>
         <div id="editBtn" @click="editMsg()">{{editBtnValue}}</div>
         <button id="saveBtn" :class="{'saveDisabled': !canEdit}" @click="saveMsg()" :disabled="!canEdit">保存</button>
@@ -39,9 +44,27 @@
         props: {
             userInfo: Object
         },
+        created() {
+            this.nickname = this.userInfo.nickname
+            this.school = this.userInfo.school
+            this.college = this.userInfo.college
+            this.specialty = this.userInfo.specialty
+            this.resume = this.userInfo.resume
+        },
         data() {
             return {
                 canEdit: false,
+                nickname: '',
+                school: '',
+                college: '',
+                specialty: '',
+                sex: '',
+                resume: '',
+                nicknameErrorMsg: '',
+                schoolErrorMsg: '',
+                collegeErrorMsg: '',
+                specialtyErrorMsg: '',
+                resumeErrorMsg: ''
             }
         },
         computed: {
@@ -64,13 +87,59 @@
                 this.canEdit = !this.canEdit;
             },
             saveMsg() {
-                console.log("######")
+                let nicknameDom = this.$refs.nickname
+                let schoolDom = this.$refs.school
+                let collegeDom = this.$refs.college
+                let specialtyDom = this.$refs.specialty
+                let resumeDom = this.$refs.resume
+                let nicknameErrorDom = this.$refs.nicknameError
+                let schoolErrorDom = this.$refs.schoolError
+                let collegeErrorDom = this.$refs.collegeError
+                let specialtyErrorDom = this.$refs.specialtyError
+                let resumeErrorDom = this.$refs.resumeError
+                if(this.nickname.length > 20) {
+                    this.nickname = ''
+                    this.nicknameErrorMsg = '昵称长度不能超过20个字符'
+                    nicknameDom.style.setProperty('border', '1px solid red')
+                    nicknameErrorDom.style.setProperty('visibility', 'visible')
+                }
+                if(this.school.length > 20) {
+                    this.school = ''
+                    this.schoolErrorMsg = '学校长度不能超过20个字符'
+                    schoolDom.style.setProperty('border', '1px solid red')
+                    schoolErrorDom.style.setProperty('visibility', 'visible')
+                }
+                if(this.college.length > 20) {
+                    this.college = ''
+                    this.collegeErrorMsg = '学院长度不能超过20个字符'
+                    collegeDom.style.setProperty('border', '1px solid red')
+                    collegeErrorDom.style.setProperty('visibility', 'visible')
+                }
+                if(this.specialty.length > 20) {
+                    this.specialty = ''
+                    this.specialtyErrorMsg = '专业长度不能超过20个字符'
+                    specialtyDom.style.setProperty('border', '1px solid red')
+                    specialtyErrorDom.style.setProperty('visibility', 'visible')
+                }
+                if(this.resume.length > 50) {
+                    this.resume = ''
+                    this.resumeErrorMsg = '简介长度不能超过50个字符'
+                    resumeDom.style.setProperty('border', '1px solid red')
+                    resumeErrorDom.style.setProperty('visibility', 'visible')
+                }
             }
         }
     }
 </script>
 
 <style>
+
+    .errorMsg {
+        margin-left: 20px;
+        color: red;
+        font-size: 14px;
+        visibility: hidden;
+    }
 
     .saveDisabled {
         background-color: gray!important; 
