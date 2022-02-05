@@ -2,19 +2,19 @@
   <div id="rightNavigator">
       <div class="navTitle"><span class="iconfont">&#xe651;</span> 页面导航</div>
       <div class="navContent">
-          <a href="home.html" target="_blank">
+          <a @click="clickJump('home')">
               <div class="home">
                 <div class="iconfont">&#xe602;</div>
                 <div class="homeTitle">主页</div>
               </div>
           </a>
-          <a href="write.html" target="_blank">
+          <a @click="clickJump('article')">
               <div class="writeArticle">
                 <div class="iconfont">&#xe62e;</div>
                 <div class="writeArticleTitle">写文章</div>
               </div>
           </a>
-          <a href="write.html" target="_blank">
+          <a @click="clickJump('question')">
               <div class="ask">
                 <div class="iconfont">&#xe6e2;</div>
                 <div class="askTitle">提问</div>
@@ -26,7 +26,28 @@
 
 <script>
     export default {
-        name: 'RightNavigator'
+        name: 'RightNavigator',
+        components: {
+
+        },
+        props: {
+            userInfo: Object
+        },
+        methods: {
+            clickJump(target) {
+                if(this.userInfo === null) {
+                    window.location.href = 'login.html'
+                } else {
+                    if(target === 'home') {
+                        window.location.href = 'home.html'
+                    } else if(target === 'article') {
+                        window.location.href = 'write.html'
+                    } else {
+                        window.location.href = 'write.html'
+                    }
+                }
+            }
+        }
     }
 </script>
 

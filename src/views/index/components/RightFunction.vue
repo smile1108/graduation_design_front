@@ -1,7 +1,7 @@
 <template>
   <div id="rightFunction">
       <RightTodoList :userInfo="userInfo"></RightTodoList>
-      <RightNavigator></RightNavigator>
+      <RightNavigator :userInfo="userInfo"></RightNavigator>
   </div>
 </template>
 
