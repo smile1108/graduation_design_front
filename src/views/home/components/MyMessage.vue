@@ -26,7 +26,7 @@
             <textarea class="individualText" placeholder="请输入简短的自我介绍" :disabled="!canEdit" v-model="userInfo.individualResume"></textarea>
         </div>
         <div id="editBtn" @click="editMsg()">{{editBtnValue}}</div>
-        <div id="saveBtn" @click="saveMsg()">保存</div>
+        <button id="saveBtn" :class="{'saveDisabled': !canEdit}" @click="saveMsg()" :disabled="!canEdit">保存</button>
     </div>
 </template>
 
@@ -62,12 +62,24 @@
         methods: {
             editMsg() {
                 this.canEdit = !this.canEdit;
+            },
+            saveMsg() {
+                console.log("######")
             }
         }
     }
 </script>
 
 <style>
+
+    .saveDisabled {
+        background-color: gray!important; 
+    }
+
+    .saveDisabled:hover {
+        cursor: no-drop!important;
+    }
+
     #myMessage {
         width: 70%;
         margin: 10px auto 0;
@@ -125,8 +137,9 @@
 
     #myMessage #saveBtn {
         display: inline-block;
-        height: 30px;
+        height: 40px;
         padding: 4px 16px;
+        font-size: 16px;
         line-height: 30px;
         border-radius: 6px;
         color: #fff;
