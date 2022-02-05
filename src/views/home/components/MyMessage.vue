@@ -22,8 +22,8 @@
         </div>
         <div id="gender">
             <span class="msgTitle">性别</span>
-            <label><input class="gender" name="gender" type="radio" value="male" :checked="isMale" :disabled="!canEdit" v-model="sex"/><span class="maleRadio">男</span></label>
-            <label><input class="gender" name="gender" type="radio" value="female" :checked="isFemale" :disabled="!canEdit" v-model="sex"/><span class="femaleRadio">女</span></label>
+            <label><input class="gender" name="gender" type="radio" value="male" :checked="isMale" :disabled="!canEdit" v-model="gender"/><span class="maleRadio">男</span></label>
+            <label><input class="gender" name="gender" type="radio" value="female" :checked="isFemale" :disabled="!canEdit" v-model="gender"/><span class="femaleRadio">女</span></label>
         </div>
         <div id="individualResume">
             <span class="msgTitle">简介</span>
@@ -36,6 +36,9 @@
 </template>
 
 <script>
+
+    import axios from 'axios'
+
     export default {
         name: 'MyMessage',
         components: {
@@ -50,6 +53,7 @@
             this.college = this.userInfo.college
             this.specialty = this.userInfo.specialty
             this.resume = this.userInfo.resume
+            this.gender = this.userInfo.gender
         },
         data() {
             return {
@@ -58,7 +62,7 @@
                 school: '',
                 college: '',
                 specialty: '',
-                sex: '',
+                gender: '',
                 resume: '',
                 nicknameErrorMsg: '',
                 schoolErrorMsg: '',
@@ -102,31 +106,53 @@
                     this.nicknameErrorMsg = '昵称长度不能超过20个字符'
                     nicknameDom.style.setProperty('border', '1px solid red')
                     nicknameErrorDom.style.setProperty('visibility', 'visible')
+                    return
                 }
                 if(this.school.length > 20) {
                     this.school = ''
                     this.schoolErrorMsg = '学校长度不能超过20个字符'
                     schoolDom.style.setProperty('border', '1px solid red')
                     schoolErrorDom.style.setProperty('visibility', 'visible')
+                    return
                 }
                 if(this.college.length > 20) {
                     this.college = ''
                     this.collegeErrorMsg = '学院长度不能超过20个字符'
                     collegeDom.style.setProperty('border', '1px solid red')
                     collegeErrorDom.style.setProperty('visibility', 'visible')
+                    return
                 }
                 if(this.specialty.length > 20) {
                     this.specialty = ''
                     this.specialtyErrorMsg = '专业长度不能超过20个字符'
                     specialtyDom.style.setProperty('border', '1px solid red')
                     specialtyErrorDom.style.setProperty('visibility', 'visible')
+                    return
                 }
                 if(this.resume.length > 50) {
                     this.resume = ''
                     this.resumeErrorMsg = '简介长度不能超过50个字符'
                     resumeDom.style.setProperty('border', '1px solid red')
                     resumeErrorDom.style.setProperty('visibility', 'visible')
+                    return
                 }
+                let formData = new FormData();
+                formData.append('username', this.userInfo.username)
+                formData.append('nickname', this.nickname)
+                formData.append('school', this.school)
+                formData.append('college', this.college)
+                formData.append('specialty', this.specialty)
+                formData.append('gender', this.gender)
+                formData.append('resume', this.resume)
+                axios.post('http://localhost:9527/user/modifyMessage', formData).then((response) => {
+                    if(response.data.code == 200) {
+                        sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))
+                        this.userInfo = JSON.stringify(response.data.data)
+                        this.$router.go(0)
+                    } else {
+                        window.alert(response.data.msg)
+                    }
+                })
             }
         }
     }

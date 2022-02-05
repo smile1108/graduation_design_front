@@ -148,7 +148,9 @@ export default {
               sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))
               _this.userInfo = JSON.stringify(response.data.data)
               _this.$router.go(0);                                   //刷新网页            
-              }
+            } else {
+              window.alert(response.data.msg)   // 弹出提示
+            }
           })
         })
       }
