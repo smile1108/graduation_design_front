@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MyHeader :userInfo="userInfo"></MyHeader>
+    <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo"></MyHeader>
     <router-view :userInfo="userInfo"></router-view>
   </div>
 </template>
@@ -21,9 +21,7 @@
     },
     methods: {
       autoTakeUserInfo() {
-        console.log("auto")
         axios.get("http://localhost:9527/user/autoLogin").then(response => {
-          console.log(response)
           if(response.data.code == 200) {
             if(response.data.data === null) {
               this.userInfo = null
@@ -33,11 +31,17 @@
             }
           }
         })
+      },
+      // 退出登录时删除用户信息
+      deleteUserInfo() {
+        // 将userInfo置为空
+        this.userInfo = null
+        // 删除sessionStorage中的userInfo Item
+        sessionStorage.removeItem('userInfo')
       }
     },
     mounted() {
       // 当页面dom渲染好之后 进行自动登录的请求
-      console.log("mounted")
       this.autoTakeUserInfo()
     }
   }

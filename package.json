@@ -17,6 +17,7 @@
     "sass-loader": "^12.3.0",
     "vue": "^2.6.11",
     "vue-avatar-cropper": "^5.0.2",
+    "vue-cookies": "^1.7.4",
     "vue-cropper": "^0.5.8",
     "vue-image-crop-upload": "^3.0.3",
     "vue-markdown": "^2.2.4",

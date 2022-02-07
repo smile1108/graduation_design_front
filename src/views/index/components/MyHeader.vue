@@ -14,13 +14,14 @@
           <a href="login.html" v-if="userInfo === null"><button class="loginBtn">登录 / 注册</button></a>
           <div class="userFunction" v-else>
               <img class="userImg" :src="userInfo.profile" alt="头像">
-              <div class="iconfont logout">&#xe60e; 退出登录</div>
+              <div class="iconfont logout" @click="logout()">&#xe60e; 退出登录</div>
           </div>
       </div>
   </div>
 </template>
 
 <script>
+    import axios from 'axios'
 
     export default {
         name: "MyHeader",
@@ -36,7 +37,14 @@
             }
         },
         methods: {
-            
+            logout() {
+                // 发送退出登录的请求 到后端 后端删除对应的userCookie
+                axios.get("http://localhost:9527/user/logout?username=" + this.userInfo.username).then(res => {
+                    if(res.data.code == 200) {
+                        this.$emit("deleteUserInfo")
+                    }
+                })
+            }
         }
     }
 </script>
