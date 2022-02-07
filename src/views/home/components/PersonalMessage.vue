@@ -1,6 +1,8 @@
 <template>
     <div id="personalMsg">
-        <div class="topDiv"></div>
+        <div class="topDiv">
+            <div class="returnIndex" @click="returnIndex()">&lt; 返回首页</div>
+        </div>
         <div class="bottomDiv">
             <img :src="userInfo.profile" alt="头像" class="personalAvatar">
             <div class="message">
@@ -38,6 +40,9 @@
             },
             changeShowAvatar(param) {
                 this.showAvatar = param
+            },
+            returnIndex() {
+                window.location.href = 'index.html'
             }
         }
     }
@@ -69,6 +74,23 @@
         width: 100%;
         height: 50%;
         background-color: royalblue;
+    }
+
+    #personalMsg .topDiv .returnIndex {
+        display: inline-block;
+        height: 30px;
+        padding: 4px 16px;
+        line-height: 30px;
+        border-radius: 6px;
+        color: #fff;
+        background-color: #f01a1a;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    #personalMsg .topDiv .returnIndex:hover {
+        cursor: pointer;
+        background-color: #991717;
     }
 
     #personalMsg .bottomDiv {
