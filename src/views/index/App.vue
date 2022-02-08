@@ -1,7 +1,7 @@
 <template>
   <div>
     <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo"></MyHeader>
-    <router-view :userInfo="userInfo"></router-view>
+    <router-view :userInfo="userInfo" :todoList="todoList"></router-view>
   </div>
 </template>
 
@@ -16,7 +16,11 @@
     },
     data() {
       return {
-        userInfo: {}
+        userInfo: {},
+        todoList: [
+          {id: "001", title: "吃饭", done: false},
+          {id: "002", title: "游戏", done: false}
+        ]
       }
     },
     methods: {

@@ -23,13 +23,12 @@
   export default {
     name: 'TodoListMain',
     components: {TodoListHeader, TodoListFooter, TodoList},
+    props: {
+      todoList: Array
+    },
     data() {
       return {
-          todoList: [
-              {id: "001", title: "吃饭", done: false},
-              {id: "002", title: "游戏", done: false},
-              {id: "003", title: "开车", done: false},
-          ],
+          
       }
     },
     computed: {

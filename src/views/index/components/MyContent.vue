@@ -2,7 +2,7 @@
   <div id="content">
       <MySelector></MySelector>
       <MyArticleList></MyArticleList>
-      <RightFunction :userInfo="userInfo"></RightFunction>
+      <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
 </template>
 
@@ -17,7 +17,8 @@
             MySelector, MyArticleList, RightFunction
         },
         props: {
-            userInfo: Object
+            userInfo: Object,
+            todoList: Array
         }
     }
 </script>

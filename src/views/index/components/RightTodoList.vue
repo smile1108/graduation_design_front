@@ -12,7 +12,7 @@
               </div>
               <div class="emptyTodoListDiv" v-else>
                     <span class="emptyTodoListTips">空空如也 快去添加吧</span>
-                    <router-link class="checkTodoListBtn addTodoListBtn" to="/todoList">点击添加待办事项</router-link>
+                    <router-link class="checkTodoListBtn addTodoListBtn" to="/todoList" :todoList="todoList">点击添加待办事项</router-link>
               </div>
           </div>
       </div>
@@ -26,15 +26,12 @@
 
         },
         props: {
-            userInfo: Object
+            userInfo: Object,
+            todoList: Array
         },
         data() {
             return {
-                todoList: [
-                    // {id: "001", title: "吃饭", done: false},
-                    // {id: "002", title: "游戏", done: false},
-                    // {id: "003", title: "开车", done: false},
-                ],
+                
             }
         }
     }
