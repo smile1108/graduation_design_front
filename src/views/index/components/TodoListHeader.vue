@@ -28,6 +28,11 @@
 </script>
  
 <style scoped>
+
+  .todo-header {
+      margin-bottom: 10px;
+  }
+
     /* header */
   .todo-header input {
     width: 560px;

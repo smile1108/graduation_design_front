@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="todoListMain">
     <div class="todo-container">
       <div class="todo-wrap">
         <TodoListHeader :addTodo="addTodo"/>
@@ -64,9 +64,12 @@
 </script>
 
 <style>
-  /* base */
-  body {
-    background: #fff;
+  #todoListMain {
+    width: 100%;
+    height: calc(100vh - 52px);
+    background-color: #f6f6f6;
+    padding-top: 100px;
+    box-sizing: border-box;
   }
 
   .btn {
