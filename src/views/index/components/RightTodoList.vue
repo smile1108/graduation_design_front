@@ -4,10 +4,16 @@
       <div class="content clearfix">
           <a href="login.html" class="loginBtn" v-if="userInfo === null">请先登录</a>
           <div class="todoList" v-else>
-              <ul class="todoListContent">
-                  <li v-for="todoObj in todoList" :key="todoObj.id">{{todoObj.title}}</li>
-              </ul>
-              <router-link class="checkTodoListBtn" to="/todoList">查看全部待办事项</router-link>
+              <div v-if="todoList.length != 0">
+                    <ul class="todoListContent">
+                        <li v-for="todoObj in todoList" :key="todoObj.id">{{todoObj.title}}</li>
+                    </ul>
+                    <router-link class="checkTodoListBtn" to="/todoList">查看全部待办事项</router-link>
+              </div>
+              <div class="emptyTodoListDiv" v-else>
+                    <span class="emptyTodoListTips">空空如也 快去添加吧</span>
+                    <router-link class="checkTodoListBtn addTodoListBtn" to="/todoList">点击添加待办事项</router-link>
+              </div>
           </div>
       </div>
   </div>
@@ -25,9 +31,9 @@
         data() {
             return {
                 todoList: [
-                    {id: "001", title: "吃饭", done: false},
-                    {id: "002", title: "游戏", done: false},
-                    {id: "003", title: "开车", done: false},
+                    // {id: "001", title: "吃饭", done: false},
+                    // {id: "002", title: "游戏", done: false},
+                    // {id: "003", title: "开车", done: false},
                 ],
             }
         }
@@ -128,5 +134,19 @@
         text-align: center;
         margin-top: 20px;
         color: #0066FF;
+    }
+
+    #todoList .content .addTodoListBtn {
+        margin-top: 40px !important;
+    }
+
+
+    #todoList .content .todoList .emptyTodoListDiv {
+        padding-top: 50px;
+    }
+
+    #todoList .content .todoList .emptyTodoListTips {
+        margin-left: 30px;
+        font-size: 14px;
     }
 </style>
