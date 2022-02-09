@@ -88,9 +88,9 @@
                     formData.append('password', password);
                     axios.post('http://localhost:9527/user/login',formData).then((response) => {
                         if(response.data.code == 200){
-                            sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))
-                            // 使用LocalStorage存储用户信息
-                            // window.localStorage.setItem('userInfo', JSON.stringify(response.data.data))
+                            // 使用SessionStorage存储用户信息 和 用户信息的过期时间 方便后续判断cookie是否过期 来限制路由
+                            sessionStorage.setItem('userInfo', JSON.stringify(response.data.data.userVo))
+                            sessionStorage.setItem('expireTimestamp', response.data.data.expireTimestamp)
                             // 跳转页面
                             window.location.href = 'index.html'                            
                         } else {

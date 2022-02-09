@@ -30,8 +30,9 @@
             if(response.data.data === null) {
               this.userInfo = null
             } else {
-              this.userInfo = JSON.parse(JSON.stringify(response.data.data))
-              sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))
+              this.userInfo = JSON.parse(JSON.stringify(response.data.data.userVo))
+              sessionStorage.setItem('userInfo', JSON.stringify(response.data.data.userVo))
+              sessionStorage.setItem('expireTimestamp', response.data.data.expireTimestamp)
             }
           }
         })
