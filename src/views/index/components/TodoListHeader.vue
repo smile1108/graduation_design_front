@@ -5,7 +5,6 @@
 </template>
 
 <script>
-    import {nanoid} from 'nanoid'
     export default {
         name: "TodoListHeader",
         props: ["addTodo"],
@@ -17,10 +16,8 @@
         methods: {
             add() {
                 if(!this.title) return alert("输入框不能为空")
-                // 构建一个todo对象
-                const todoObj = {id: nanoid(), title: this.title, done: false}
                 // 将这个对象加入到todoList中 这里需要父组件App传过来一个函数
-                this.addTodo(todoObj)
+                this.addTodo(this.title)
                 this.title = ""
             }
         }

@@ -19,12 +19,11 @@
   import TodoListHeader from './TodoListHeader'
   import TodoListFooter from './TodoListFooter'
   import TodoList from './TodoList'
-
   export default {
     name: 'TodoListMain',
     components: {TodoListHeader, TodoListFooter, TodoList},
     props: {
-      todoList: Array
+      todoList: Array,
     },
     data() {
       return {
@@ -44,8 +43,8 @@
       }
     },
     methods: {
-      addTodo(todoObj) {
-        this.todoList.unshift(todoObj)
+      addTodo(title) {
+        this.$emit('addBacklog', title)
       },
       // 删除todo
       deleteTodo(id) {
