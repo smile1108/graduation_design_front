@@ -63,7 +63,7 @@
       },
       // 清除已经完成的任务
       clearCompleted() {
-        this.todoList = this.todoList.filter(obj => obj.done === false)
+        this.$emit('clearCompleted')
       }
     }
   }

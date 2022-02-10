@@ -2,7 +2,7 @@
   <div>
     <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo"></MyHeader>
     <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
-      @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone"></router-view>
+      @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted"></router-view>
   </div>
 </template>
 
@@ -123,6 +123,19 @@
       },
       checkAllOrNone(done) {
         let url = 'http://localhost:9527/backlog/checkAllOrNone?done=' + done + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
+        axios.get(url).then(res => {
+          if(res.data.data === true) {
+            // 刷新list
+            this.getAllBacklog()
+          } else if(res.data.code === 519) {
+            // 表示用户身份认证信息 过期 跳转到登录页面
+            alert('用户身份认证信息过期, 请重新登录')
+            window.location.href = 'login.html#/login'
+          }
+        })
+      },
+      clearCompleted() {
+        let url = 'http://localhost:9527/backlog/clearCompleted?username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
         axios.get(url).then(res => {
           if(res.data.data === true) {
             // 刷新list
