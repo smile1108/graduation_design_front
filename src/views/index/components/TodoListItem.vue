@@ -1,7 +1,7 @@
 <template>
     <li>
         <label>
-            <input type="checkbox" v-model="todo.done" :checked="todo.done"/>
+            <input type="checkbox" v-model="todo.done" :checked="todo.done" @click="changeStatus()"/>
             <span>{{todo.title}}</span>
         </label>
         <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
@@ -11,13 +11,23 @@
 <script>
     export default {
         name: "TodoListItem",
-        props: ["todo", "deleteTodo"],
+        props: ["todo", "deleteTodo", "undone", "done"],
         methods: {
             // 删除对应的todo
             handleDelete(id) {
                 if(confirm("你确定删除吗?")) {
                     this.deleteTodo(id)
                 }
+            },
+            // 改变待办事项完成与否的方法
+            changeStatus() {
+              // 根据不同的状态 调用完成 还是撤销完成的api
+              if(this.todo.done) {
+                // true 表示 点击之前 为true 所以这时候应该调用撤销完成的api
+                this.undone(this.todo.id)
+              } else {
+                this.done(this.todo.id)
+              }
             }
         }
     }

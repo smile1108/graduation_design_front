@@ -1,7 +1,8 @@
 <template>
   <div>
     <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo"></MyHeader>
-    <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"></router-view>
+    <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
+      @undone="undone" @done="done"></router-view>
   </div>
 </template>
 
@@ -86,6 +87,32 @@
         axios.post('http://localhost:9527/backlog/deleteBacklog', formData).then(res => {
           if(res.data.code === 200) {
             // 成功之后 刷新list
+            this.getAllBacklog()
+          } else if(res.data.code === 519) {
+            // 表示用户身份认证信息 过期 跳转到登录页面
+            alert('用户身份认证信息过期, 请重新登录')
+            window.location.href = 'login.html#/login'
+          }
+        })
+      },
+      undone(id) {
+        let url = 'http://localhost:9527/backlog/undone?id=' + id + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
+        axios.get(url).then(res => {
+          if(res.data.code === 200) {
+            // 成功 刷新list
+            this.getAllBacklog()
+          } else if(res.data.code === 519) {
+            // 表示用户身份认证信息 过期 跳转到登录页面
+            alert('用户身份认证信息过期, 请重新登录')
+            window.location.href = 'login.html#/login'
+          }
+        })
+      },
+      done(id) {
+        let url = 'http://localhost:9527/backlog/done?id=' + id + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
+        axios.get(url).then(res => {
+          if(res.data.code === 200) {
+            // 成功 刷新list
             this.getAllBacklog()
           } else if(res.data.code === 519) {
             // 表示用户身份认证信息 过期 跳转到登录页面

@@ -3,7 +3,7 @@
     <div class="todo-container">
       <div class="todo-wrap">
         <TodoListHeader :addTodo="addTodo"/>
-        <TodoList :todoList="todoList" :deleteTodo="deleteTodo"/>
+        <TodoList :todoList="todoList" :deleteTodo="deleteTodo" :undone="undone" :done="done"/>
         <TodoListFooter 
           :todoSum="todoSum" 
           :completed="completed" 
@@ -49,6 +49,13 @@
       // 删除todo
       deleteTodo(id) {
         this.$emit('deleteBacklog', id)
+      },
+      // 撤销完成的操作
+      undone(id) {
+        this.$emit('undone', id)
+      },
+      done(id) {
+        this.$emit('done', id)
       },
       // 将所有的todo改为选择
       checkAllOrNone(done) {
