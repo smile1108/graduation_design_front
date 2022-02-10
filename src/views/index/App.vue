@@ -1,7 +1,7 @@
 <template>
   <div>
     <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo"></MyHeader>
-    <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog"></router-view>
+    <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"></router-view>
   </div>
 </template>
 
@@ -70,7 +70,23 @@
           if(res.data.code === 200) {
             // 成功之后 重新刷新todoList 即再次调用获取所有待办事项的方法
             this.getAllBacklog()
-            console.log("success")
+          } else if(res.data.code === 519) {
+            // 表示用户身份认证信息 过期 跳转到登录页面
+            alert('用户身份认证信息过期, 请重新登录')
+            window.location.href = 'login.html#/login'
+          }
+        })
+      },
+      // 删除待办事项的方法
+      deleteBacklog(id) {
+        // 构建表单数据
+        let formData = new FormData()
+        formData.append('id', id)
+        formData.append('username', JSON.parse(sessionStorage.getItem('userInfo')).username)
+        axios.post('http://localhost:9527/backlog/deleteBacklog', formData).then(res => {
+          if(res.data.code === 200) {
+            // 成功之后 刷新list
+            this.getAllBacklog()
           } else if(res.data.code === 519) {
             // 表示用户身份认证信息 过期 跳转到登录页面
             alert('用户身份认证信息过期, 请重新登录')

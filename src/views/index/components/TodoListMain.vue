@@ -48,7 +48,7 @@
       },
       // 删除todo
       deleteTodo(id) {
-        this.todoList = this.todoList.filter(obj => obj.id !== id)
+        this.$emit('deleteBacklog', id)
       },
       // 将所有的todo改为选择
       checkAllOrNone(done) {
