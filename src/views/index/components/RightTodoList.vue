@@ -6,7 +6,7 @@
           <div class="todoList" v-else>
               <div v-if="todoList.length != 0">
                     <ul class="todoListContent">
-                        <li v-for="todoObj in todoList" :key="todoObj.id">{{todoObj.title}}</li>
+                        <li v-for="todoObj in todoList.slice(0,3)" :key="todoObj.id">{{todoObj.title}}</li>
                     </ul>
                     <router-link class="checkTodoListBtn" to="/todoList">查看全部待办事项</router-link>
               </div>

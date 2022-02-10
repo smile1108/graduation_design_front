@@ -18,8 +18,6 @@
       return {
         userInfo: {},
         todoList: [
-          {id: "001", title: "吃饭", done: false},
-          {id: "002", title: "游戏", done: false}
         ]
       }
     },
@@ -43,11 +41,30 @@
         this.userInfo = null
         // 删除sessionStorage中的userInfo Item
         sessionStorage.removeItem('userInfo')
+      },
+      // 获取用户所有待办事项的方法
+      getAllBacklog() {
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+        if(userInfo === null) {
+          // 如果userInfo为null 表示当前还没有登录 直接return
+          return
+        }
+        // 否则就调用获取待办事项的接口
+        // 先拼接对应的url
+        const url = "http://localhost:9527/backlog/getAllBacklogs?username=" + userInfo.username
+        axios.get(url).then(res => {
+          if(res.data.code == 200) {
+            // 设置todoList
+            this.todoList = JSON.parse(JSON.stringify(res.data.data))
+          }
+        })
       }
     },
     mounted() {
       // 当页面dom渲染好之后 进行自动登录的请求
       this.autoTakeUserInfo()
+      // 然后调用 获取所有待办事项的方法
+      this.getAllBacklog()
     }
   }
 </script>
