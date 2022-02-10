@@ -59,7 +59,7 @@
       },
       // 将所有的todo改为选择
       checkAllOrNone(done) {
-        this.todoList.forEach(obj => obj.done = done)
+        this.$emit('checkAllOrNone', done)
       },
       // 清除已经完成的任务
       clearCompleted() {
