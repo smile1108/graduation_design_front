@@ -1,26 +1,20 @@
 <template>
   <div id="selector">
       <ul class="selectorList">
-          <li>计算机类</li>
-          <li>哲学类</li>
-          <li>物理类</li>
-          <li>文学类</li>
-          <li>生物类</li>
-          <li>外语类</li>
-          <li>数学类</li>
-          <li>心理类</li>
-          <li>美术类</li>
-          <li>音乐类</li>
-          <li>体育类</li>
-          <li>体育类</li>
-          <li>其他</li>
+          <li v-for="classify in articleClassify" :key="classify.articleClassify">{{classify.name}}</li>
       </ul>
   </div>
 </template>
 
 <script>
     export default {
-        name: 'MySelector'
+        name: 'MySelector',
+        components: {
+
+        },
+        props: {
+            articleClassify: Array
+        }
     }
 </script>
 

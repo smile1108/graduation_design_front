@@ -1,6 +1,6 @@
 <template>
   <div id="content">
-      <MySelector></MySelector>
+      <MySelector :articleClassify="articleClassify"></MySelector>
       <MyArticleList></MyArticleList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
