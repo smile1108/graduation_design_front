@@ -10,6 +10,7 @@
     import MySelector from './MySelector'
     import MyArticleList from './MyArticleList'
     import RightFunction from './RightFunction'
+    import axios from 'axios'
 
     export default {
         name: 'MyContent',
@@ -19,6 +20,22 @@
         props: {
             userInfo: Object,
             todoList: Array
+        },
+        data() {
+            return {
+                articleClassify: [
+                    
+                ]
+            }
+        },
+        mounted() {
+            // 当页面渲染完成之后 调用获取文章分类的接口 获取分类
+            axios.get('http://localhost:9527/article/getArticleClassify').then(res => {
+                if(res.data.code === 200) {
+                    // 成功的话就设置articleClassify的值
+                    this.articleClassify = JSON.parse(JSON.stringify(res.data.data))
+                }
+            })
         }
     }
 </script>
