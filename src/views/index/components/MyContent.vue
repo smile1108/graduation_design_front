@@ -1,7 +1,7 @@
 <template>
   <div id="content">
       <MySelector :articleClassify="articleClassify"></MySelector>
-      <MyArticleList></MyArticleList>
+      <MyArticleList :articles="articles"></MyArticleList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
 </template>
@@ -25,6 +25,9 @@
             return {
                 articleClassify: [
                     
+                ],
+                articles: [
+                    {id: "001", title: "题目", content: "卢卡斯的积", authorAvatar: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727", authorName: "姓名"}
                 ]
             }
         },

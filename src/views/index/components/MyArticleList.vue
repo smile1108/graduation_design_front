@@ -1,55 +1,11 @@
 <template>
   <div id="articleList">
-      <div class="articleDiv">
-          <h2 class="articleTitle">文章题目</h2>
-          <div class="articleContent">拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件</div>
+      <div class="articleDiv" v-for="article in articles" :key="article.id">
+          <h2 class="articleTitle">{{article.title}}</h2>
+          <div class="articleContent">{{article.content}}</div>
           <div class="authorMsg">
-              <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
-              <div class="authorName">作者姓名</div>
-              <div class="userOperator">
-                  <span class="iconfont like">&#xe86f; 喜欢</span>
-              </div>
-          </div>
-      </div>
-      <div class="articleDiv">
-          <h2 class="articleTitle">文章题目</h2>
-          <div class="articleContent">拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件</div>
-          <div class="authorMsg">
-              <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
-              <div class="authorName">作者姓名</div>
-              <div class="userOperator">
-                  <span class="iconfont like">&#xe86f; 喜欢</span>
-              </div>
-          </div>
-      </div>
-      <div class="articleDiv">
-          <h2 class="articleTitle">文章题目</h2>
-          <div class="articleContent">拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件</div>
-          <div class="authorMsg">
-              <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
-              <div class="authorName">作者姓名</div>
-              <div class="userOperator">
-                  <span class="iconfont like">&#xe86f; 喜欢</span>
-              </div>
-          </div>
-      </div>
-      <div class="articleDiv">
-          <h2 class="articleTitle">文章题目</h2>
-          <div class="articleContent">拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件</div>
-          <div class="authorMsg">
-              <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
-              <div class="authorName">作者姓名</div>
-              <div class="userOperator">
-                  <span class="iconfont like">&#xe86f; 喜欢</span>
-              </div>
-          </div>
-      </div>
-      <div class="articleDiv">
-          <h2 class="articleTitle">文章题目</h2>
-          <div class="articleContent">拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件拉克斯基的分类就爱上了的附件</div>
-          <div class="authorMsg">
-              <img src="https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727" alt="头像">
-              <div class="authorName">作者姓名</div>
+              <img :src="article.authorAvatar" alt="头像">
+              <div class="authorName">{{article.authorName}}</div>
               <div class="userOperator">
                   <span class="iconfont like">&#xe86f; 喜欢</span>
               </div>
@@ -66,6 +22,9 @@
         name: 'MyArticleList',
         components: {
             PageComponent
+        },
+        props: {
+            articles: Array
         }
     }
 </script>
@@ -106,6 +65,11 @@
         border-bottom: 1px solid rgb(240, 242, 247);
         border-left: none;
         border-right: none;
+    }
+
+    #articleList .articleDiv:hover {
+        cursor: pointer;
+        background-color: rgb(233, 232, 232);
     }
 
     #articleList .articleDiv .articleTitle {
