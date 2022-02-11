@@ -3,19 +3,19 @@
       <div class="logo">校园信息共享系统</div>
       <div class="title">写文章</div>
       <div class="publishBtn">发布</div>
-      <img class="userImg" :src="userInfo.img" alt="头像">
+      <img class="userImg" :src="userInfo.profile" alt="头像">
   </div>
 </template>
 
 <script>
     export default {
         name: 'WriteHeader',
+        props: {
+            userInfo: Object
+        },
         data() {
             return {
-                userInfo: {
-                    img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727"
-                }
-                // userInfo: null
+                
             }
         }
     }

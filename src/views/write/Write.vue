@@ -1,7 +1,7 @@
 <template>
   <div id="writeArea">
-      <WriteHeader></WriteHeader>
-      <WriteArticle></WriteArticle>
+      <WriteHeader :userInfo="userInfo"></WriteHeader>
+      <WriteArticle :userInfo="userInfo"></WriteArticle>
   </div>
 </template>
 
@@ -17,10 +17,13 @@
         data() {
             return {
                 userInfo: {
-                    img: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727"
+                    
                 }
-                // userInfo: null
             }
+        },
+        mounted() {
+            // 当页面渲染完成之后自动从sessionStorage中获取userInfo
+            this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
         }
     }
 </script>

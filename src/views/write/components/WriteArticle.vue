@@ -11,6 +11,9 @@
         name: 'WriteArticle',
         components: {
         },
+        props: {
+            userInfo: Object
+        },
         data() {
             return {
                 value: '# Header'
