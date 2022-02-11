@@ -1,7 +1,7 @@
 <template>
   <div id="problem">
       <MyArticleList></MyArticleList>
-      <RightFunction></RightFunction>
+      <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
 </template>
 
@@ -13,6 +13,10 @@
         name: 'MyProblem',
         components: {
             RightFunction, MyArticleList
+        },
+        props: {
+            userInfo: Object,
+            todoList: Array
         }
     }
 </script>
