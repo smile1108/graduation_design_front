@@ -37,6 +37,8 @@
                 if(res.data.code === 200) {
                     // 成功的话就设置articleClassify的值
                     this.articleClassify = JSON.parse(JSON.stringify(res.data.data))
+                    // 将文章分类设置入 sessionStorage
+                    sessionStorage.setItem('articleClassify', JSON.stringify(res.data.data))
                 }
             })
         }

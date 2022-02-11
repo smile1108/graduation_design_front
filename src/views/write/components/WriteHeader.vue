@@ -2,20 +2,36 @@
   <div id="writeHeader">
       <div class="logo">校园信息共享系统</div>
       <div class="title">写文章</div>
-      <div class="publishBtn">发布</div>
+      <div class="publishBtn" @click="publish()">发布</div>
       <img class="userImg" :src="userInfo.profile" alt="头像">
+      <div id="popLayer" :class="{showPublishBox: !showPublishBox}"></div>
+      <PublishBox :showPublishBox="showPublishBox" @cancelPublish="cancelPublish"></PublishBox>
   </div>
 </template>
 
 <script>
+
+    import PublishBox from './PublishBox'
+
     export default {
         name: 'WriteHeader',
+        components: {
+            PublishBox
+        },
         props: {
             userInfo: Object
         },
         data() {
             return {
-                
+                showPublishBox: false
+            }
+        },
+        methods: {
+            cancelPublish() {
+                this.showPublishBox = false;
+            },
+            publish() {
+                this.showPublishBox = true;
             }
         }
     }
@@ -58,7 +74,7 @@
         font-size: 18px;
         line-height: 36px;
         text-align: center;
-        border-radius: 12px;
+        border-radius: 6px;
         background-color: #0066FF;
         border: 1px solid #0066FF;
         color: #fff;
@@ -79,5 +95,19 @@
 
     #writeHeader .userImg:hover {
         cursor: pointer;
+    }
+
+    #writeHeader #popLayer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1600;
+        background-color: rgba(136, 132, 132, 0.9);
+    }
+
+    .showPublishBox {
+        display: none;
     }
 </style>
