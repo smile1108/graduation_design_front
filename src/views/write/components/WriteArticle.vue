@@ -1,6 +1,6 @@
 <template>
   <div id="writeArticle">
-      <mavon-editor v-model="value"></mavon-editor>
+      <mavon-editor ref=md v-model="value" @imgAdd="imgAdd"></mavon-editor>
       <!-- <Markdown/> -->
   </div>
 </template>
@@ -17,6 +17,13 @@
         data() {
             return {
                 value: '# Header'
+            }
+        },
+        methods: {
+            imgAdd(pos, $file) {
+                console.log("add img")
+                console.log($file)
+                this.$refs.md.$imglst2Url([[pos, "http://localhost/images/f1dk0t7z3c.jpg"]])
             }
         }
     }
