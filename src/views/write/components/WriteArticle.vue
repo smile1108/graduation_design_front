@@ -29,14 +29,22 @@
                 axios.post('http://localhost:9527/article/uploadImage', formData).then(res => {
                     if(res.data.code === 200) {
                         // 表示成功 这时候返回的String 就是图片的url
-                        console.log(res.data.data)
                         this.$refs.md.$imglst2Url([[pos, res.data.data]])
                     }
                 })
             },
-            imgDel(fileName) {
-                console.log("del img")
-                alert(fileName)
+            imgDel(filename) {
+                // 调用后端的删除图片的接口 删除在服务器中存储的图片 防止浪费空间
+                var formData = new FormData()
+                formData.append('filename', filename)
+                axios.post('http://localhost:9527/article/deleteImage', formData).then(res => {
+                    if(res.data.code === 200) {
+                        alert("删除成功")
+                    } else if(res.data.code === 520) {
+                        // 表示文件不存在 
+                        alert("文件不存在")
+                    }
+                })
             }
         }
     }
