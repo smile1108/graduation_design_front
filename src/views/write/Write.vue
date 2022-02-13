@@ -1,7 +1,7 @@
 <template>
   <div id="writeArea">
       <WriteHeader :userInfo="userInfo"></WriteHeader>
-      <WriteArticle :userInfo="userInfo"></WriteArticle>
+      <WriteArticle :userInfo="userInfo" :articleContent="articleContent" @modifyArticleContent="modifyArticleContent"></WriteArticle>
   </div>
 </template>
 
@@ -18,7 +18,13 @@
             return {
                 userInfo: {
                     
-                }
+                },
+                articleContent: '# Header'
+            }
+        },
+        methods: {
+            modifyArticleContent(content) {
+                this.articleContent = content
             }
         },
         mounted() {

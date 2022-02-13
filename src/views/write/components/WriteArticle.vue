@@ -1,6 +1,6 @@
 <template>
   <div id="writeArticle">
-      <mavon-editor ref=md v-model="value" @imgAdd="imgAdd" @imgDel="imgDel"></mavon-editor>
+      <mavon-editor ref=md v-model="content" @imgAdd="imgAdd" @imgDel="imgDel"></mavon-editor>
       <!-- <Markdown/> -->
   </div>
 </template>
@@ -14,11 +14,20 @@
         components: {
         },
         props: {
-            userInfo: Object
+            userInfo: Object,
+            articleContent: String
         },
         data() {
             return {
-                value: '# Header'
+                content: this.articleContent
+            }
+        },
+        watch: {
+            articleContent: function(newVal) {
+                this.content = newVal
+            },
+            content: function(newVal) {
+                this.$emit('modifyArticleContent', newVal)
             }
         },
         methods: {
