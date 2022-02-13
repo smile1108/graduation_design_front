@@ -8,7 +8,7 @@
             </select>
         </div>
         <div class="bottomButton">
-            <div class="boxPublishBtn">发布</div>
+            <div class="boxPublishBtn" @click="publish()">发布</div>
             <div class="cancelBtn" @click="cancel()">取消</div>
         </div>
     </div>
@@ -26,12 +26,15 @@
                 articleTitlePlaceholder: "请输入文章标题",
                 articleTitle: "",
                 articleClassify: [],
-                classify: "",  // 用户选中的分类 默认是计算机
+                classify: "", 
             }
         },
         methods: {
             cancel() {
                 this.$emit('cancelPublish')
+            },
+            publish() {
+                this.$emit('transferDataAndPublish', this.articleTitle, this.classify)
             }
         },
         mounted() {

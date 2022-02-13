@@ -5,7 +5,7 @@
       <div class="publishBtn" @click="publish()">发布</div>
       <img class="userImg" :src="userInfo.profile" alt="头像">
       <div id="popLayer" :class="{showPublishBox: !showPublishBox}"></div>
-      <PublishBox :showPublishBox="showPublishBox" @cancelPublish="cancelPublish"></PublishBox>
+      <PublishBox :showPublishBox="showPublishBox" @cancelPublish="cancelPublish" @transferDataAndPublish="transferDataAndPublish"></PublishBox>
   </div>
 </template>
 
@@ -19,19 +19,23 @@
             PublishBox
         },
         props: {
-            userInfo: Object
+            userInfo: Object,
+            showPublishBox: Boolean
         },
         data() {
             return {
-                showPublishBox: false
+                
             }
         },
         methods: {
             cancelPublish() {
-                this.showPublishBox = false;
+                this.$emit('modifyShowPublishBox', false)
             },
             publish() {
-                this.showPublishBox = true;
+                this.$emit('modifyShowPublishBox', true)
+            },
+            transferDataAndPublish(articleTitle, articleClassify) {
+                this.$emit('transferDataAndPublish', articleTitle, articleClassify)
             }
         }
     }
