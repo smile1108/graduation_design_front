@@ -4,7 +4,7 @@
       <div class="title">写文章</div>
       <div class="publishBtn" @click="publish()">发布</div>
       <div class="returnIndex" @click="returnIndex()">首页</div>
-      <img class="userImg" :src="userInfo.profile" alt="头像">
+      <img class="userImg" :src="userInfo.profile" alt="头像" @click="jumpHome()">
       <div id="popLayer" :class="{showPublishBox: !showPublishBox}"></div>
       <PublishBox :showPublishBox="showPublishBox" @cancelPublish="cancelPublish" @transferDataAndPublish="transferDataAndPublish"></PublishBox>
   </div>
@@ -31,6 +31,10 @@
         methods: {
             cancelPublish() {
                 this.$emit('modifyShowPublishBox', false)
+            },
+            jumpHome() {
+                // 跳转到主页
+                window.location.href = 'home.html'
             },
             publish() {
                 this.$emit('modifyShowPublishBox', true)
