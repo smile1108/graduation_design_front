@@ -3,6 +3,7 @@
       <div class="logo">校园信息共享系统</div>
       <div class="title">写文章</div>
       <div class="publishBtn" @click="publish()">发布</div>
+      <div class="returnIndex" @click="returnIndex()">首页</div>
       <img class="userImg" :src="userInfo.profile" alt="头像">
       <div id="popLayer" :class="{showPublishBox: !showPublishBox}"></div>
       <PublishBox :showPublishBox="showPublishBox" @cancelPublish="cancelPublish" @transferDataAndPublish="transferDataAndPublish"></PublishBox>
@@ -36,6 +37,10 @@
             },
             transferDataAndPublish(articleTitle, articleClassify) {
                 this.$emit('transferDataAndPublish', articleTitle, articleClassify)
+            },
+            returnIndex() {
+                // 返回首页
+                window.location.href = 'index.html'
             }
         }
     }
@@ -69,7 +74,7 @@
         font-size: 22px;
     }
 
-    #writeHeader .publishBtn {
+    #writeHeader .publishBtn, .returnIndex {
         float: left;
         height: 36px;
         width: 80px;
@@ -84,13 +89,24 @@
         color: #fff;
     }
 
+    #writeHeader .returnIndex {
+        margin-left: 50px !important;
+        background-color: #ec3413;
+        border: 1px solid #ec3413;
+    }
+
+    #writeHeader .returnIndex:hover {
+        cursor: pointer;
+        background-color: #d98927;
+    }
+
     #writeHeader .publishBtn:hover {
         cursor: pointer;
         background-color: #005ce6;
     }
 
     #writeHeader .userImg {
-        margin-left: 400px;
+        margin-left: 300px;
         margin-top: 10px;
         width: 40px;
         height: 40px;
