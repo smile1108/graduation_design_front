@@ -44,6 +44,8 @@
             },
             returnIndex() {
                 window.location.href = 'index.html'
+                // 返回首页的同时 删除sessionStorage中的visitUser信息
+                sessionStorage.removeItem('visitUser')
             }
         }
     }

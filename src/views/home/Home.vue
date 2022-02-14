@@ -28,10 +28,7 @@
                     // 如果 visitUser 和 userInfo中的字符串相等 表示是访问的自己的主页
                     // 这时就赋值给data中的userInfo
                     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-                    // 然后设置相应的data区分访问的是自己的主页还是别人的主页
-                    console.log("相等")
                 } else {
-                    console.log("不相等")
                     // 两者信息不同 表示访问的是别人的主页
                     // 这时候要将data中的userInfo设置为别人的信息
                     this.userInfo = visitUser
