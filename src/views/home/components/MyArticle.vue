@@ -24,7 +24,6 @@
         margin: 10px auto 0;
         background-color: #fff;
         margin-top: 0;
-        border: 1px solid red;
         padding: 30px;
         box-sizing: border-box;
     }
