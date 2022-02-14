@@ -27,7 +27,12 @@
                     
                 ],
                 articles: [
-                    {id: "001", title: "题目", content: "卢卡斯的积", authorAvatar: "https://pic3.zhimg.com/v2-e1f2203a6aebdb8ef688bc7de67b0685.jpg?source=6a64a727", authorName: "姓名"}
+                    {id: "001", title: "题目", content: "卢卡斯的积", userInfo: {
+                        username: "201801001113",
+                        nickname: "一只小菜鸡",
+                        school: "山西大学",
+                        profile: "http://localhost/images/ek9flm7ehlicbjoopodq.jpg"
+                    }}
                 ]
             }
         },

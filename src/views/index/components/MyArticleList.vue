@@ -4,8 +4,8 @@
           <h2 class="articleTitle">{{article.title}}</h2>
           <div class="articleContent">{{article.content}}</div>
           <div class="authorMsg">
-              <img :src="article.authorAvatar" alt="头像">
-              <div class="authorName">{{article.authorName}}</div>
+              <img :src="article.userInfo.profile" alt="头像" @click="jumpAuthorHome(article.userInfo)">
+              <div class="authorName">{{article.userInfo.nickname}}</div>
               <div class="userOperator">
                   <span class="iconfont like">&#xe86f; 喜欢</span>
               </div>
@@ -25,6 +25,16 @@
         },
         props: {
             articles: Array
+        },
+        methods: {
+            jumpAuthorHome(userInfo) {
+                console.log(JSON.stringify(userInfo))
+                // 这里要根据点击的用户名 来获取对应的用户信息
+                // 通过在sessionStorage中设置一个值来区分当前是访问别人的主页还是自己的主页
+                sessionStorage.setItem('visitUser', JSON.stringify(userInfo))
+                // 然后跳转到home page
+                window.location.href = 'home.html'
+            }
         }
     }
 </script>
