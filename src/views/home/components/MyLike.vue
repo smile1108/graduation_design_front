@@ -1,19 +1,19 @@
 <template>
     <div id="myLike">
-        <MyArticleItem></MyArticleItem>
+        <MyLikeArticleItem></MyLikeArticleItem>
         <Page></Page>
     </div>
 </template>
 
 <script>
 
-    import MyArticleItem from './MyArticleItem'
+    import MyLikeArticleItem from './MyLikeArticleItem'
     import Page from '../../index/components/pageComponent'
 
     export default {
         name: 'MyLike',
         components: {
-            MyArticleItem, Page
+            MyLikeArticleItem, Page
         }
     }
 </script>

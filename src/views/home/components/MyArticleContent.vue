@@ -9,18 +9,18 @@
 </script>
 
 <style>
-    #articleItem .articleContent {
+    .articleContent {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         padding: 6px 0 6px 20px;
     }
 
-    #articleItem .articleContent .article {
+    .articleContent .article {
         font-size: 18px;
     }
 
-    #articleItem .articleContent .article:hover {
+    .articleContent .article:hover {
         color: rgb(93, 92, 97);
     }
 </style>

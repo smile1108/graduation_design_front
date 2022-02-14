@@ -9,15 +9,15 @@
 </script>
 
 <style>
-    #articleItem .articleHeader {
+    .articleHeader {
         padding-left: 20px;
     }
 
-    #articleItem .articleHeader .articleTitle {
+    .articleHeader .articleTitle {
         font-size: 22px;
     }
 
-    #articleItem .articleHeader .articleTitle:hover {
+    .articleHeader .articleTitle:hover {
         color: rgb(93, 92, 97);
     }
 </style>

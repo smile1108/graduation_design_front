@@ -13,12 +13,12 @@
 </script>
 
 <style>
-    #articleItem .articleFooter {
+    .articleFooter {
         font-size: 14px;
         padding-top: 4px;
     }
 
-    #articleItem .articleFooter .classify {
+    .articleFooter .classify {
         display: inline;
         margin-left: 40px;
         padding: 4px;
@@ -26,12 +26,12 @@
         color: rgb(128, 59, 218);
     }
 
-    #articleItem .articleFooter .likeContent {
+    .articleFooter .likeContent {
         margin-left: 50px;
         color: rgb(94, 61, 102);
     }
 
-    #articleItem .articleFooter .publishDate {
+    .articleFooter .publishDate {
         margin-left: 50px;
         color: rgb(84, 64, 110);
     }
