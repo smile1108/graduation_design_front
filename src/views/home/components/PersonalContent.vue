@@ -1,9 +1,9 @@
 <template>
     <div id="personalContent">
         <ul class="contents">
-            <router-link class="contentItem" to="/myArticle" active-class="active">我的文章</router-link>
-            <router-link class="contentItem" to="/myLike" active-class="active">我的喜欢</router-link>
-            <router-link class="contentItem" to="/myMessage" active-class="active">个人信息</router-link>
+            <router-link class="contentItem" to="/myArticle" active-class="active">{{this.person}}的文章</router-link>
+            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢</router-link>
+            <router-link class="contentItem" :class="{showPersonalMessage: !this.showPersonalMessage}" to="/myMessage" active-class="active">个人信息</router-link>
         </ul>
     </div>
 </template>
@@ -13,11 +13,19 @@
         name: 'PersonalContent',
         components: {
 
+        },
+        props: {
+            showPersonalMessage: Boolean,
+            person: String
         }
     }
 </script>
 
 <style>
+
+    .showPersonalMessage {
+        display: none;
+    }
 
     .active {
         font-weight: 600;

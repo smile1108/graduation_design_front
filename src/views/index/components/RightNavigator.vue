@@ -40,6 +40,8 @@
                 } else {
                     if(target === 'home') {
                         window.location.href = 'home.html'
+                        // 如果跳转的是主页 那么在sessionStorage中添加访问的用户的信息
+                        sessionStorage.setItem('visitUser', JSON.stringify(this.userInfo))
                     } else if(target === 'article') {
                         window.location.href = 'write.html'
                     } else {

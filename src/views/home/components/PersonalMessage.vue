@@ -10,7 +10,7 @@
                 <span class="school">{{userInfo.school}}</span>
             </div>
             <div class="functionalButton">
-                <div class="modifyAvatar" @click="showAvatarBox()">修改头像</div>
+                <div class="modifyAvatar" :class="{showPersonalMessage: !this.showPersonalMessage}" @click="showAvatarBox()">修改头像</div>
             </div>
         </div>
         <div id="popLayer" :class="{active: !showAvatar}"></div>
@@ -27,7 +27,8 @@
             AvatarCutterBox
         },  
         props: {
-            userInfo: Object
+            userInfo: Object,
+            showPersonalMessage: Boolean
         },
         data() {
             return {
@@ -49,6 +50,10 @@
 </script>
 
 <style scoped>
+
+    .showPersonalMessage {
+        display: none !important;
+    }
 
     .active {
         display: none;
