@@ -13,7 +13,7 @@
       <div class="userInfo">
           <a href="login.html" v-if="userInfo === null"><button class="loginBtn">登录 / 注册</button></a>
           <div class="userFunction" v-else>
-              <img class="userImg" :src="userInfo.profile" alt="头像">
+              <img class="userImg" :src="userInfo.profile" alt="头像" @click="jumpToHome()">
               <div class="iconfont logout" @click="logout()">&#xe60e; 退出登录</div>
           </div>
       </div>
@@ -44,6 +44,13 @@
                         this.$emit("deleteUserInfo")
                     }
                 })
+            },
+            jumpToHome() {
+                // 当点击Header中的头像时 跳转到自己的主页
+                // 先在sessionStorage中设置 visitUser
+                sessionStorage.setItem('visitUser', JSON.stringify(this.userInfo))
+                // 跳转
+                window.location.href = 'home.html'
             }
         }
     }
@@ -199,6 +206,10 @@
         height: 40px;
         border-radius: 50%;
         float: left;
+    }
+
+    #header .userInfo .userFunction .userImg:hover {
+        cursor: pointer;
     }
 
     #header .userInfo .userFunction .logout {
