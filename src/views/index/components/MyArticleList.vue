@@ -7,7 +7,10 @@
               <img :src="article.userInfo.profile" alt="头像" @click="jumpAuthorHome(article.userInfo)">
               <div class="authorName">{{article.userInfo.nickname}}</div>
               <div class="userOperator">
-                  <span class="iconfont like">&#xe86f; 喜欢</span>
+                  <div class="likeDiv">
+                      <span class="iconfont" :class="likeClass" v-html="likeIcon" @click="clickIcon()"></span><span class="like" :class="likeClass" @click="clickFont()">{{likeFont}}</span>
+                  </div>
+                  <div class="publishDate">发布于{{article.publishDate}}</div>
               </div>
           </div>
       </div>
@@ -26,6 +29,22 @@
         props: {
             articles: Array
         },
+        data() {
+            return {
+                likeArticle: false
+            }
+        },
+        computed: {
+            likeIcon: function() {
+                return this.likeArticle ? "&#xe86f;" : "&#xe870;"
+            },
+            likeFont: function() {
+                return this.likeArticle ? "取消喜欢" : "喜欢"
+            },
+            likeClass: function() {
+                return this.likeArticle ? "colorRed" : ""
+            }
+        },
         methods: {
             jumpAuthorHome(userInfo) {
                 console.log(JSON.stringify(userInfo))
@@ -34,12 +53,24 @@
                 sessionStorage.setItem('visitUser', JSON.stringify(userInfo))
                 // 然后跳转到home page
                 window.location.href = 'home.html'
-            }
+            },
+            // 点击喜欢的iconfont的方法
+            clickIcon() {
+                this.likeArticle = !this.likeArticle
+            },
+            // 点击喜欢 字体的方法
+            clickFont() {
+                this.likeArticle = !this.likeArticle
+            },
         }
     }
 </script>
 
 <style>
+
+    .colorRed {
+        color: rgb(185, 47, 4) !important;
+    }
 
     @font-face {
     font-family: 'iconfont';
@@ -127,7 +158,6 @@
     #articleList .articleDiv .authorMsg .authorName {
         float: left;
         margin: 12px 10px 0 0;
-        color: #8590a6;
         font-weight: 700;
     }
 
@@ -141,17 +171,42 @@
         margin-left: 30px;
     }
 
-    #articleList .articleDiv .authorMsg .userOperator .iconfont {
-        font-size: 14px;
+    #articleList .articleDiv .authorMsg .userOperator .likeDiv {
+        float: left;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .likeDiv .iconfont {
+        font-size: 18px;
         font-weight: 600;
-        color: #8590a6;
         float: left;
         display: block;
         margin-top: 14px;
     }
 
-    #articleList .articleDiv .authorMsg .userOperator .iconfont:hover {
+    #articleList .articleDiv .authorMsg .userOperator .likeDiv .like {
+        font-size: 14px;
+        font-weight: 600;
+        float: left;
+        display: block;
+        margin-top: 14px;
+        margin-left: 2px;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .likeDiv .like:hover {
         cursor: pointer;
         color: #175199;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .likeDiv .iconfont:hover {
+        cursor: pointer;
+        color: #175199;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .publishDate {
+        float: left;
+        margin-top: 14px;
+        margin-left: 40px;
+        font-size: 14px;
+        color: #42474d;
     }
 </style>

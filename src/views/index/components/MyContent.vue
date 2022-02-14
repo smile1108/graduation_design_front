@@ -27,7 +27,7 @@
                     
                 ],
                 articles: [
-                    {id: "001", title: "题目", content: "卢卡斯的积", userInfo: {
+                    {id: "001", title: "题目", content: "卢卡斯的积", publishDate: "2022-2-14 10:00:00", userInfo: {
                         username: "201801001113",
                         nickname: "一只小菜鸡",
                         school: "山西大学",
