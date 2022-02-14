@@ -1,14 +1,19 @@
 <template>
     <div id="myArticle">
-        我的文章
+        <MyArticleItem></MyArticleItem>
+        <Page></Page>
     </div>
 </template>
 
 <script>
+
+    import MyArticleItem from './MyArticleItem'
+    import Page from '../../index/components/pageComponent'
+
     export default {
         name: 'MyArticle',
         components: {
-
+            MyArticleItem, Page
         }
     }
 </script>
@@ -19,5 +24,8 @@
         margin: 10px auto 0;
         background-color: #fff;
         margin-top: 0;
+        border: 1px solid red;
+        padding: 30px;
+        box-sizing: border-box;
     }
 </style>
