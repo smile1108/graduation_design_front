@@ -23,8 +23,8 @@
                 // 然后就将自己的信息 赋值给data中的userInfo
                 this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
             } else {
-                let userInfoString = sessionStorage.getItem('userInfo')
-                if(JSON.stringify(visitUser) == userInfoString) {
+                let userInfoObj = JSON.parse(sessionStorage.getItem('userInfo'))
+                if(visitUser.username == userInfoObj.username) {
                     // 如果 visitUser 和 userInfo中的字符串相等 表示是访问的自己的主页
                     // 这时就赋值给data中的userInfo
                     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
