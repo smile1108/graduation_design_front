@@ -10,6 +10,7 @@
                   <div class="likeDiv">
                       <span class="iconfont" :class="likeClass" v-html="likeIcon" @click="clickIcon()"></span><span class="like" :class="likeClass" @click="clickFont()">{{likeFont}}</span>
                   </div>
+                  <div class="classifyDiv">{{article.classify}}</div>
                   <div class="publishDate">发布于{{article.publishDate}}</div>
               </div>
           </div>
@@ -175,6 +176,15 @@
         float: left;
     }
 
+    #articleList .articleDiv .authorMsg .userOperator .classifyDiv {
+        float: left;
+        margin-top: 14px;
+        margin-left: 80px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #0066FF;
+    }
+
     #articleList .articleDiv .authorMsg .userOperator .likeDiv .iconfont {
         font-size: 18px;
         font-weight: 600;
@@ -205,7 +215,7 @@
     #articleList .articleDiv .authorMsg .userOperator .publishDate {
         float: left;
         margin-top: 14px;
-        margin-left: 40px;
+        margin-left: 20px;
         font-size: 14px;
         color: #42474d;
     }
