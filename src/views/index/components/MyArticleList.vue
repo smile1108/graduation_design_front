@@ -4,8 +4,8 @@
           <h2 class="articleTitle">{{article.title}}</h2>
           <div class="articleContent">{{article.content}}</div>
           <div class="authorMsg">
-              <img :src="article.userInfo.profile" alt="头像" @click="jumpAuthorHome(article.userInfo)">
-              <div class="authorName">{{article.userInfo.nickname}}</div>
+              <img :src="article.userVo.profile" alt="头像" @click="jumpAuthorHome(article.userVo)">
+              <div class="authorName">{{article.userVo.nickname}}</div>
               <div class="userOperator">
                   <div class="likeDiv">
                       <span class="iconfont" :class="likeClass" v-html="likeIcon" @click="clickIcon()"></span><span class="like" :class="likeClass" @click="clickFont()">{{likeFont}}</span>
@@ -15,7 +15,7 @@
               </div>
           </div>
       </div>
-      <PageComponent></PageComponent>
+      <PageComponent :pageMax="sumPage"></PageComponent>
   </div>
 </template>
 
@@ -28,7 +28,8 @@
             PageComponent
         },
         props: {
-            articles: Array
+            articles: Array,
+            sumPage: Number
         },
         data() {
             return {

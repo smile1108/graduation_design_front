@@ -1,7 +1,7 @@
 <template>
   <div id="content">
       <MySelector :articleClassify="articleClassify" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"></MySelector>
-      <MyArticleList :articles="articles"></MyArticleList>
+      <MyArticleList :articles="articles" :sumPage="sumPage"></MyArticleList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
 </template>
@@ -27,13 +27,8 @@
                     
                 ],
                 articles: [
-                    {id: "001", title: "题目", content: "卢卡斯的积", classify: "计算机类", publishDate: "2022-2-14 10:00:00", userInfo: {
-                        username: "201801001113",
-                        nickname: "一只小菜鸡",
-                        school: "山西大学",
-                        profile: "http://localhost/images/ek9flm7ehlicbjoopodq.jpg"
-                    }}
                 ],
+                sumPage: undefined,
                 classifyFilter: new Set()
             }
         },
@@ -45,6 +40,14 @@
                     this.articleClassify = JSON.parse(JSON.stringify(res.data.data))
                     // 将文章分类设置入 sessionStorage
                     sessionStorage.setItem('articleClassify', JSON.stringify(res.data.data))
+                }
+            })
+            // 搜索文章接口 刚开始页面渲染完成 没有关键字 也没有文章分类的筛选
+            axios.get('http://localhost:9527/article/searchArticle').then(res => {
+                if(res.data.code === 200) {
+                    // 成功请求 设置文章的数组
+                    this.articles = res.data.data.lists
+                    this.sumPage = res.data.data.sumPage
                 }
             })
         },
