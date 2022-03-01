@@ -1,7 +1,7 @@
 <template>
     <div id="myArticle">
         <MyArticleItem v-for="article in myArticleList" :key="article.id" :articleObj="article"></MyArticleItem>
-        <Page></Page>
+        <Page :pageMax="pageMax"></Page>
     </div>
 </template>
 
@@ -21,7 +21,8 @@
         },
         data() {
             return {
-                myArticleList: []
+                myArticleList: [],
+                pageMax: undefined
             }
         },
         mounted() {
@@ -30,7 +31,7 @@
             axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     this.myArticleList = res.data.data.lists
-                    console.log(res.data.data)
+                    this.pageMax = res.data.data.sumPage
                 } else if(res.data.code === 519) {
                     alert("用户身份认证过期, 请重新登录")
                     window.location.href = 'login.html'

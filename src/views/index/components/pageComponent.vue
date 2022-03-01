@@ -16,10 +16,12 @@
 <script>
     export default {
         name: 'Pager',
+        props:{
+            pageMax: Number
+        },
         data () {
             return {
                 page: 1, // 当前页码
-                pageMax: 10, // 最大页数
                 cur_page_max: this.pageMax >= 5 ? 5 : this.pageMax
             }
         },
