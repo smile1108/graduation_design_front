@@ -2,7 +2,7 @@
     <div class="articleFooter">
         <div class="classify">{{this.articleObj.classifyVo.name}}</div>
         <span class="likeContent">10人喜欢</span>
-        <span class="publishDate">发布于 {{this.articleObj.publishDate}}</span>
+        <span class="publishDate">发布于 {{this.formatDate}}</span>
         <div class="deleteBtn">删除</div>
     </div>
 </template>
@@ -12,6 +12,31 @@
         name: "MyArticleFooter",
         props: {
             articleObj: Object
+        },
+        computed: {
+            formatDate() {  
+                const arr = this.articleObj.publishDate.split('T');
+                const d = arr[0];
+                const darr = d.split('-');
+
+                const t = arr[1];
+                const tarr = t.split('.000');
+                const marr = tarr[0].split(':');
+
+                const dd =
+                parseInt(darr[0]) +
+                '-' +
+                parseInt(darr[1]) +
+                '-' +
+                parseInt(darr[2]) +
+                ' ' +
+                parseInt(marr[0]) +
+                ':' +
+                parseInt(marr[1]) +
+                ':' +
+                parseInt(marr[2]);
+                return dd;
+            }
         }
     }
 </script>
