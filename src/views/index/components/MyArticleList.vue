@@ -11,7 +11,7 @@
                       <span class="iconfont" :class="likeClass" v-html="likeIcon" @click="clickIcon()"></span><span class="like" :class="likeClass" @click="clickFont()">{{likeFont}}</span>
                   </div>
                   <div class="classifyDiv">{{article.classify}}</div>
-                  <div class="publishDate">发布于{{article.publishDate}}</div>
+                  <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
               </div>
           </div>
       </div>
@@ -45,6 +45,20 @@
             },
             likeClass: function() {
                 return this.likeArticle ? "colorRed" : ""
+            },
+            formatDate() {  
+                return function(publishDate) {
+                    const arr = publishDate.split('T');
+                    const d = arr[0];
+
+                    const t = arr[1];
+                    const tarr = t.split('.000');
+                    const marr = tarr[0].split(':');
+
+                    const dd = d + ' ' + marr[0] + ':' + marr[1] + ':' + marr[2].split('.')[0]
+
+                    return dd;
+                }
             }
         },
         methods: {
