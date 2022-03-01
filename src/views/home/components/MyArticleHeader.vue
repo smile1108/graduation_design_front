@@ -1,10 +1,13 @@
 <template>
-    <div class="articleHeader"><span class="articleTitle">题目</span></div>
+    <div class="articleHeader"><span class="articleTitle">{{this.articleTitle}}</span></div>
 </template>
 
 <script>
     export default {
-        name: "MyArticleHeader"
+        name: "MyArticleHeader",
+        props: {
+            articleTitle: String
+        }
     }
 </script>
 

@@ -1,15 +1,18 @@
 <template>
     <div class="articleFooter">
-        <div class="classify">计算机类</div>
+        <div class="classify">{{this.articleObj.classifyVo.name}}</div>
         <span class="likeContent">10人喜欢</span>
-        <span class="publishDate">发布于 2021-2-14 10:00:00</span>
+        <span class="publishDate">发布于 {{this.articleObj.publishDate}}</span>
         <div class="deleteBtn">删除</div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "MyArticleFooter"
+        name: "MyArticleFooter",
+        props: {
+            articleObj: Object
+        }
     }
 </script>
 

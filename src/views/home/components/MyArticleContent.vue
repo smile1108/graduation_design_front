@@ -1,10 +1,13 @@
 <template>
-    <div class="articleContent"><span class="article">内容内容</span></div>
+    <div class="articleContent"><span class="article">{{this.articleContent}}</span></div>
 </template>
 
 <script>
     export default {
-        name: "MyArticleContent"
+        name: "MyArticleContent",
+        props: {
+            articleContent: String
+        }
     }
 </script>
 

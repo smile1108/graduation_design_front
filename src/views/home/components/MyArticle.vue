@@ -1,6 +1,6 @@
 <template>
     <div id="myArticle">
-        <MyArticleItem></MyArticleItem>
+        <MyArticleItem v-for="article in myArticleList" :key="article.id" :articleObj="article"></MyArticleItem>
         <Page></Page>
     </div>
 </template>
@@ -9,11 +9,29 @@
 
     import MyArticleItem from './MyArticleItem'
     import Page from '../../index/components/pageComponent'
+    import axios from 'axios'
 
     export default {
         name: 'MyArticle',
         components: {
             MyArticleItem, Page
+        },
+        props: {
+            userInfo: Object
+        },
+        data() {
+            return {
+                myArticleList: []
+            }
+        },
+        mounted() {
+            // 当页面渲染完成之后 请求获取自己文章的接口
+            let url = "http://localhost:9527/article/getArticleListByUsername?username=" + this.userInfo.username
+            axios.get(url).then(res => {
+                if(res.data.code === 200) {
+                    this.myArticleList = res.data.data.lists
+                }
+            })
         }
     }
 </script>

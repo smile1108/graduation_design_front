@@ -1,8 +1,8 @@
 <template>
     <div id="articleItem">
-        <MyArticleHeader></MyArticleHeader>
-        <MyArticleContent></MyArticleContent>
-        <MyArticleFooter></MyArticleFooter>
+        <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
+        <MyArticleContent :articleContent="articleObj.content"></MyArticleContent>
+        <MyArticleFooter :articleObj="articleObj"></MyArticleFooter>
     </div>
 </template>
 
@@ -16,6 +16,9 @@
         name: "MyArticleItem",
         components: {
             MyArticleHeader, MyArticleContent, MyArticleFooter
+        },
+        props: {
+            articleObj: Object
         }
     }
 </script>
