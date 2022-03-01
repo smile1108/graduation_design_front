@@ -1,6 +1,6 @@
 <template>
   <div id="content">
-      <MySelector :articleClassify="articleClassify"></MySelector>
+      <MySelector :articleClassify="articleClassify" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"></MySelector>
       <MyArticleList :articles="articles"></MyArticleList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
@@ -33,7 +33,8 @@
                         school: "山西大学",
                         profile: "http://localhost/images/ek9flm7ehlicbjoopodq.jpg"
                     }}
-                ]
+                ],
+                classifyFilter: new Set()
             }
         },
         mounted() {
@@ -46,6 +47,14 @@
                     sessionStorage.setItem('articleClassify', JSON.stringify(res.data.data))
                 }
             })
+        },
+        methods: {
+            addClassify(classify) {
+                this.classifyFilter.add(classify)
+            },
+            deleteClassify(classify) {
+                this.classifyFilter.delete(classify)
+            }
         }
     }
 </script>

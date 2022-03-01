@@ -16,11 +16,11 @@
 
         },
         props: {
-            articleClassify: Array
+            articleClassify: Array,
+            classifyFilter: Set
         },
         data() {
             return {
-                classifyFilter: new Set()
             }
         },
         methods: {
@@ -33,7 +33,7 @@
                 // 然后设置显示对应的关闭按钮
                 dom[1].style.setProperty('display', 'block')
                 // Set中添加对应元素
-                this.classifyFilter.add(classify)
+                this.$emit('addClassify', classify)
             },
             deleteLi(classify) {
                 let dom = this.$refs[classify]
@@ -44,7 +44,7 @@
                 // 然后设置显示对应的关闭按钮
                 dom[1].style.setProperty('display', 'none')
                 // 然后删除Set中的数据
-                this.classifyFilter.delete(classify)
+                this.$emit('deleteClassify', classify)
             }
         }
     }
