@@ -1,6 +1,6 @@
 <template>
 	<div class="page">
-        <span class="page-block center">{{'«'}}</span>
+        <span class="page-block center" @click="prePage()">{{'«'}}</span>
         <span v-if="pageList[2]-2>1"
             class="page-block center">...</span>
         <span v-for="pageNum in pageList"
@@ -9,7 +9,7 @@
             :class="{curPage: pageNum === page}">{{pageNum}}</span>
         <span v-if="pageMax-pageList[2]>2"
             class="page-block center">...</span>
-        <span class="page-block center">{{'»'}}</span>
+        <span class="page-block center" @click="nextPage()">{{'»'}}</span>
   </div>
 </template>
 
@@ -18,10 +18,64 @@
         name: 'Pager',
         data () {
             return {
-                pageList: [1,2,3,4,5], // 页码列表
                 page: 1, // 当前页码
-                pageMax: 7 // 最大页数
-            };
+                pageMax: 10, // 最大页数
+                cur_page_max: this.pageMax >= 5 ? 5 : this.pageMax
+            }
+        },
+        computed: {
+            pageList() {
+                let pageList = new Array()
+                if(this.pageMax >= 5) {
+                    for(let i = 1; i <= 5; i++) {
+                        pageList.push(i)
+                    }
+                } else {
+                    for(let i = 1; i <= this.pageMax; i++) {
+                        pageList.push(i)
+                    }
+                }
+                return pageList
+            },
+            curPageMax: {
+                get() {
+                    if(this.cur_page_max === undefined) {
+                        return this.pageMax >= 5 ? 5 : this.pageMax
+                    }
+                    return this.cur_page_max
+                },
+                set(newVal) {
+                    this.cur_page_max = newVal
+                }
+            }
+        },
+        methods: {
+            prePage() {
+                if(this.page == 1) {
+                    alert("当前已经是第一页")
+                } else {
+                    this.page--
+                    if(this.curPageMax - this.page >= 5) {
+                        // 重新设置当前显示的页数
+                        this.pageList.unshift(this.page)
+                        this.pageList.pop(this.curPageMax)
+                        this.curPageMax = this.curPageMax - 1
+                    }
+                }
+            },
+            nextPage() {
+                if(this.page == this.pageMax) {
+                    alert("当前已经是最后一页了")
+                } else {
+                    this.page++
+                    if(this.page - this.pageList[0] >= 5) {
+                        // 重新设置当前显示的页数
+                        this.pageList.shift()
+                        this.pageList.push(this.page)
+                        this.curPageMax = this.curPageMax + 1
+                    }
+                }
+            }
         }
     }
 </script>

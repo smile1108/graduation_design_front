@@ -30,6 +30,10 @@
             axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     this.myArticleList = res.data.data.lists
+                    console.log(res.data.data)
+                } else if(res.data.code === 519) {
+                    alert("用户身份认证过期, 请重新登录")
+                    window.location.href = 'login.html'
                 }
             })
         }
