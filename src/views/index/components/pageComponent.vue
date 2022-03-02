@@ -1,6 +1,6 @@
 <template>
 	<div class="page">
-        <span class="page-block center" @click="prePage()">{{'«'}}</span>
+        <span v-if="pageMax >= 1" class="page-block center" @click="prePage()">{{'«'}}</span>
         <span v-if="pageList[2]-2>1"
             class="page-block center">...</span>
         <span v-for="pageNum in pageList"
@@ -9,7 +9,7 @@
             :class="{curPage: pageNum === page}">{{pageNum}}</span>
         <span v-if="pageMax-pageList[2]>2"
             class="page-block center">...</span>
-        <span class="page-block center" @click="nextPage()">{{'»'}}</span>
+        <span v-if="pageMax >= 1" class="page-block center" @click="nextPage()">{{'»'}}</span>
   </div>
 </template>
 

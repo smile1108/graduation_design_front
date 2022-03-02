@@ -15,6 +15,9 @@
               </div>
           </div>
       </div>
+      <div v-if="sumPage < 1" class="articleListTip">
+          没有找到你需要的文章
+      </div>
       <PageComponent :pageMax="sumPage"></PageComponent>
   </div>
 </template>
@@ -112,6 +115,17 @@
         height: 95%;
         border-radius: 3px;
         background-color: #fff;
+    }
+
+    #articleList .articleListTip {
+        width: 50%;
+        height: 200px;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 200px;
+        font-size: 20px;
+        color: #ce3434;
+        box-sizing: border-box;
     }
 
     #articleList .articleDiv {
