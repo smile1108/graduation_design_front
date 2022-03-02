@@ -3,8 +3,7 @@
     <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo" @searchArticle="searchArticle"></MyHeader>
     <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
       @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted" :articles="articles"
-      :sumPage="sumPage" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"
-      @changeArticles="changeArticles" @changeSumPage="changeSumPage"></router-view>
+      :sumPage="sumPage" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"></router-view>
   </div>
 </template>
 
@@ -19,7 +18,7 @@
     },
     data() {
       return {
-        userInfo: {},
+        userInfo: null,
         todoList: [
         ],
         articles: [
@@ -37,6 +36,7 @@
               this.userInfo = null
             } else {
               this.userInfo = JSON.parse(JSON.stringify(response.data.data.userVo))
+              console.log(this.userInfo)
               sessionStorage.setItem('userInfo', JSON.stringify(response.data.data.userVo))
               sessionStorage.setItem('expireTimestamp', response.data.data.expireTimestamp)
             }
@@ -203,12 +203,6 @@
           }
           return classifyStr.substring(0, classifyStr.length - 1)
       },
-      changeArticles(articles) {
-        this.articles = articles
-      },
-      changeSumPage(sumPage) {
-        this.sumPage = sumPage
-      },
       searchArticle(keyword) {
         this.searchContent = keyword
         // 然后调用后端的接口 搜索文章
@@ -226,13 +220,29 @@
                 this.sumPage = res.data.data.sumPage
             }
         })
+      },
+      searchArticleMounted() {
+        let url = 'http://localhost:9527/article/searchArticle'
+        console.log("######")
+        console.log(this.userInfo)
+        if(this.userInfo != null) {
+          url = url + "?username=" + this.userInfo.username
+        }
+        axios.get(url).then(res => {
+            if(res.data.code === 200) {
+                // 成功请求 设置文章的数组
+                this.articles = res.data.data.lists
+                this.sumPage = res.data.data.sumPage
+            }
+        })
       }
     },
-    mounted() {
-      // 当页面dom渲染好之后 进行自动登录的请求
+    mounted() {// 当页面dom渲染好之后 进行自动登录的请求
       this.autoTakeUserInfo()
       // 然后调用 获取所有待办事项的方法
       this.getAllBacklog()
+      setTimeout(this.searchArticleMounted, 300)
+      // 搜索文章接口 刚开始页面渲染完成 没有关键字 也没有文章分类的筛选
     }
   }
 </script>
