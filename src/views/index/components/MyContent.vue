@@ -42,7 +42,11 @@
                 }
             })
             // 搜索文章接口 刚开始页面渲染完成 没有关键字 也没有文章分类的筛选
-            axios.get('http://localhost:9527/article/searchArticle').then(res => {
+            let url = 'http://localhost:9527/article/searchArticle'
+            if(this.userInfo != null) {
+                url = url + "?username=" + this.userInfo.username
+            }
+            axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     // 成功请求 设置文章的数组
                     this.$emit('changeArticles', res.data.data.lists)

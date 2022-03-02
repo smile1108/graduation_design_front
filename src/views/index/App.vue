@@ -25,7 +25,8 @@
         articles: [
         ],
         sumPage: undefined,
-        classifyFilter: new Set()
+        classifyFilter: new Set(),
+        searchContent: ""
       }
     },
     methods: {
@@ -160,6 +161,12 @@
           // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
           // 这时候需要添加一个参数 即 分类筛选的参数
           let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr 
+          if(this.searchContent != null) {
+            url = url + "&keyword=" + this.searchContent
+          }
+          if(this.userInfo != null) {
+            url = url + "&username=" + this.userInfo.username
+          }
           axios.get(url).then(res => {
               if(res.data.code === 200) {
                   // 成功请求 设置文章的数组
@@ -174,6 +181,12 @@
         // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
         // 这时候需要添加一个参数 即 分类筛选的参数
         let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr 
+        if(this.searchContent != null) {
+            url = url + "&keyword=" + this.searchContent
+          }
+          if(this.userInfo != null) {
+            url = url + "&username=" + this.userInfo.username
+          }
         axios.get(url).then(res => {
             if(res.data.code === 200) {
                 // 成功请求 设置文章的数组
@@ -197,11 +210,15 @@
         this.sumPage = sumPage
       },
       searchArticle(keyword) {
+        this.searchContent = keyword
         // 然后调用后端的接口 搜索文章
         // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
         // 这时候需要添加一个参数 即 分类筛选的参数
         let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
         let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr + "&keyword=" + keyword
+        if(this.userInfo != null) {
+          url = url + "&username=" + this.userInfo.username
+        }
         axios.get(url).then(res => {
             if(res.data.code === 200) {
                 // 成功请求 设置文章的数组
