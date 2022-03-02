@@ -8,7 +8,7 @@
               <div class="authorName">{{article.userVo.nickname}}</div>
               <div class="userOperator">
                   <div class="likeDiv">
-                      <span class="iconfont" :class="{colorRed: article.like}" @click="clickIcon()">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click="clickFont()">{{article.like ? "取消喜欢" : "喜欢"}}</span>
+                      <span class="iconfont" :class="{colorRed: article.like}" @click="clickIcon(article.id)">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click="clickFont(article.id)">{{article.like ? "取消喜欢" : "喜欢"}}</span>
                   </div>
                   <div class="classifyDiv">{{article.classify}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
@@ -64,11 +64,24 @@
                 window.location.href = 'home.html'
             },
             // 点击喜欢的iconfont的方法
-            clickIcon() {
-                console.log("%%%%")
+            clickIcon(id) {
+                // id 代表文章的id
+                console.log(id)
+                if(this.userInfo == null || this.userInfo == undefined) {
+                    // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
+                    alert("进行次操作,需要您先登录")
+                    window.location.href = 'login.html'
+                }
             },
             // 点击喜欢 字体的方法
-            clickFont() {
+            clickFont(id) {
+                // id 代表文章的id
+                console.log(id)
+                if(this.userInfo == null || this.userInfo == undefined) {
+                    // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
+                    alert("进行次操作,需要您先登录")
+                    window.location.href = 'login.html'
+                }
             },
         }
     }
