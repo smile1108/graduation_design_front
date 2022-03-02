@@ -8,7 +8,7 @@
               <div class="authorName">{{article.userVo.nickname}}</div>
               <div class="userOperator">
                   <div class="likeDiv">
-                      <span class="iconfont" :class="likeClass" v-html="likeIcon" @click="clickIcon()"></span><span class="like" :class="likeClass" @click="clickFont()">{{likeFont}}</span>
+                      <span class="iconfont" :class="{colorRed: article.like}" @click="clickIcon()">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click="clickFont()">{{article.like ? "取消喜欢" : "喜欢"}}</span>
                   </div>
                   <div class="classifyDiv">{{article.classify}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
@@ -36,19 +36,9 @@
         },
         data() {
             return {
-                likeArticle: false
             }
         },
         computed: {
-            likeIcon: function() {
-                return this.likeArticle ? "&#xe86f;" : "&#xe870;"
-            },
-            likeFont: function() {
-                return this.likeArticle ? "取消喜欢" : "喜欢"
-            },
-            likeClass: function() {
-                return this.likeArticle ? "colorRed" : ""
-            },
             formatDate() {  
                 return function(publishDate) {
                     const arr = publishDate.split('T');
@@ -75,11 +65,10 @@
             },
             // 点击喜欢的iconfont的方法
             clickIcon() {
-                this.likeArticle = !this.likeArticle
+                console.log("%%%%")
             },
             // 点击喜欢 字体的方法
             clickFont() {
-                this.likeArticle = !this.likeArticle
             },
         }
     }
