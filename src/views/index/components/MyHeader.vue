@@ -6,7 +6,7 @@
           <router-link class="tabItem" to="/todoList" active-class="active" v-if="userInfo !== null">待办事项</router-link>
       </ul>
       <div class="search">
-          <input class="inputText" type="text">
+          <input class="inputText" type="text" v-model="searchContent">
           <button class="btn"><span class="iconfont">&#xe600; 搜索</span></button>
           <button class="questionBtn">提问</button>
       </div>
@@ -29,11 +29,11 @@
 
         },
         props: {
-            userInfo: Object
+            userInfo: Object,
+            searchContent: String
         },
         data() {
             return {
-                
             }
         },
         methods: {

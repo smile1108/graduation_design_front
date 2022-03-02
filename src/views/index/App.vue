@@ -1,8 +1,10 @@
 <template>
   <div>
-    <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo"></MyHeader>
+    <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo" :searchContent="searchContent"></MyHeader>
     <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
-      @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted"></router-view>
+      @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted" :articles="articles"
+      :sumPage="sumPage" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"
+      @changeArticles="changeArticles" @changeSumPage="changeSumPage"></router-view>
   </div>
 </template>
 
@@ -19,7 +21,12 @@
       return {
         userInfo: {},
         todoList: [
-        ]
+        ],
+        searchContent: "",
+        articles: [
+        ],
+        sumPage: undefined,
+        classifyFilter: new Set()
       }
     },
     methods: {
@@ -146,6 +153,49 @@
             window.location.href = 'login.html#/login'
           }
         })
+      },
+      // 添加文章类型筛选
+      addClassify(classify) {
+        this.classifyFilter.add(classify)
+          let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
+          // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
+          // 这时候需要添加一个参数 即 分类筛选的参数
+          let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr 
+          axios.get(url).then(res => {
+              if(res.data.code === 200) {
+                  // 成功请求 设置文章的数组
+                  this.articles = res.data.data.lists
+                  this.sumPage = res.data.data.sumPage
+              }
+        })
+      },
+      deleteClassify(classify) {
+        this.classifyFilter.delete(classify)
+          let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
+          // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
+          // 这时候需要添加一个参数 即 分类筛选的参数
+          let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr 
+          axios.get(url).then(res => {
+              if(res.data.code === 200) {
+                  // 成功请求 设置文章的数组
+                  this.articles = res.data.data.lists
+                  this.sumPage = res.data.data.sumPage
+              }
+        })
+      },
+      // 将文章分类筛选的数组转换成对应的字符串 用,分割 传递到后端进行搜索
+      transferClassifyArrayToStr(classifyFilter) {
+          let classifyStr = ""
+          for(let item of classifyFilter) {
+              classifyStr = classifyStr + item + ","
+          }
+          return classifyStr.substring(0, classifyStr.length - 1)
+      },
+      changeArticles(articles) {
+        this.articles = articles
+      },
+      changeSumPage(sumPage) {
+        this.sumPage = sumPage
       }
     },
     mounted() {
