@@ -2,7 +2,7 @@
   <div id="articleList">
       <div class="articleDiv" v-for="article in articles" :key="article.id">
           <h2 class="articleTitle">{{article.title}}</h2>
-          <div class="articleContent">{{article.content}}</div>
+          <div class="articleContent">{{article.textContent}}</div>
           <div class="authorMsg">
               <img :src="article.userVo.profile" alt="头像" @click="jumpAuthorHome(article.userVo)">
               <div class="authorName">{{article.userVo.nickname}}</div>
@@ -10,7 +10,7 @@
                   <div class="likeDiv">
                       <span class="iconfont" :class="{colorRed: article.like}" @click="clickIcon(article)">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click="clickFont(article)">{{article.like ? "取消喜欢" : "喜欢"}}</span>
                   </div>
-                  <div class="classifyDiv">{{article.classify}}</div>
+                  <div class="classifyDiv">{{article.classifyVo.name}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
               </div>
           </div>
@@ -285,7 +285,7 @@
     #articleList .articleDiv .authorMsg .userOperator .publishDate {
         float: left;
         margin-top: 14px;
-        margin-left: 20px;
+        margin-left: 50px;
         font-size: 14px;
         color: #42474d;
     }

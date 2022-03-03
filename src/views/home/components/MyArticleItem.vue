@@ -1,7 +1,7 @@
 <template>
     <div id="articleItem">
         <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
-        <MyArticleContent :articleContent="articleObj.content"></MyArticleContent>
+        <MyArticleContent :articleContent="articleObj.textContent"></MyArticleContent>
         <MyArticleFooter :articleObj="articleObj" @deleteArticle="deleteArticle"></MyArticleFooter>
     </div>
 </template>
