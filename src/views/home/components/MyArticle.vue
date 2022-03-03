@@ -22,7 +22,8 @@
         data() {
             return {
                 myArticleList: [],
-                pageMax: undefined
+                pageMax: undefined,
+                articleSum: undefined
             }
         },
         methods: {
@@ -58,6 +59,8 @@
                 if(res.data.code === 200) {
                     this.myArticleList = res.data.data.lists
                     this.pageMax = res.data.data.sumPage
+                    this.articleSum = res.data.data.count
+                    this.$emit('changeArticleSum', this.articleSum)
                 } else if(res.data.code === 519) {
                     alert("用户身份认证过期, 请重新登录")
                     window.location.href = 'login.html'
@@ -72,6 +75,8 @@
                 if(res.data.code === 200) {
                     this.myArticleList = res.data.data.lists
                     this.pageMax = res.data.data.sumPage
+                    this.articleSum = res.data.data.count
+                    this.$emit('changeArticleSum', this.articleSum)
                 } else if(res.data.code === 519) {
                     alert("用户身份认证过期, 请重新登录")
                     window.location.href = 'login.html'
