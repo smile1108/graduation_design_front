@@ -36,7 +36,6 @@
               this.userInfo = null
             } else {
               this.userInfo = JSON.parse(JSON.stringify(response.data.data.userVo))
-              console.log(this.userInfo)
               sessionStorage.setItem('userInfo', JSON.stringify(response.data.data.userVo))
               sessionStorage.setItem('expireTimestamp', response.data.data.expireTimestamp)
             }
@@ -223,8 +222,6 @@
       },
       searchArticleMounted() {
         let url = 'http://localhost:9527/article/searchArticle'
-        console.log("######")
-        console.log(this.userInfo)
         if(this.userInfo != null) {
           url = url + "?username=" + this.userInfo.username
         }

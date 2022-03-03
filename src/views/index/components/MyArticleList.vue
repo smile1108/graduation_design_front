@@ -8,7 +8,7 @@
               <div class="authorName">{{article.userVo.nickname}}</div>
               <div class="userOperator">
                   <div class="likeDiv">
-                      <span class="iconfont" :class="{colorRed: article.like}" @click="clickIcon(article.id)">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click="clickFont(article.id)">{{article.like ? "取消喜欢" : "喜欢"}}</span>
+                      <span class="iconfont" :class="{colorRed: article.like}" @click="clickIcon(article)">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click="clickFont(article)">{{article.like ? "取消喜欢" : "喜欢"}}</span>
                   </div>
                   <div class="classifyDiv">{{article.classify}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
@@ -24,6 +24,7 @@
 
 <script>
     import PageComponent from './pageComponent'
+    import axios from 'axios'
 
     export default {
         name: 'MyArticleList',
@@ -32,7 +33,8 @@
         },
         props: {
             articles: Array,
-            sumPage: Number
+            sumPage: Number,
+            userInfo: Object
         },
         data() {
             return {
@@ -64,25 +66,60 @@
                 window.location.href = 'home.html'
             },
             // 点击喜欢的iconfont的方法
-            clickIcon(id) {
-                // id 代表文章的id
-                console.log(id)
+            clickIcon(article) {
                 if(this.userInfo == null || this.userInfo == undefined) {
                     // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
                     alert("进行次操作,需要您先登录")
                     window.location.href = 'login.html'
+                }
+                // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
+                if(article.like) {
+                    this.callUnlike(this.userInfo.username, article)
+                } else {
+                    // 否则调用喜欢的接口
+                    this.callLike(this.userInfo.username, article)
                 }
             },
             // 点击喜欢 字体的方法
-            clickFont(id) {
-                // id 代表文章的id
-                console.log(id)
+            clickFont(article) {
                 if(this.userInfo == null || this.userInfo == undefined) {
                     // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
                     alert("进行次操作,需要您先登录")
                     window.location.href = 'login.html'
                 }
+                // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
+                if(article.like) {
+                    this.callUnlike(this.userInfo.username, article)
+                } else {
+                    // 否则调用喜欢的接口
+                    this.callLike(this.userInfo.username, article)
+                }
             },
+            callUnlike(username, article) {
+                // 代表当前是喜欢的状态 就调用不喜欢的接口
+                let url = "http://localhost:9527/article/unlike?username=" + username + "&articleId=" + article.id
+                axios.get(url).then(res => {
+                    if(res.data.code === 200) {
+                        article.like = !article.like
+                    } else if(res.data.code === 519) {
+                        // 表示用户身份认证信息 过期 跳转到登录页面
+                        alert('用户身份认证信息过期, 请重新登录')
+                        window.location.href = 'login.html#/login'
+                    }
+                })
+            },
+            callLike(username, article) {
+                let url = "http://localhost:9527/article/like?username=" + username + "&articleId=" + article.id
+                axios.get(url).then(res => {
+                    if(res.data.code === 200) {
+                        article.like = !article.like
+                    } else if(res.data.code === 519) {
+                        // 表示用户身份认证信息 过期 跳转到登录页面
+                        alert('用户身份认证信息过期, 请重新登录')
+                        window.location.href = 'login.html#/login'
+                    }
+                })
+            }
         }
     }
 </script>
