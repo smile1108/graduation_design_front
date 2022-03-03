@@ -71,28 +71,30 @@
                     // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
                     alert("进行次操作,需要您先登录")
                     window.location.href = 'login.html'
-                }
-                // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
-                if(article.like) {
-                    this.callUnlike(this.userInfo.username, article)
                 } else {
-                    // 否则调用喜欢的接口
-                    this.callLike(this.userInfo.username, article)
+                    // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
+                    if(article.like) {
+                        this.callUnlike(this.userInfo.username, article)
+                    } else {
+                        // 否则调用喜欢的接口
+                        this.callLike(this.userInfo.username, article)
+                    }
                 }
             },
             // 点击喜欢 字体的方法
             clickFont(article) {
                 if(this.userInfo == null || this.userInfo == undefined) {
                     // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
-                    alert("进行次操作,需要您先登录")
+                    alert("进行此操作,需要您先登录")
                     window.location.href = 'login.html'
-                }
-                // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
-                if(article.like) {
-                    this.callUnlike(this.userInfo.username, article)
                 } else {
-                    // 否则调用喜欢的接口
-                    this.callLike(this.userInfo.username, article)
+                    // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
+                    if(article.like) {
+                        this.callUnlike(this.userInfo.username, article)
+                    } else {
+                        // 否则调用喜欢的接口
+                        this.callLike(this.userInfo.username, article)
+                    }
                 }
             },
             callUnlike(username, article) {

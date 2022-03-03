@@ -2,7 +2,7 @@
     <div id="articleItem">
         <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
         <MyArticleContent :articleContent="articleObj.content"></MyArticleContent>
-        <MyArticleFooter :articleObj="articleObj"></MyArticleFooter>
+        <MyArticleFooter :articleObj="articleObj" @deleteArticle="deleteArticle"></MyArticleFooter>
     </div>
 </template>
 
@@ -19,6 +19,11 @@
         },
         props: {
             articleObj: Object
+        },
+        methods: {
+            deleteArticle() {
+                this.$emit('deleteArticle', this.articleObj)
+            }
         }
     }
 </script>
