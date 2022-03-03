@@ -1,7 +1,7 @@
 <template>
     <div class="articleFooter">
         <div class="classify">{{this.articleObj.classifyVo.name}}</div>
-        <span class="likeContent">10人喜欢</span>
+        <span class="likeContent">{{this.articleObj.likeCount}}人喜欢</span>
         <span class="publishDate">发布于 {{this.formatDate}}</span>
         <div class="deleteBtn" @click="deleteArticle()">删除</div>
     </div>
