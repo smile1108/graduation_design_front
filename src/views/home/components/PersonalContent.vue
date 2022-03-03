@@ -1,8 +1,8 @@
 <template>
     <div id="personalContent">
         <ul class="contents">
-            <router-link class="contentItem" to="/myArticle" active-class="active">{{this.person}}的文章</router-link>
-            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢</router-link>
+            <router-link class="contentItem" to="/myArticle" active-class="active">{{this.person}}的文章<span class="articleSum">10</span></router-link>
+            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢<span class="articleSum">10</span></router-link>
             <router-link class="contentItem" :class="{showPersonalMessage: !this.showPersonalMessage}" to="/myMessage" active-class="active">个人信息</router-link>
         </ul>
     </div>
@@ -43,6 +43,18 @@
 
     #personalContent .contents {
         padding: 10px;
+    }
+
+    #personalContent .contents .articleSum {
+        display: inline-block;
+        background-color: rgb(160, 149, 149);
+        margin-left: 4px;
+        padding: 4px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        color: rgb(15, 45, 109);
+        font-size: 14px;
+        font-weight: 600;
     }
 
     #personalContent .contents .contentItem {
