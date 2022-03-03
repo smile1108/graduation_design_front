@@ -1,7 +1,7 @@
 <template>
   <div id="content">
       <MySelector :articleClassify="articleClassify" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"></MySelector>
-      <MyArticleList :articles="articles" :sumPage="sumPage" :userInfo="userInfo"></MyArticleList>
+      <MyArticleList :articles="articles" :sumPage="sumPage" :userInfo="userInfo" @changePage="changePage"></MyArticleList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
 </template>
@@ -48,7 +48,10 @@
             },
             deleteClassify(classify) {
                 this.$emit('deleteClassify', classify)
-            },  
+            },
+            changePage(page) {
+                this.$emit('changePage', page)
+            }
         }
     }
 </script>

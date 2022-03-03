@@ -18,7 +18,7 @@
       <div v-if="sumPage < 1" class="articleListTip">
           没有找到你需要的文章
       </div>
-      <PageComponent :pageMax="sumPage"></PageComponent>
+      <PageComponent :pageMax="sumPage" @changePage="changePage"></PageComponent>
   </div>
 </template>
 
@@ -121,6 +121,9 @@
                         window.location.href = 'login.html#/login'
                     }
                 })
+            },
+            changePage(page) {
+                this.$emit('changePage', page)
             }
         }
     }

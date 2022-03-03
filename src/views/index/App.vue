@@ -3,7 +3,8 @@
     <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo" @searchArticle="searchArticle"></MyHeader>
     <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
       @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted" :articles="articles"
-      :sumPage="sumPage" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"></router-view>
+      :sumPage="sumPage" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"
+      @changePage="changePage"></router-view>
   </div>
 </template>
 
@@ -225,6 +226,25 @@
         if(this.userInfo != null) {
           url = url + "?username=" + this.userInfo.username
         }
+        axios.get(url).then(res => {
+            if(res.data.code === 200) {
+                // 成功请求 设置文章的数组
+                this.articles = res.data.data.lists
+                this.sumPage = res.data.data.sumPage
+            }
+        })
+      },
+      changePage(page) {
+        // 当改变页数的时候 重新请求获取文章列表的接口
+        let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
+        let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr
+        if(this.searchContent != null && this.searchContent != "") {
+          url = url + "&keyword=" + this.searchContent
+        } 
+        if(this.userInfo != null) {
+          url = url + "&username=" + this.userInfo.username
+        }
+        url = url + "&page=" + (page - 1)
         axios.get(url).then(res => {
             if(res.data.code === 200) {
                 // 成功请求 设置文章的数组

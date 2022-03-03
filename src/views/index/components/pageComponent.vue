@@ -6,6 +6,7 @@
         <span v-for="pageNum in pageList"
             :key="pageNum"
             class="page-block center"
+            @click="jumpTargetPage(pageNum)"
             :class="{curPage: pageNum === page}">{{pageNum}}</span>
         <span v-if="pageMax-pageList[2]>2"
             class="page-block center">...</span>
@@ -63,6 +64,7 @@
                         this.pageList.pop(this.curPageMax)
                         this.curPageMax = this.curPageMax - 1
                     }
+                    this.$emit('changePage', this.page)
                 }
             },
             nextPage() {
@@ -76,7 +78,12 @@
                         this.pageList.push(this.page)
                         this.curPageMax = this.curPageMax + 1
                     }
+                    this.$emit('changePage', this.page)
                 }
+            },
+            jumpTargetPage(page) {
+                this.page = page
+                this.$emit('changePage', page)
             }
         }
     }

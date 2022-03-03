@@ -1,7 +1,7 @@
 <template>
     <div id="myArticle">
         <MyArticleItem v-for="article in myArticleList" :key="article.id" :articleObj="article" @deleteArticle="deleteArticle"></MyArticleItem>
-        <Page :pageMax="pageMax"></Page>
+        <Page :pageMax="pageMax" @changePage="changePage"></Page>
     </div>
 </template>
 
@@ -51,6 +51,18 @@
                         })
                     }
                 }
+            },
+            changePage(page) {
+                let url = "http://localhost:9527/article/getArticleListByUsername?username=" + this.userInfo.username + "&page=" + (page - 1)
+                axios.get(url).then(res => {
+                if(res.data.code === 200) {
+                    this.myArticleList = res.data.data.lists
+                    this.pageMax = res.data.data.sumPage
+                } else if(res.data.code === 519) {
+                    alert("用户身份认证过期, 请重新登录")
+                    window.location.href = 'login.html'
+                }
+            })
             }
         },
         mounted() {
