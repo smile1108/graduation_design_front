@@ -9,11 +9,45 @@
 
     import MyLikeArticleItem from './MyLikeArticleItem'
     import Page from '../../index/components/pageComponent'
+    import axios from 'axios'
 
     export default {
         name: 'MyLike',
         components: {
             MyLikeArticleItem, Page
+        },
+        data() {
+            return {
+                likeArticles: [],
+                pageMax: undefined,
+                likeSum: undefined
+            }
+        },
+        mounted() {
+            // 先根据 sessionStorage中的visitUser存在与否判断访问的是谁的主页
+            let visitUserObj = JSON.parse(sessionStorage.getItem('visitUser'))
+            if(visitUserObj != null) {
+                // 如果不为空 就获取对应用户喜欢的文章列表
+                let url = "http://localhost:9527/article/getLikeListByUser?username=" + visitUserObj.username
+                axios.get(url).then(res => {
+                    if(res.data.code === 200) {
+                        // 代表请求成功 然后赋值给当前页面的data数据
+                        this.likeArticles = res.data.data.lists
+                        this.pageMax = res.data.data.sumPage
+                        this.likeSum = res.data.data.count
+                        this.$emit('changeLikeSum', this.likeSum)
+                    } else if(res.data.code === 519) {
+                        alert("用户身份认证过期, 请重新登录")
+                        window.location.href = 'login.html'
+                    }
+                })
+            } else {
+                // 代表非法请求 弹窗警告 然后跳转至 首页
+                alert("非法请求")
+                window.location.href = "index.html"
+            }
+            // 调用 获取喜欢文章列表的接口
+            
         }
     }
 </script>

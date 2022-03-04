@@ -19,8 +19,7 @@
             }
         },
         computed: {
-            formatDate() {  
-                console.log(this.articleObj.publishDate)
+            formatDate() { 
                 const arr = this.articleObj.publishDate.split('T');
                 const d = arr[0];
 

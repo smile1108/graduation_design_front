@@ -2,7 +2,7 @@
     <div id="personalContent">
         <ul class="contents">
             <router-link class="contentItem" to="/myArticle" active-class="active">{{this.person}}的文章<span class="articleSum">{{this.articleSum}}</span></router-link>
-            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢<span class="articleSum">100</span></router-link>
+            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢<span class="articleSum">{{this.likeSum}}</span></router-link>
             <router-link class="contentItem" :class="{showPersonalMessage: !this.showPersonalMessage}" to="/myMessage" active-class="active">个人信息</router-link>
         </ul>
     </div>
@@ -17,7 +17,8 @@
         props: {
             showPersonalMessage: Boolean,
             person: String,
-            articleSum: Number
+            articleSum: Number,
+            likeSum: Number
         }
     }
 </script>

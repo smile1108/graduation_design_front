@@ -58,7 +58,6 @@
         },
         methods: {
             jumpAuthorHome(userInfo) {
-                console.log(JSON.stringify(userInfo))
                 // 这里要根据点击的用户名 来获取对应的用户信息
                 // 通过在sessionStorage中设置一个值来区分当前是访问别人的主页还是自己的主页
                 sessionStorage.setItem('visitUser', JSON.stringify(userInfo))
