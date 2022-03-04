@@ -2,7 +2,7 @@
   <div id="home">
       <PersonalMessage :userInfo="userInfo" :showPersonalMessage="showPersonalMessage"></PersonalMessage>
       <PersonalContent :showPersonalMessage="showPersonalMessage" :person="person"></PersonalContent>
-      <router-view :userInfo="userInfo"></router-view>
+      <router-view :userInfo="userInfo" :showPersonalMessage="showPersonalMessage"></router-view>
   </div>
 </template>
 

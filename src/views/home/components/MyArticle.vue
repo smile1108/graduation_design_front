@@ -1,6 +1,7 @@
 <template>
     <div id="myArticle">
-        <MyArticleItem v-for="article in myArticleList" :key="article.id" :articleObj="article" @deleteArticle="deleteArticle"></MyArticleItem>
+        <MyArticleItem v-for="article in myArticleList" :key="article.id" :articleObj="article" @deleteArticle="deleteArticle"
+        :showPersonalMessage="showPersonalMessage"></MyArticleItem>
         <Page :pageMax="pageMax" @changePage="changePage"></Page>
     </div>
 </template>
@@ -17,7 +18,8 @@
             MyArticleItem, Page
         },
         props: {
-            userInfo: Object
+            userInfo: Object,
+            showPersonalMessage: Boolean
         },
         data() {
             return {

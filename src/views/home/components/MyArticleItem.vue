@@ -2,7 +2,7 @@
     <div id="articleItem">
         <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
         <MyArticleContent :articleContent="articleObj.textContent"></MyArticleContent>
-        <MyArticleFooter :articleObj="articleObj" @deleteArticle="deleteArticle"></MyArticleFooter>
+        <MyArticleFooter :articleObj="articleObj" @deleteArticle="deleteArticle" :showPersonalMessage="showPersonalMessage"></MyArticleFooter>
     </div>
 </template>
 
@@ -18,7 +18,8 @@
             MyArticleHeader, MyArticleContent, MyArticleFooter
         },
         props: {
-            articleObj: Object
+            articleObj: Object,
+            showPersonalMessage: Boolean
         },
         methods: {
             deleteArticle() {
