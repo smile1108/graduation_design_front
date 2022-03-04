@@ -1,8 +1,8 @@
 <template>
     <div id="likeArticleItem">
-        <MyArticleHeader></MyArticleHeader>
-        <MyArticleContent></MyArticleContent>
-        <MyLikeArticleFooter></MyLikeArticleFooter>
+        <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
+        <MyArticleContent :articleContent="articleObj.textContent"></MyArticleContent>
+        <MyLikeArticleFooter :articleObj="articleObj"></MyLikeArticleFooter>
     </div>
 </template>
 
@@ -16,6 +16,9 @@
         name: "MyLikeArticleItem",
         components: {
             MyArticleHeader, MyArticleContent, MyLikeArticleFooter
+        },
+        props: {
+            articleObj: Object
         }
     }
 </script>

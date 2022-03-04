@@ -1,6 +1,6 @@
 <template>
     <div id="myLike">
-        <MyLikeArticleItem></MyLikeArticleItem>
+        <MyLikeArticleItem v-for="articleObj in likeArticles" :key="articleObj.id" :articleObj="articleObj"></MyLikeArticleItem>
         <Page></Page>
     </div>
 </template>
@@ -46,8 +46,6 @@
                 alert("非法请求")
                 window.location.href = "index.html"
             }
-            // 调用 获取喜欢文章列表的接口
-            
         }
     }
 </script>
