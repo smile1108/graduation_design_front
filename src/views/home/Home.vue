@@ -1,8 +1,8 @@
 <template>
   <div id="home">
       <PersonalMessage :userInfo="userInfo" :showPersonalMessage="showPersonalMessage"></PersonalMessage>
-      <PersonalContent :showPersonalMessage="showPersonalMessage" :person="person" :articleSum="articleSum" :likeSum="likeSum"></PersonalContent>
-      <router-view :userInfo="userInfo" @changeArticleSum="changeArticleSum" @changeLikeSum="changeLikeSum"></router-view>
+      <PersonalContent :showPersonalMessage="showPersonalMessage" :person="person"></PersonalContent>
+      <router-view :userInfo="userInfo"></router-view>
   </div>
 </template>
 
@@ -49,16 +49,6 @@
                 userInfo: {},
                 person: '我',  // 默认访问自己的主页 人称为我
                 showPersonalMessage: true,  // 默认访问自己的主页 要显示个人信息 如果访问别人主页 则不显示
-                articleSum: undefined,
-                likeSum: undefined
-            }
-        },
-        methods: {
-            changeArticleSum(sum) {
-                this.articleSum = sum
-            },
-            changeLikeSum(sum) {
-                this.likeSum = sum
             }
         }
     }

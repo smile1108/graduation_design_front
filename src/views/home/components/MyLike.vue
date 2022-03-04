@@ -20,7 +20,6 @@
             return {
                 likeArticles: [],
                 pageMax: undefined,
-                likeSum: undefined
             }
         },
         mounted() {
@@ -34,8 +33,6 @@
                         // 代表请求成功 然后赋值给当前页面的data数据
                         this.likeArticles = res.data.data.lists
                         this.pageMax = res.data.data.sumPage
-                        this.likeSum = res.data.data.count
-                        this.$emit('changeLikeSum', this.likeSum)
                     } else if(res.data.code === 519) {
                         alert("用户身份认证过期, 请重新登录")
                         window.location.href = 'login.html'

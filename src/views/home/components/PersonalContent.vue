@@ -9,6 +9,9 @@
 </template>
 
 <script>
+
+    import axios from 'axios'
+
     export default {
         name: 'PersonalContent',
         components: {
@@ -16,9 +19,36 @@
         },
         props: {
             showPersonalMessage: Boolean,
-            person: String,
-            articleSum: Number,
-            likeSum: Number
+            person: String
+        },
+        data() {
+            return {
+                articleSum: undefined,
+                likeSum: undefined
+            }
+        },
+        mounted() {
+            // 当这个组件渲染完成之后调用统计 用户文章以及喜欢文章数量的接口
+            let visitUserObj = JSON.parse(sessionStorage.getItem('visitUser'))
+            if(visitUserObj != null) {
+                let countArticleUrl = "http://localhost:9527/article/countArticleByUser?username=" + visitUserObj.username
+                let countLikeUrl = "http://localhost:9527/article/countLikeByUser?username=" + visitUserObj.username
+                axios.get(countArticleUrl).then(res => {
+                    if(res.data.code === 200) {
+                        // 代表请求成功
+                        this.articleSum = res.data.data
+                    }
+                })
+                axios.get(countLikeUrl).then(res => {
+                    if(res.data.code === 200) {
+                        this.likeSum = res.data.data
+                    }
+                })
+            } else {
+                alert("非法访问")
+                window.location.href = "index.html"
+            }
+            
         }
     }
 </script>
