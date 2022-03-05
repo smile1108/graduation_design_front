@@ -12,7 +12,8 @@
                   </div>
                   <div class="classifyDiv">{{article.classifyVo.name}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
-                  <div v-if="userInfo == null || userInfo.username != article.userVo.username" :class="[{followBtn: !article.follow},{unfollowBtn: article.follow}]"><span class="iconfont">{{article.follow ? "" : "&#xe603;"}}</span>{{article.follow ? "取消关注" : "关注作者"}}</div>
+                  <div v-if="userInfo == null || userInfo.username != article.userVo.username" :class="[{followBtn: !article.follow},{unfollowBtn: article.follow}]"
+                  @click="clickFollow(article)"><span class="iconfont">{{article.follow ? "" : "&#xe603;"}}</span>{{article.follow ? "取消关注" : "关注作者"}}</div>
               </div>
           </div>
       </div>
@@ -65,11 +66,27 @@
                 // 然后跳转到home page
                 window.location.href = 'home.html'
             },
+            // 点击关注按钮之后调用的方法
+            clickFollow(article) {
+                if(this.userInfo == null || this.userInfo == undefined) {
+                    // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
+                    alert("进行此操作,需要您先登录")
+                    window.location.href = 'login.html'
+                } else {
+                    // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
+                    if(article.follow) {
+                        this.callUnfollow(this.userInfo.username, article)
+                    } else {
+                        // 否则调用喜欢的接口
+                        this.callFollow(this.userInfo.username, article)
+                    }
+                }
+            },
             // 点击喜欢的iconfont的方法
             clickIcon(article) {
                 if(this.userInfo == null || this.userInfo == undefined) {
                     // 如果当前userInfo 为null  代表没有登录 此时不能进行喜欢操作 要跳转到登录页面
-                    alert("进行次操作,需要您先登录")
+                    alert("进行此操作,需要您先登录")
                     window.location.href = 'login.html'
                 } else {
                     // 根据当前文章是否喜欢 来调用后端喜欢或者不喜欢的接口
@@ -96,6 +113,30 @@
                         this.callLike(this.userInfo.username, article)
                     }
                 }
+            },
+            callUnfollow(username, article) {
+                let url = "http://localhost:9527/user/unfollow?username=" + username + "&followUsername=" + article.userVo.username
+                axios.get(url).then(res => {
+                    if(res.data.code === 200) {
+                        this.$router.go(0)
+                    } else if(res.data.code === 519) {
+                        // 表示用户身份认证信息 过期 跳转到登录页面
+                        alert('用户身份认证信息过期, 请重新登录')
+                        window.location.href = 'login.html#/login'
+                    }
+                })
+            },
+            callFollow(username, article) {
+                let url = "http://localhost:9527/user/follow?username=" + username + "&followUsername=" + article.userVo.username
+                axios.get(url).then(res => {
+                    if(res.data.code === 200) {
+                        this.$router.go(0)
+                    } else if(res.data.code === 519) {
+                        // 表示用户身份认证信息已经过期 跳转到登录页面
+                        alert('用户身份认证信息过期, 请重新登录')
+                        window.location.href = 'login.html$/login'
+                    }
+                })
             },
             callUnlike(username, article) {
                 // 代表当前是喜欢的状态 就调用不喜欢的接口
