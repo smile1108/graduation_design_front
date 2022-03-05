@@ -1,7 +1,8 @@
 <template>
   <div id="content">
       <MySelector :articleClassify="articleClassify" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"></MySelector>
-      <MyArticleList :articles="articles" :sumPage="sumPage" :userInfo="userInfo" @changePage="changePage"></MyArticleList>
+      <MyArticleList :articles="articles" :sumPage="sumPage" :userInfo="userInfo" @changePage="changePage"
+      @refreshArticles="refreshArticles"></MyArticleList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
 </template>
@@ -51,6 +52,9 @@
             },
             changePage(page) {
                 this.$emit('changePage', page)
+            },
+            refreshArticles() {
+                this.$emit('refreshArticles')
             }
         }
     }

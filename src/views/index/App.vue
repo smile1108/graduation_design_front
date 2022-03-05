@@ -4,7 +4,7 @@
     <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
       @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted" :articles="articles"
       :sumPage="sumPage" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"
-      @changePage="changePage"></router-view>
+      @changePage="changePage" @refreshArticles="refreshArticles"></router-view>
   </div>
 </template>
 
@@ -222,10 +222,12 @@
         })
       },
       searchArticleMounted() {
-        let url = 'http://localhost:9527/article/searchArticle'
+        let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
+        let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr
         if(this.userInfo != null) {
-          url = url + "?username=" + this.userInfo.username
+          url = url + "&username=" + this.userInfo.username
         }
+        url = url + "&keyword=" + this.searchContent
         axios.get(url).then(res => {
             if(res.data.code === 200) {
                 // 成功请求 设置文章的数组
@@ -252,6 +254,9 @@
                 this.sumPage = res.data.data.sumPage
             }
         })
+      },
+      refreshArticles() {
+        this.searchArticleMounted()
       }
     },
     mounted() {// 当页面dom渲染好之后 进行自动登录的请求

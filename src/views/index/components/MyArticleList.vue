@@ -118,7 +118,7 @@
                 let url = "http://localhost:9527/user/unfollow?username=" + username + "&followUsername=" + article.userVo.username
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
-                        this.$router.go(0)
+                        this.$emit('refreshArticles')
                     } else if(res.data.code === 519) {
                         // 表示用户身份认证信息 过期 跳转到登录页面
                         alert('用户身份认证信息过期, 请重新登录')
@@ -130,7 +130,7 @@
                 let url = "http://localhost:9527/user/follow?username=" + username + "&followUsername=" + article.userVo.username
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
-                        this.$router.go(0)
+                        this.$emit('refreshArticles')
                     } else if(res.data.code === 519) {
                         // 表示用户身份认证信息已经过期 跳转到登录页面
                         alert('用户身份认证信息过期, 请重新登录')
