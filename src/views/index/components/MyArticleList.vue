@@ -12,6 +12,7 @@
                   </div>
                   <div class="classifyDiv">{{article.classifyVo.name}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
+                  <div v-if="userInfo == null || userInfo.username != article.userVo.username" class="followBtn"><span class="iconfont">&#xe603;</span>关注作者</div>
               </div>
           </div>
       </div>
@@ -57,10 +58,10 @@
             }
         },
         methods: {
-            jumpAuthorHome(userInfo) {
+            jumpAuthorHome(user) {
                 // 这里要根据点击的用户名 来获取对应的用户信息
                 // 通过在sessionStorage中设置一个值来区分当前是访问别人的主页还是自己的主页
-                sessionStorage.setItem('visitUser', JSON.stringify(userInfo))
+                sessionStorage.setItem('visitUser', JSON.stringify(user))
                 // 然后跳转到home page
                 window.location.href = 'home.html'
             },
@@ -290,5 +291,29 @@
         margin-left: 50px;
         font-size: 14px;
         color: #42474d;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .followBtn {
+        float: left;
+        margin-top: 8px;
+        margin-left: 50px;
+        background-color: #3a74ca;
+        width: 100px;
+        line-height: 26px;
+        text-align: center;
+        color: #fff;
+        border: 1px solid #3a74ca;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 3px;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .followBtn:hover {
+        background-color: #143f80;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .followBtn .iconfont {
+        font-size: 12spx;
+        margin-right: 4px;
     }
 </style>
