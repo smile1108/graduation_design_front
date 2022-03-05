@@ -12,7 +12,7 @@
                   </div>
                   <div class="classifyDiv">{{article.classifyVo.name}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
-                  <div v-if="userInfo == null || userInfo.username != article.userVo.username" class="followBtn"><span class="iconfont">&#xe603;</span>关注作者</div>
+                  <div v-if="userInfo == null || userInfo.username != article.userVo.username" :class="[{followBtn: !article.follow},{unfollowBtn: article.follow}]"><span class="iconfont">{{article.follow ? "" : "&#xe603;"}}</span>{{article.follow ? "取消关注" : "关注作者"}}</div>
               </div>
           </div>
       </div>
@@ -306,6 +306,25 @@
         box-sizing: border-box;
         font-size: 14px;
         border-radius: 3px;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .unfollowBtn {
+        float: left;
+        margin-top: 8px;
+        margin-left: 50px;
+        background-color: #757a81;
+        width: 100px;
+        line-height: 26px;
+        text-align: center;
+        color: #fff;
+        border: 1px solid #757a81;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 3px;
+    }
+
+    #articleList .articleDiv .authorMsg .userOperator .unfollowBtn:hover {
+        background-color: #3a3e44;
     }
 
     #articleList .articleDiv .authorMsg .userOperator .followBtn:hover {
