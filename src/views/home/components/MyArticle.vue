@@ -74,8 +74,6 @@
                 if(res.data.code === 200) {
                     this.myArticleList = res.data.data.lists
                     this.pageMax = res.data.data.sumPage
-                    this.articleSum = res.data.data.count
-                    this.$emit('changeArticleSum', this.articleSum)
                 } else if(res.data.code === 519) {
                     alert("用户身份认证过期, 请重新登录")
                     window.location.href = 'login.html'
