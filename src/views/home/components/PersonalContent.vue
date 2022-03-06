@@ -35,6 +35,7 @@
             if(visitUserObj != null) {
                 let countArticleUrl = "http://localhost:9527/article/countArticleByUser?username=" + visitUserObj.username
                 let countLikeUrl = "http://localhost:9527/article/countLikeByUser?username=" + visitUserObj.username
+                let countFollowUrl = "http://localhost:9527/user/countFollow?username=" + visitUserObj.username
                 axios.get(countArticleUrl).then(res => {
                     if(res.data.code === 200) {
                         // 代表请求成功
@@ -44,6 +45,11 @@
                 axios.get(countLikeUrl).then(res => {
                     if(res.data.code === 200) {
                         this.likeSum = res.data.data
+                    }
+                })
+                axios.get(countFollowUrl).then(res => {
+                    if(res.data.code === 200) {
+                        this.followSum = res.data.data
                     }
                 })
             } else {
