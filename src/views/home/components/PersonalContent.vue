@@ -1,8 +1,9 @@
 <template>
     <div id="personalContent">
         <ul class="contents">
-            <router-link class="contentItem" to="/myArticle" active-class="active">{{this.person}}的文章<span class="articleSum">{{this.articleSum}}</span></router-link>
-            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢<span class="articleSum">{{this.likeSum}}</span></router-link>
+            <router-link class="contentItem" to="/myArticle" active-class="active">{{this.person}}的文章<span class="sumStatistics">{{this.articleSum}}</span></router-link>
+            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢<span class="sumStatistics">{{this.likeSum}}</span></router-link>
+            <router-link class="contentItem" to="/myFollow" active-class="active">{{this.person}}的关注<span class="sumStatistics">{{this.followSum}}</span></router-link>
             <router-link class="contentItem" :class="{showPersonalMessage: !this.showPersonalMessage}" to="/myMessage" active-class="active">个人信息</router-link>
         </ul>
     </div>
@@ -24,7 +25,8 @@
         data() {
             return {
                 articleSum: undefined,
-                likeSum: undefined
+                likeSum: undefined,
+                followSum: 10
             }
         },
         mounted() {
@@ -77,7 +79,7 @@
         padding: 10px;
     }
 
-    #personalContent .contents .articleSum {
+    #personalContent .contents .sumStatistics {
         display: inline-block;
         background-color: rgb(160, 149, 149);
         margin-left: 4px;
