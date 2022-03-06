@@ -87,14 +87,11 @@
 
     #personalContent .contents .sumStatistics {
         display: inline-block;
-        background-color: rgb(160, 149, 149);
-        margin-left: 4px;
         width: 30px;
         height: 30px;
         line-height: 30px;
         text-align: center;
-        border-radius: 50%;
-        color: rgb(15, 45, 109);
+        color: rgb(213, 92, 48);
         font-size: 14px;
         font-weight: 600;
     }
