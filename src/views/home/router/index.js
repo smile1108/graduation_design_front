@@ -8,23 +8,23 @@ import MyFollow from '../components/MyFollow'
 export default new VueRouter({
     routes: [
         {
-            path: '/',
-            redirect: 'myArticle'
+            path: '/:username',
+            redirect: "/myArticle/:username"
         },
         {
-            path: '/myArticle',
+            path: '/myArticle/:username',
             component: MyArticle
         },
         {
-            path: '/myLike',
+            path: '/myLike/:username',
             component: MyLike
         },
         {
-            path: '/myFollow',
+            path: '/myFollow/:username',
             component: MyFollow
         },
         {
-            path: '/myMessage',
+            path: '/myMessage/:username',
             component: MyMessage
         }
     ]

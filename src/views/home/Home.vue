@@ -9,40 +9,38 @@
 <script>
     import PersonalMessage from './components/PersonalMessage'
     import PersonalContent from './components/PersonalContent'
+    import axios from 'axios'
 
     export default {
         name: 'Home',
         components: {
             PersonalMessage, PersonalContent
         },
-        created() {
-            // 先看看是否存在 key 为visitUser的值
-            let visitUser = JSON.parse(sessionStorage.getItem('visitUser'))
-            if(visitUser == null) {
-                // 如果访问的visitUser为null  表示当前访问的是自己的主页
-                // 然后就将自己的信息 赋值给data中的userInfo
-                this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-            } else {
-                let userInfoObj = JSON.parse(sessionStorage.getItem('userInfo'))
-                if(visitUser.username == userInfoObj.username) {
-                    // 如果 visitUser 和 userInfo中的字符串相等 表示是访问的自己的主页
-                    // 这时就赋值给data中的userInfo
-                    this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-                } else {
-                    // 两者信息不同 表示访问的是别人的主页
-                    // 这时候要将data中的userInfo设置为别人的信息
-                    this.userInfo = visitUser
-                    // 然后设置是否展示个人信息 
-                    this.showPersonalMessage = false
-                    // 然后根据别人的性别 设置人称
-                    if(visitUser.gender == null || visitUser.gender === "" || visitUser.gender === 'male') {
-                        // 如果性别未填写 默认为男他
-                        this.person = '他'
-                    } else if(visitUser.gender === 'female') {
-                        this.person = '她'
+        mounted() {
+            // 使用动态路由的参数之后 就不需要通过sessionStorage中是否存在visitUser来判断了 
+            // 这时候动态参数传递进来的就是访问的用户的username
+            // 然后通过这个动态参数 请求后端的接口 获取对应的用户信息
+            let url = "http://localhost:9527/user/getUserByUsername?username=" + this.$route.params.username
+            axios.get(url).then(res => {
+                if(res.data.code === 200) {
+                    // 如果请求成功 就设置userInfo为获取到的用户信息
+                    this.userInfo = JSON.parse(JSON.stringify(res.data.data))
+                    // 然后判断用户是不是访问的自己的主页 
+                    if(this.$route.params.username != JSON.parse(sessionStorage.getItem('userInfo')).username) {
+                        // 如果不相等 表示访问的别人的主页 这时候需要设置显示个人信息为false
+                        this.showPersonalMessage = false
+                        // 然后根据访问的用户的信息判断人称
+                        if(this.userInfo.gender === null || this.userInfo.gender == 'male') {
+                            this.person = '他'
+                        } else {
+                            this.person = '她'
                     }
-                }
             }
+                } else if(res.data.code === 519) {
+                    alert("用户登录认证信息已过期, 请重新登录")
+                    window.location.href = "login.html#/login"
+                }
+            })
         },
         data() {
             return {

@@ -47,11 +47,9 @@
             },
             returnIndex() {
                 window.location.href = 'index.html'
-                // 返回首页的同时 删除sessionStorage中的visitUser信息
-                sessionStorage.removeItem('visitUser')
             },
             returnHome() {
-                sessionStorage.setItem('visitUser', sessionStorage.getItem('userInfo'))
+                window.location.href = 'home.html#/' + JSON.parse(sessionStorage.getItem('userInfo')).username
                 this.$router.go(0)
             }
         },

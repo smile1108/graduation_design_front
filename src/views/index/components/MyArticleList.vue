@@ -61,10 +61,8 @@
         methods: {
             jumpAuthorHome(user) {
                 // 这里要根据点击的用户名 来获取对应的用户信息
-                // 通过在sessionStorage中设置一个值来区分当前是访问别人的主页还是自己的主页
-                sessionStorage.setItem('visitUser', JSON.stringify(user))
                 // 然后跳转到home page
-                window.location.href = 'home.html'
+                window.location.href = 'home.html#/' +  user.username
             },
             // 点击关注按钮之后调用的方法
             clickFollow(article) {
@@ -134,7 +132,7 @@
                     } else if(res.data.code === 519) {
                         // 表示用户身份认证信息已经过期 跳转到登录页面
                         alert('用户身份认证信息过期, 请重新登录')
-                        window.location.href = 'login.html$/login'
+                        window.location.href = 'login.html#/login'
                     }
                 })
             },

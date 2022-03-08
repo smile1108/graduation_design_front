@@ -33,8 +33,8 @@
         },
         methods: {
             jumpFollowHome() {
-                sessionStorage.setItem('visitUser', JSON.stringify(this.followUserObj))
-                window.location.href = 'home.html'
+                window.location.href = 'home.html#/' + this.followUserObj.username
+                this.$router.go(0)
             },
             unfollow() {
                 if(confirm("您确定要取消关注吗?")) {

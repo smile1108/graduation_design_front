@@ -49,6 +49,7 @@
         this.userInfo = null
         // 删除sessionStorage中的userInfo Item
         sessionStorage.removeItem('userInfo')
+        this.$router.go(0)
       },
       // 获取用户所有待办事项的方法
       getAllBacklog() {

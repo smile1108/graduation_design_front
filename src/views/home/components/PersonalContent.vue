@@ -1,10 +1,10 @@
 <template>
     <div id="personalContent">
         <ul class="contents">
-            <router-link class="contentItem" to="/myArticle" active-class="active">{{this.person}}的文章<span class="sumStatistics">{{this.articleSum}}</span></router-link>
-            <router-link class="contentItem" to="/myLike" active-class="active">{{this.person}}的喜欢<span class="sumStatistics">{{this.likeSum}}</span></router-link>
-            <router-link class="contentItem" to="/myFollow" active-class="active">{{this.person}}的关注<span class="sumStatistics">{{this.followSum}}</span></router-link>
-            <router-link class="contentItem" :class="{showPersonalMessage: !this.showPersonalMessage}" to="/myMessage" active-class="active">个人信息</router-link>
+            <router-link class="contentItem" :to="{path: '/myArticle/' + this.$route.params.username}" active-class="active">{{this.person}}的文章<span class="sumStatistics">{{this.articleSum}}</span></router-link>
+            <router-link class="contentItem" :to="{path: '/myLike/' + this.$route.params.username}" active-class="active">{{this.person}}的喜欢<span class="sumStatistics">{{this.likeSum}}</span></router-link>
+            <router-link class="contentItem" :to="{path: '/myFollow/' + this.$route.params.username}" active-class="active">{{this.person}}的关注<span class="sumStatistics">{{this.followSum}}</span></router-link>
+            <router-link class="contentItem" :class="{showPersonalMessage: !this.showPersonalMessage}" :to="{path: '/myMessage/' + this.$route.params.username}" active-class="active">个人信息</router-link>
         </ul>
     </div>
 </template>
@@ -31,32 +31,25 @@
         },
         mounted() {
             // 当这个组件渲染完成之后调用统计 用户文章以及喜欢文章数量的接口
-            let visitUserObj = JSON.parse(sessionStorage.getItem('visitUser'))
-            if(visitUserObj != null) {
-                let countArticleUrl = "http://localhost:9527/article/countArticleByUser?username=" + visitUserObj.username
-                let countLikeUrl = "http://localhost:9527/article/countLikeByUser?username=" + visitUserObj.username
-                let countFollowUrl = "http://localhost:9527/user/countFollow?username=" + visitUserObj.username
-                axios.get(countArticleUrl).then(res => {
-                    if(res.data.code === 200) {
-                        // 代表请求成功
-                        this.articleSum = res.data.data
-                    }
-                })
-                axios.get(countLikeUrl).then(res => {
-                    if(res.data.code === 200) {
-                        this.likeSum = res.data.data
-                    }
-                })
-                axios.get(countFollowUrl).then(res => {
-                    if(res.data.code === 200) {
-                        this.followSum = res.data.data
-                    }
-                })
-            } else {
-                alert("非法访问")
-                window.location.href = "index.html"
-            }
-            
+            let countArticleUrl = "http://localhost:9527/article/countArticleByUser?username=" + this.$route.params.username
+            let countLikeUrl = "http://localhost:9527/article/countLikeByUser?username=" + this.$route.params.username
+            let countFollowUrl = "http://localhost:9527/user/countFollow?username=" + this.$route.params.username
+            axios.get(countArticleUrl).then(res => {
+                if(res.data.code === 200) {
+                    // 代表请求成功
+                    this.articleSum = res.data.data
+                }
+            })
+            axios.get(countLikeUrl).then(res => {
+                if(res.data.code === 200) {
+                    this.likeSum = res.data.data
+                }
+            })
+            axios.get(countFollowUrl).then(res => {
+                if(res.data.code === 200) {
+                    this.followSum = res.data.data
+                }
+            })
         }
     }
 </script>

@@ -47,10 +47,7 @@
             },
             jumpToHome() {
                 // 当点击Header中的头像时 跳转到自己的主页
-                // 先在sessionStorage中设置 visitUser
-                sessionStorage.setItem('visitUser', JSON.stringify(this.userInfo))
-                // 跳转
-                window.location.href = 'home.html'
+                window.location.href = 'home.html#/' + this.userInfo.username
             },
             searchArticle() {
                 this.$emit('searchArticle', this.searchContent)

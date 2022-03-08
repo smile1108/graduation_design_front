@@ -44,7 +44,7 @@
         },
         mounted() {
             // 当页面渲染完成之后 调用获取关注列表的接口
-            let url = "http://localhost:9527/user/getFollowList?username=" + this.userInfo.username
+            let url = "http://localhost:9527/user/getFollowList?username=" + this.$route.params.username
             axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     this.myFollowList = res.data.data.lists
