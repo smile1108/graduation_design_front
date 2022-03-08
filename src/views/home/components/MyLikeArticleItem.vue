@@ -2,7 +2,7 @@
     <div id="likeArticleItem">
         <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
         <MyArticleContent :articleContent="articleObj.textContent"></MyArticleContent>
-        <MyLikeArticleFooter :articleObj="articleObj"></MyLikeArticleFooter>
+        <MyLikeArticleFooter :articleObj="articleObj" :userInfo="userInfo"></MyLikeArticleFooter>
     </div>
 </template>
 
@@ -18,7 +18,8 @@
             MyArticleHeader, MyArticleContent, MyLikeArticleFooter
         },
         props: {
-            articleObj: Object
+            articleObj: Object,
+            userInfo: Object
         }
     }
 </script>

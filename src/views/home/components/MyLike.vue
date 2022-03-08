@@ -1,6 +1,7 @@
 <template>
     <div id="myLike">
-        <MyLikeArticleItem v-for="articleObj in likeArticles" :key="articleObj.id" :articleObj="articleObj"></MyLikeArticleItem>
+        <MyLikeArticleItem v-for="articleObj in likeArticles" :key="articleObj.id" :articleObj="articleObj"
+        :userInfo="userInfo"></MyLikeArticleItem>
         <Page :pageMax="pageMax" @changePage="changePage"></Page>
     </div>
 </template>
@@ -21,6 +22,9 @@
                 likeArticles: [],
                 pageMax: undefined,
             }
+        },
+        props: {
+            userInfo: Object
         },
         mounted() {
             // 先根据 sessionStorage中的visitUser存在与否判断访问的是谁的主页
