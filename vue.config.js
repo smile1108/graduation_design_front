@@ -27,6 +27,13 @@ module.exports = {
             filename: "home.html", // 打包后的html文件名称
             title: "主页", // 打包后的html中<title>标签的文本内容
             faviconPath: "favicon.ico"
+        },
+        article: {
+            entry: "./src/views/article/article.js", // 配置入口js文件
+            template: "./src/views/article/article.html", // 主页面
+            filename: "article.html", // 打包后的html文件名称
+            title: "文章",
+            faviconPath: "favicon.ico"
         }
     }
   }

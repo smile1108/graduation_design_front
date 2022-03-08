@@ -1,8 +1,8 @@
 <template>
   <div id="articleList">
-      <div class="articleDiv" v-for="article in articles" :key="article.id">
-          <h2 class="articleTitle">{{article.title}}</h2>
-          <div class="articleContent">{{article.textContent}}</div>
+      <div class="articleDiv" v-for="article in articles" :key="article.id" @click="jumpArticle(article.id)">
+          <h2 class="articleTitle" @click="jumpArticle(article.id)">{{article.title}}</h2>
+          <div class="articleContent" @click="jumpArticle(article.id)">{{article.textContent}}</div>
           <div class="authorMsg">
               <img :src="article.userVo.profile" alt="头像" @click="jumpAuthorHome(article.userVo)">
               <div class="authorName">{{article.userVo.nickname}}</div>
@@ -63,6 +63,10 @@
                 // 这里要根据点击的用户名 来获取对应的用户信息
                 // 然后跳转到home page
                 window.location.href = 'home.html#/' +  user.username
+            },
+            jumpArticle(articleId) {
+                // 跳转文章信息的方法
+                window.location.href = "article.html#/" + articleId
             },
             // 点击关注按钮之后调用的方法
             clickFollow(article) {
