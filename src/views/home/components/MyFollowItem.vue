@@ -10,7 +10,7 @@
                 <span class="followNumber">{{followUserObj.followSum}} 人关注了他</span>
                 <span class="articleNumber">他有 {{followUserObj.articleSum}} 篇文章</span>
                 <div class="homeBtn" @click="jumpFollowHome()">去他主页</div>
-                <div class="unfollowBtn" @click="unfollow()">取消关注</div>
+                <div class="unfollowBtn" @click="unfollow()" v-if="this.userInfo.username == this.loginUser.username">取消关注</div>
             </div>
         </div>
     </div>
@@ -25,6 +25,11 @@
         props: {
             followUserObj: Object,
             userInfo: Object
+        },
+        data() {
+            return {
+                loginUser: Object
+            }
         },
         methods: {
             jumpFollowHome() {
@@ -46,6 +51,9 @@
                     })
                 }
             }
+        },
+        mounted() {
+            this.loginUser = JSON.parse(sessionStorage.getItem('userInfo'))
         }
     }
 </script>

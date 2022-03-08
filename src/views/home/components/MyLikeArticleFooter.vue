@@ -5,7 +5,7 @@
         <div class="classify">{{articleObj.classifyVo.name}}</div>
         <div class="likeCount">{{articleObj.likeCount}}人喜欢此文章</div>
         <div class="publishDate">发布于 {{this.formatDate}}</div>
-        <div class="unlikeBtn" @click="unlike()">取消喜欢</div>
+        <div class="unlikeBtn" @click="unlike()" v-if="this.loginUser.username == this.userInfo.username">取消喜欢</div>
     </div>
 </template>
 
@@ -18,6 +18,11 @@
         props: {
             articleObj: Object,
             userInfo: Object
+        },
+        data() {
+            return {
+                loginUser: Object
+            }
         },
         computed: {
             formatDate() { 
@@ -48,6 +53,9 @@
                     })
                 }
             }
+        },
+        mounted() {
+            this.loginUser = JSON.parse(sessionStorage.getItem('userInfo'))
         }
     }
 </script>
