@@ -9,7 +9,7 @@
             <div class="otherMessage">
                 <span class="followNumber">{{followUserObj.followSum}} 人关注了他</span>
                 <span class="articleNumber">他有 {{followUserObj.articleSum}} 篇文章</span>
-                <div class="homeBtn">去他主页</div>
+                <div class="homeBtn" @click="jumpFollowHome()">去他主页</div>
                 <div class="unfollowBtn">取消关注</div>
             </div>
         </div>
@@ -21,6 +21,12 @@
         name: "MyFollowItem",
         props: {
             followUserObj: Object
+        },
+        methods: {
+            jumpFollowHome() {
+                sessionStorage.setItem('visitUser', JSON.stringify(this.followUserObj))
+                window.location.href = 'home.html'
+            }
         }
     }
 </script>
