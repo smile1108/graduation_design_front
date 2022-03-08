@@ -10,22 +10,41 @@
                 <span class="followNumber">{{followUserObj.followSum}} 人关注了他</span>
                 <span class="articleNumber">他有 {{followUserObj.articleSum}} 篇文章</span>
                 <div class="homeBtn" @click="jumpFollowHome()">去他主页</div>
-                <div class="unfollowBtn">取消关注</div>
+                <div class="unfollowBtn" @click="unfollow()">取消关注</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+
+    import axios from 'axios'
+
     export default {
         name: "MyFollowItem",
         props: {
-            followUserObj: Object
+            followUserObj: Object,
+            userInfo: Object
         },
         methods: {
             jumpFollowHome() {
                 sessionStorage.setItem('visitUser', JSON.stringify(this.followUserObj))
                 window.location.href = 'home.html'
+            },
+            unfollow() {
+                if(confirm("您确定要取消关注吗?")) {
+                    // 取消关注的方法
+                    let url = "http://localhost:9527/user/unfollow?username=" + this.userInfo.username + "&followUsername=" + this.followUserObj.username
+                    axios.get(url).then(res => {
+                        if(res.data.code === 200) {
+                            // 代表取消关注成功 然后刷新页面
+                            this.$router.go(0)
+                        } else if(res.data.code === 519) {
+                            alert("用户登录认证信息已过期, 请重新登录")
+                            window.location.href = "login.html#/login"
+                        }
+                    })
+                }
             }
         }
     }

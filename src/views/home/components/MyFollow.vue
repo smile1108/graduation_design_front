@@ -1,6 +1,7 @@
 <template>
     <div id="myFollow">
-        <MyFollowItem v-for="followUserObj in myFollowList" :key="followUserObj.username" :followUserObj="followUserObj"></MyFollowItem>
+        <MyFollowItem v-for="followUserObj in myFollowList" :key="followUserObj.username" :followUserObj="followUserObj"
+        :userInfo="userInfo"></MyFollowItem>
         <Page :pageMax="pageMax" @changePage="changePage"></Page>
     </div>
 </template>
