@@ -21,7 +21,7 @@
         },
         mounted() {
             // 当页面渲染完成之后 请求获取文章信息的接口
-            let url = "http://localhost:9527/article/getArticleMessageById?articleId=" + this.$route.params.articleId + "&username="
+            let url = "http://localhost:9527/article/getArticleMessageById?articleId=" + this.$route.params.articleId
             let userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
             if(userInfo != null) {
                 url = url + "&username=" + userInfo.username
