@@ -2,6 +2,8 @@
     <div id="personalMsg">
         <div class="topDiv">
             <div class="returnIndex" @click="returnIndex()">&lt; 返回首页</div>
+            <div class="returnHome" v-if="this.loginUser.username != this.userInfo.username"
+            @click="returnHome()">我的主页</div>
         </div>
         <div class="bottomDiv">
             <img :src="userInfo.profile" alt="头像" class="personalAvatar">
@@ -32,7 +34,8 @@
         },
         data() {
             return {
-                showAvatar: false
+                showAvatar: false,
+                loginUser: Object
             }
         },
         methods: {
@@ -46,7 +49,14 @@
                 window.location.href = 'index.html'
                 // 返回首页的同时 删除sessionStorage中的visitUser信息
                 sessionStorage.removeItem('visitUser')
+            },
+            returnHome() {
+                sessionStorage.setItem('visitUser', sessionStorage.getItem('userInfo'))
+                this.$router.go(0)
             }
+        },
+        mounted() {
+            this.loginUser = JSON.parse(sessionStorage.getItem('userInfo'))
         }
     }
 </script>
@@ -93,6 +103,23 @@
         background-color: #f01a1a;
         margin-left: 10px;
         margin-top: 10px;
+    }
+
+    #personalMsg .topDiv .returnHome {
+        display: inline-block;
+        height: 30px;
+        padding: 4px 16px;
+        line-height: 30px;
+        border-radius: 6px;
+        color: #fff;
+        background-color: #f01a1a;
+        margin-left: 800px;
+        margin-top: 10px;
+    }
+
+    #personalMsg .topDiv .returnHome:hover {
+        cursor: pointer;
+        background-color: #991717;
     }
 
     #personalMsg .topDiv .returnIndex:hover {
