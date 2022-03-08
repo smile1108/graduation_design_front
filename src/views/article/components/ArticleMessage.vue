@@ -1,6 +1,6 @@
 <template>
     <div id="articleMessage">
-        articleMessage
+        {{this.$route.params.articleId}}
     </div>
 </template>
 

@@ -66,7 +66,8 @@
             },
             jumpArticle(articleId) {
                 // 跳转文章信息的方法
-                window.location.href = "article.html#/" + articleId
+                let href = "article.html#/" + articleId
+                window.open(href, "_blank")
             },
             // 点击关注按钮之后调用的方法
             clickFollow(article) {
