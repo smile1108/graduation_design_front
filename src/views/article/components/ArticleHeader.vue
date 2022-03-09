@@ -57,7 +57,6 @@
     #articleHeader .articleTitleTip {
         float: left;
         font-size: 20px;
-        width: 120px;
         height: 40px;
         line-height: 40px;
         margin-top: 10px;

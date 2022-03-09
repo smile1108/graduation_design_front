@@ -17,6 +17,7 @@
         padding: 0 30px 20px;
         box-sizing: border-box;
         width: 760px;
+        float: left;
     }
 
     #articleContent img {
