@@ -14,7 +14,7 @@
 
 <style>
     #articleContent {
-        padding: 0 30px;
+        padding: 0 30px 20px;
         box-sizing: border-box;
         width: 760px;
     }
@@ -24,8 +24,6 @@
         margin:0;
         padding:0;
         max-width: 590px;
-        width: e-xpression(this.width > 580 ? "580px" : this.width);
         max-height: 590px;
-        height: e-xpression(this.height > 580 ? "580px" : this.height);
     }
 </style>
