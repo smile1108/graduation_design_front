@@ -13,7 +13,7 @@
                   <div class="classifyDiv">{{article.classifyVo.name}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
                   <div v-if="userInfo == null || userInfo.username != article.userVo.username" :class="[{followBtn: !article.follow},{unfollowBtn: article.follow}]"
-                  @click="clickFollow(article)"><span class="iconfont">{{article.follow ? "" : "&#xe603;"}}</span>{{article.follow ? "取消关注" : "关注作者"}}</div>
+                  @click.stop="clickFollow(article)"><span class="iconfont">{{article.follow ? "" : "&#xe603;"}}</span>{{article.follow ? "取消关注" : "关注作者"}}</div>
               </div>
           </div>
       </div>

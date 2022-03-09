@@ -1,6 +1,6 @@
 <template>
   <div id="article">
-      <ArticleMessage></ArticleMessage>
+      <ArticleMessage :article="article"></ArticleMessage>
   </div>
 </template>
 
@@ -30,6 +30,7 @@
                 if(res.data.code === 200) {
                     // 代表请求成功
                     this.article = JSON.parse(JSON.stringify(res.data.data))
+                    document.title = this.article.title
                 } else {
                     alert(res.data.msg)
                 }
