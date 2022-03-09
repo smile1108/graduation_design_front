@@ -162,7 +162,7 @@
         margin-left: 20px;
         width: 64px;
         height: 34px;
-        border-radius: 16px;
+        border-radius: 6px;
         background-color: #0066FF;
         border: 1px solid #0066FF;
         color: #fff;
@@ -185,7 +185,7 @@
         margin-left: 80px;
         width: 100px;
         height: 34px;
-        border-radius: 16px;
+        border-radius: 6px;
         background-color: #0066FF;
         border: 1px solid #0066FF;
         color: #fff;

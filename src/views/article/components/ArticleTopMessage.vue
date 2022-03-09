@@ -35,10 +35,9 @@
     }
 
     #articleTopMessage {
-        height: 210px;
-        padding: 10px 30px;
+        height: 270px;
+        padding: 80px 30px 10px;
         box-sizing: border-box;
-        background-color: #FFF;
         border-radius: 4px;
     }
 
