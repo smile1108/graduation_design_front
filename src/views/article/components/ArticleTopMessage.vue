@@ -35,10 +35,10 @@
     }
 
     #articleTopMessage {
-        height: 270px;
-        padding: 80px 30px 10px;
+        padding: 80px 30px;
+        padding-bottom: 20px;
         box-sizing: border-box;
-        border-radius: 4px;
+        border-bottom: 2px solid #ebebeb;
     }
 
     #articleTopMessage .articleTitle {

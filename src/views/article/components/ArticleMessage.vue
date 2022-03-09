@@ -1,17 +1,19 @@
 <template>
     <div id="articleMessage">
         <ArticleTopMessage :article="article"></ArticleTopMessage>
+        <ArticleContent :article="article"></ArticleContent>
     </div>
 </template>
 
 <script>
 
     import ArticleTopMessage from './ArticleTopMessage'
+    import ArticleContent from './ArticleContent'
 
     export default {
         name: "ArticleMessage",
         components: {
-            ArticleTopMessage
+            ArticleTopMessage, ArticleContent
         },
         props: {
             article: Object
