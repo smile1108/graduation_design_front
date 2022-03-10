@@ -5,7 +5,7 @@
         <AuthorMessage :article="article" :articleNumber="articleNumber" :likeNumber="likeNumber"
         :followerNumber="followerNumber"></AuthorMessage>
         <ArticleComment :article="article" :commentList="commentList" :commentTotal="commentTotal" :commentNumber="commentNumber"
-        @showMoreComment="showMoreComment"></ArticleComment>
+        @showMoreComment="showMoreComment" :userInfo="userInfo"></ArticleComment>
     </div>
 </template>
 
