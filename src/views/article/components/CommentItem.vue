@@ -1,19 +1,38 @@
 <template>
     <div id="commentItem">
         <div class="commentTopMessage clearfix">
-            <img src="http://localhost/images/default.png" alt="头像" class="profile">
-            <div class="nickname">一只小菜鸡</div>
-            <div class="publishTime">发布于2022-03-10 11:00:00</div>
+            <img :src="commentObj.userVo.profile" alt="头像" class="profile">
+            <div class="nickname">{{commentObj.userVo.nickname}}</div>
+            <div class="publishTime">发布于 {{formatDate(commentObj.publishDate)}}</div>
         </div>
         <div class="commentContent">
-            哈哈哈哈哈哈哈哈评论测试
+            {{commentObj.content}}
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "CommentItem"
+        name: "CommentItem",
+        props: {
+            commentObj: Object
+        },
+        computed: {
+            formatDate() {  
+                return function(publishDate) {
+                    const arr = publishDate.split('T');
+                    const d = arr[0];
+
+                    const t = arr[1];
+                    const tarr = t.split('.000');
+                    const marr = tarr[0].split(':');
+
+                    const dd = d + ' ' + marr[0] + ':' + marr[1] + ':' + marr[2].split('.')[0]
+
+                    return dd;
+                }
+            }
+        },
     }
 </script>
 

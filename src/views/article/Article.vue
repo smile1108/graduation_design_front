@@ -1,7 +1,9 @@
 <template>
   <div id="article">
       <ArticleHeader :article="article" :userInfo="userInfo"></ArticleHeader>
-      <ArticleMessage :article="article" :userInfo="userInfo"></ArticleMessage>
+      <ArticleMessage :article="article" :userInfo="userInfo" :articleNumber="articleNumber"
+      :likeNumber="likeNumber" :followerNumber="followerNumber" :commentList="commentList" :commentTotal="commentTotal"
+      :commentNumber="commentNumber" @showMoreComment="showMoreComment"></ArticleMessage>
   </div>
 </template>
 
@@ -19,10 +21,58 @@
         data() {
             return {
                 article: {},
-                userInfo: {}
+                userInfo: {},
+                articleNumber: 0,
+                likeNumber: 0,
+                followerNumber: 0,
+                commentNumber: 5,
+                commentList: [],
+                commentTotal: 0
             }
         },
-        mounted() {
+        methods: {
+            showMoreComment() {
+                this.commentNumber += 5
+                this.getCommentList()
+            },
+            getCommentList() {
+                let getCommentList = "http://localhost:9527/comment/getCommentListByArticleId?articleId=" + this.article.id + "&number=" + this.commentNumber
+                axios.get(getCommentList).then(res => {
+                    if(res.data.code === 200) {
+                        this.commentList = JSON.parse(JSON.stringify(res.data.data.lists))
+                        this.commentTotal = res.data.data.count
+                    }
+                })
+            },
+            statistics() {
+                // 当页面渲染完成之后调用统计作者相关数量的接口
+                let countArticle = "http://localhost:9527/article/countArticleByUser?username=" + this.article.userVo.username
+                let countLike = "http://localhost:9527/article/countLikeByUser?username=" + this.article.userVo.username
+                let countFollower = "http://localhost:9527/user/countFollowed?followUsername=" + this.article.userVo.username
+                axios.get(countArticle).then(res => {
+                    if(res.data.code === 200) {
+                        this.articleNumber = res.data.data
+                    } else {
+                        alert(res.data.msg)
+                    }
+                })
+                axios.get(countLike).then(res => {
+                    if(res.data.code === 200) {
+                        this.likeNumber = res.data.data
+                    } else {
+                        alert(res.data.msg)
+                    }
+                })
+                axios.get(countFollower).then(res => {
+                    if(res.data.code === 200) {
+                        this.followerNumber = res.data.data
+                    } else {
+                        alert(res.data.msg)
+                    }
+                })
+            }
+        },
+        created() {
             // 当页面渲染完成之后 请求获取文章信息的接口
             let url = "http://localhost:9527/article/getArticleMessageById?articleId=" + this.$route.params.articleId
             this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
@@ -34,6 +84,8 @@
                     // 代表请求成功
                     this.article = JSON.parse(JSON.stringify(res.data.data))
                     document.title = this.article.title
+                    this.statistics()
+                    this.getCommentList()
                 } else {
                     alert(res.data.msg)
                 }

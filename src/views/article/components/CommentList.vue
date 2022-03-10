@@ -1,7 +1,8 @@
 <template>
     <div id="commentList">
-        <CommentItem></CommentItem>
-        <div class="showMoreBtn">查看更多评论...</div>
+        <CommentItem v-for="commentObj in commentList" :key="commentObj.id" :commentObj="commentObj"></CommentItem>
+        <div @click="showMoreComment()" :class="[{showMoreBtn: (commentList.length != 0 && commentTotal > commentNumber)},
+        {noMore: (commentList.length == 0 || commentTotal <= commentNumber)}]">{{(commentList.lenght == 0 || commentTotal &lt;= commentNumber) ? "已经没有更多评论了" : "查看更多评论..."}}</div>
     </div>
 </template>
 
@@ -13,6 +14,18 @@
         name: "CommentList",
         components: {
             CommentItem
+        },
+        props: {
+            commentList: Array,
+            commentTotal: Number,
+            commentNumber: Number
+        },
+        methods: {
+            showMoreComment() {
+                if(this.commentList.length != 0 && this.commentTotal > this.commentNumber) {
+                    this.$emit('showMoreComment')
+                }
+            }
         }
     }
 </script>
@@ -33,6 +46,16 @@
         margin: 0 auto;
         font-size: 14px;
         color: rgb(41, 129, 212);
+        margin-top: 6px;
+    }
+
+    #commentList .noMore {
+        height: 30px;
+        width: 140px;
+        line-height: 30px;
+        text-align: center;
+        margin: 0 auto;
+        font-size: 14px;
         margin-top: 6px;
     }
 

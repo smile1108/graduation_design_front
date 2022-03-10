@@ -30,46 +30,21 @@
 
 <script>
 
-    import axios from 'axios'
-
     export default {
         name: "AuthorMessage",
         props: {
-            article: Object
+            article: Object,
+            articleNumber: Number,
+            likeNumber: Number,
+            followerNumber: Number
         },
         data() {
             return {
-                articleNumber: 0,
-                likeNumber: 0,
-                followerNumber: 0
+                
             }
         },
-        mounted() {
-            // 当页面渲染完成之后调用统计作者相关数量的接口
-            let countArticle = "http://localhost:9527/article/countArticleByUser?username=" + this.article.userVo.username
-            let countLike = "http://localhost:9527/article/countLikeByUser?username=" + this.article.userVo.username
-            let countFollower = "http://localhost:9527/user/countFollowed?followUsername=" + this.article.userVo.username
-            axios.get(countArticle).then(res => {
-                if(res.data.code === 200) {
-                    this.articleNumber = res.data.data
-                } else {
-                    alert(res.data.msg)
-                }
-            })
-            axios.get(countLike).then(res => {
-                if(res.data.code === 200) {
-                    this.likeNumber = res.data.data
-                } else {
-                    alert(res.data.msg)
-                }
-            })
-            axios.get(countFollower).then(res => {
-                if(res.data.code === 200) {
-                    this.followerNumber = res.data.data
-                } else {
-                    alert(res.data.msg)
-                }
-            })
+        methods: {
+            
         }
     }
 </script>

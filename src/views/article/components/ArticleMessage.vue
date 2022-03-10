@@ -2,8 +2,10 @@
     <div id="articleMessage" class="clearfix">
         <ArticleTopMessage :article="article" :userInfo="userInfo"></ArticleTopMessage>
         <ArticleContent :article="article"></ArticleContent>
-        <AuthorMessage :article="article"></AuthorMessage>
-        <ArticleComment></ArticleComment>
+        <AuthorMessage :article="article" :articleNumber="articleNumber" :likeNumber="likeNumber"
+        :followerNumber="followerNumber"></AuthorMessage>
+        <ArticleComment :article="article" :commentList="commentList" :commentTotal="commentTotal" :commentNumber="commentNumber"
+        @showMoreComment="showMoreComment"></ArticleComment>
     </div>
 </template>
 
@@ -21,7 +23,18 @@
         },
         props: {
             article: Object,
-            userInfo: Object
+            userInfo: Object,
+            articleNumber: Number,
+            likeNumber: Number,
+            followerNumber: Number,
+            commentList: Array,
+            commentTotal: Number,
+            commentNumber: Number
+        },
+        methods: {
+            showMoreComment() {
+                this.$emit('showMoreComment')
+            }
         }
     }
 </script>

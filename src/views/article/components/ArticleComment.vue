@@ -2,7 +2,9 @@
     <div id="articleComment">
         <textarea class="commentTextarea" v-model="commentContent" placeholder="请输入您的评论..."></textarea>
         <div class="publishCommentBtn">发布</div>
-        <CommentList></CommentList>
+        <div class="commentTotalNumber">总评论数( {{this.commentTotal}} )</div>
+        <CommentList :commentList="commentList" :commentTotal="commentTotal" :commentNumber="commentNumber"
+        @showMoreComment="showMoreComment"></CommentList>
     </div>
 </template>
 
@@ -15,9 +17,20 @@
         components: {
             CommentList
         },
+        props: {
+            article: Object,
+            commentList: Array,
+            commentTotal: Number,
+            commentNumber: Number
+        },
         data() {
             return {
                 commentContent: ""
+            }
+        },
+        methods: {
+            showMoreComment() {
+                this.$emit('showMoreComment')
             }
         }
     }
