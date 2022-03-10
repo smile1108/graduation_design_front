@@ -1,6 +1,6 @@
 <template>
     <div id="articleMessage" class="clearfix">
-        <ArticleTopMessage :article="article"></ArticleTopMessage>
+        <ArticleTopMessage :article="article" :userInfo="userInfo"></ArticleTopMessage>
         <ArticleContent :article="article"></ArticleContent>
         <AuthorMessage :article="article"></AuthorMessage>
         <ArticleComment></ArticleComment>
@@ -20,7 +20,8 @@
             ArticleTopMessage, ArticleContent, AuthorMessage, ArticleComment
         },
         props: {
-            article: Object
+            article: Object,
+            userInfo: Object
         }
     }
 </script>

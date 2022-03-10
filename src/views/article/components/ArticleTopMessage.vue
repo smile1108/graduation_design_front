@@ -10,17 +10,52 @@
                     <span class="college">{{article.userVo.college}}</span>
                 </div>
             </div>
-            <div class="followBtn" :class="[{follow: !article.follow}, {unfollow: article.follow}]">{{article.follow ? "取消关注" : "关注作者"}}</div>
+            <div @click="followOrUnfollow()" class="followBtn" :class="[{follow: !article.follow}, {unfollow: article.follow}]">{{article.follow ? "取消关注" : "关注作者"}}</div>
         </div>
         <div class="likeMessage">{{article.likeCount}} 人喜欢该文章</div>
     </div>
 </template>
 
 <script>
+
+    import axios from 'axios'
+
     export default {
         name: "ArticleTopMessage",
         props: {
-            article: Object
+            article: Object,
+            userInfo: Object
+        },
+        methods: {
+            followOrUnfollow() {
+                // 先判断用户是否登录 如果没有登录就跳转到登录页面
+                if(this.userInfo == null) {
+                    alert("请您先登录")
+                    window.location.href = "login.html"
+                } else {
+                    // 根据当前是否关注来进行对应的操作
+                    if(this.article.follow) {
+                        // 这时候应该调用取消关注的api
+                        let url = "http://localhost:9527/user/unfollow?username=" + this.userInfo.username + "&followUsername=" + this.article.userVo.username
+                        axios.get(url).then(res => {
+                            if(res.data.code === 200) {
+                                this.$router.go(0)
+                            } else {
+                                alert(res.data.msg)
+                            }
+                        })
+                    } else {
+                        let url = "http://localhost:9527/user/follow?username=" + this.userInfo.username + "&followUsername=" + this.article.userVo.username
+                        axios.get(url).then(res => {
+                            if(res.data.code === 200) {
+                                this.$router.go(0)
+                            } else {
+                                alert(res.data.msg)
+                            }
+                        })
+                    }
+                }
+            }
         }
     }
 </script>

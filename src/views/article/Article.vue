@@ -1,7 +1,7 @@
 <template>
   <div id="article">
       <ArticleHeader :article="article" :userInfo="userInfo"></ArticleHeader>
-      <ArticleMessage :article="article"></ArticleMessage>
+      <ArticleMessage :article="article" :userInfo="userInfo"></ArticleMessage>
   </div>
 </template>
 
