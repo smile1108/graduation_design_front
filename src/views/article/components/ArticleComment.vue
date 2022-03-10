@@ -29,7 +29,6 @@
         float: left;
         padding: 20px 30px;
         box-sizing: border-box;
-        border: 1px solid black;
     }
 
     #articleComment .commentTextarea {

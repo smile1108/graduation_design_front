@@ -1,9 +1,9 @@
 <template>
     <div id="articleHeader" class="clearfix">
         <div class="articleTitleTip">{{article.title}}</div>
-        <div class="writeBtn iconfont">&#xe62e; 写文章</div>
+        <div class="writeBtn iconfont" @click="jumpWritePage()">&#xe62e; 写文章</div>
         <div class="userInfo">
-          <a href="login.html" v-if="userInfo === null"><button class="loginBtn">登录</button></a>
+          <a href="login.html" v-if="userInfo === null"><button class="loginBtn" @click="login()">登录</button></a>
           <div class="userFunction" v-else>
               <img class="userImg" :src="userInfo.profile" alt="头像">
           </div>
@@ -17,6 +17,19 @@
         props: {
             article: Object,
             userInfo: Object
+        },
+        methods: {
+            jumpWritePage() {
+                if(this.userInfo == null){
+                    alert("请您先登录再进行此操作")
+                    window.location.href = "login.html"
+                } else {
+                    window.location.href = "write.html"
+                }
+            },
+            login() {
+                window.location.href = "login.html"
+            }
         }
     }
 </script>
