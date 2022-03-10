@@ -54,6 +54,7 @@
         padding: 6px;
         box-sizing: border-box;
         border: 2px solid #ebebeb;
+        background-color: #FFF;
     }
 
     #authorMessage .tip {

@@ -3,6 +3,7 @@
         <ArticleTopMessage :article="article"></ArticleTopMessage>
         <ArticleContent :article="article"></ArticleContent>
         <AuthorMessage :article="article"></AuthorMessage>
+        <ArticleComment></ArticleComment>
     </div>
 </template>
 
@@ -11,11 +12,12 @@
     import ArticleTopMessage from './ArticleTopMessage'
     import ArticleContent from './ArticleContent'
     import AuthorMessage from './AuthorMessage'
+    import ArticleComment from './ArticleComment'
 
     export default {
         name: "ArticleMessage",
         components: {
-            ArticleTopMessage, ArticleContent, AuthorMessage
+            ArticleTopMessage, ArticleContent, AuthorMessage, ArticleComment
         },
         props: {
             article: Object

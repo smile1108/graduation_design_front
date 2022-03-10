@@ -1,13 +1,16 @@
 <template>
-    <div id="articleContent" v-html="article.htmlContent">
-    </div>
+    <div id="articleContent" v-html="article.htmlContent"></div>
 </template>
 
 <script>
+
     export default {
         name: "ArticleContent",
         props: {
             article: Object
+        },
+        components: {
+            
         }
     }
 </script>
@@ -18,6 +21,8 @@
         box-sizing: border-box;
         width: 760px;
         float: left;
+        min-height: 280px;
+        border-bottom: 2px solid #ebebeb;
     }
 
     #articleContent img {
