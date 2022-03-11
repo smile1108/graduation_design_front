@@ -3,6 +3,7 @@ import MyArticle from '../components/MyArticle'
 import MyLike from '../components/MyLike'
 import MyMessage from '../components/MyMessage'
 import MyFollow from '../components/MyFollow'
+import MyComment from '../components/MyComment'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -26,6 +27,10 @@ export default new VueRouter({
         {
             path: '/myMessage/:username',
             component: MyMessage
+        },
+        {
+            path: '/myComment/:username',
+            component: MyComment
         }
     ]
 })
