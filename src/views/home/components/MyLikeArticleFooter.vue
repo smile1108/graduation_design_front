@@ -114,7 +114,7 @@
         margin-left: 20px;
         padding: 0 6px;
         border-radius: 4px;
-        margin-top: 5px;
+        line-height: 26px;
     }
 
     .likeArticleFooter .unlikeBtn:hover {
