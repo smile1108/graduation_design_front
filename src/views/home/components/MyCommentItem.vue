@@ -12,17 +12,38 @@
         </div>
         <div class="bottomFunctional">
             <div class="detailBtn">查看详情</div>
-            <div class="deleteBtn">删除评论</div>
+            <div v-if="this.userInfo.username == this.loginUser.username" class="deleteBtn" @click="deleteComment()">删除评论</div>
         </div>
     </div>
 </template>
 
 <script>
+
+    import axios from 'axios'
+
     export default {
         name: "MyCommentItem",
         props: {
             commentObj: Object,
             userInfo: Object
+        },
+        methods: {
+            deleteComment() {
+                if(confirm("您确定要删除评论吗?")) {
+                    let deleteCommentUrl = "http://localhost:9527/comment/deleteComment?commentId=" + this.commentObj.id + "&username=" + this.userInfo.username
+                    axios.get(deleteCommentUrl).then(res => {
+                        if(res.data.code === 200) {
+                            alert("删除成功")
+                            this.$router.go(0)
+                        } else if(res.data.code === 519) {
+                            alert("用户登录认证信息已过期, 请重新登录")
+                            window.location.href = 'login.html'
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
+                }
+            }
         },
         computed: {
             formatDate() { 
