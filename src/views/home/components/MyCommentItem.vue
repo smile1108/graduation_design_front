@@ -2,13 +2,13 @@
     <div id="commentItem">
         <div class="commentItemTopMessage">
             <span class="tip">评论了文章</span>
-            <span class="commentTime">2022-03-12 10:00:00</span>
+            <span class="commentTime">{{formatDate}}</span>
         </div>
         <div class="articleMessage">
-            <span class="articleTitle">文章标题</span>
+            <span class="articleTitle">{{commentObj.articleVo.title}}</span>
         </div>
         <div class="commentMessage">
-            <span class="commentContent">评论内容</span>
+            <span class="commentContent">{{commentObj.content}}</span>
         </div>
         <div class="bottomFunctional">
             <div class="detailBtn">查看详情</div>
@@ -19,7 +19,33 @@
 
 <script>
     export default {
-        name: "MyCommentItem"
+        name: "MyCommentItem",
+        props: {
+            commentObj: Object,
+            userInfo: Object
+        },
+        computed: {
+            formatDate() { 
+                const arr = this.commentObj.publishDate.split('T');
+                const d = arr[0];
+
+                const t = arr[1];
+                const tarr = t.split('.000');
+                const marr = tarr[0].split(':');
+
+                const dd = d + ' ' + marr[0] + ':' + marr[1] + ':' + marr[2].split('.')[0]
+
+                return dd;
+            }
+        },
+        data() {
+            return {
+                loginUser: Object
+            }
+        },  
+        mounted() {
+            this.loginUser = JSON.parse(sessionStorage.getItem('userInfo'))
+        }
     }
 </script>
 

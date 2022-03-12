@@ -1,21 +1,60 @@
 <template>
     <div id="myComment">
-        <MyCommentItem></MyCommentItem>
+        <MyCommentItem v-for="commentObj in commentList" :key="commentObj.id" :commentObj="commentObj"
+        :userInfo="userInfo"></MyCommentItem>
+        <Page :pageMax="pageMax" @changePage="changePage"></Page>
     </div>
 </template>
 
 <script>
 
     import MyCommentItem from './MyCommentItem'
+    import Page from '../../index/components/pageComponent'
+    import axios from 'axios'
 
     export default {
         name: "MyComment",
         components: {
-            MyCommentItem
+            MyCommentItem, Page
         },
         props: {
             userInfo: Object,
             showPersonalMessage: Boolean
+        },
+        data() {
+            return {
+                commentList: [],
+                pageMax: undefined
+            }
+        },
+        methods: {
+            changePage(page) {
+                let url = "http://localhost:9527/comment/getCommentListByUser?username=" + this.$route.params.username + "&page=" + (page - 1)
+                axios.get(url).then(res => {
+                    if(res.data.code === 200) {
+                        this.commentList = res.data.data.lists
+                        this.pageMax = res.data.data.sumPage
+                    } else if(res.data.code === 519) {
+                        alert("用户身份认证过期, 请重新登录")
+                        window.location.href = 'login.html'
+                    }
+                })
+            }
+        },
+        mounted() {
+            // 当页面渲染完成之后调用获取用户评论的接口
+            let getUserCommentListUrl = "http://localhost:9527/comment/getCommentListByUser?username=" + this.$route.params.username
+            axios.get(getUserCommentListUrl).then(res => {
+                if(res.data.code === 200) {
+                    this.commentList = res.data.data.lists
+                    this.pageMax = res.data.data.sumPage
+                } else if(res.data.code === 519) {
+                    alert("用户身份认证过期, 请重新登录")
+                    window.location.href = 'login.html'
+                } else {
+                    alert(res.data.msg)
+                }
+            })
         }
     }
 </script>
