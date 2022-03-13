@@ -1,29 +1,37 @@
 <template>
   <div id="writeArea">
-      <WriteQuestion></WriteQuestion>
+      <QuestionHeader :userInfo="userInfo"></QuestionHeader>
+      <WriteQuestion :userInfo="userInfo" @modifyQuestionContent="modifyQuestionContent"></WriteQuestion>
+      <div class="publishDiv">
+          <input type="text" class="questionTitleInput" placeholder="请输入问题标题" v-model="questionTitle"/>
+          <div class="publishBtn">发布</div>
+      </div>
   </div>
 </template>
 
 <script>
 
+    import QuestionHeader from './components/QuestionHeader'
     import WriteQuestion from './components/WriteQuestion'
 
     export default {
         name: 'Question',
         components: {
-            WriteQuestion
+            WriteQuestion, QuestionHeader
         },
         data() {
             return {
                 userInfo: {
                     
                 },
-                articleContent: '# Header',
-                showPublishBox: false
+                questionContent: '',
+                questionTitle: ''
             }
         },
         methods: {
-            
+            modifyQuestionContent(content) {
+                this.questionContent = content
+            },
         },
         mounted() {
             // 当页面渲染完成之后自动从sessionStorage中获取userInfo
@@ -33,4 +41,42 @@
 </script>
 
 <style>
+
+    #writeArea .publishDiv {
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+
+    #writeArea .publishDiv .questionTitleInput {
+        display: block;
+        width: 70%;
+        height: 30px;
+        margin: 40px auto 5px;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        text-indent: 14px;
+        font-size: 18px;
+        border-bottom: 1px solid #6d6c6c;
+    }
+
+    #writeArea .publishDiv .publishBtn {
+        height: 36px;
+        width: 80px;
+        margin: 0 auto;
+        margin-top: 14px;
+        font-size: 18px;
+        line-height: 36px;
+        text-align: center;
+        border-radius: 6px;
+        background-color: #0066FF;
+        border: 1px solid #0066FF;
+        color: #fff;
+    }
+
+    #writeArea .publishDiv .publishBtn:hover {
+        cursor: pointer;
+        background-color: #005ce6;
+    }
 </style>

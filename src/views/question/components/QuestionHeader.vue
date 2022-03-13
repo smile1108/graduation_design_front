@@ -1,27 +1,20 @@
 <template>
-  <div id="writeHeader">
-      <div class="logo">校园信息共享系统</div>
-      <div class="title">写文章</div>
-      <div class="publishBtn" @click="publish()">发布</div>
-      <div class="returnIndex" @click="returnIndex()">首页</div>
-      <img class="userImg" :src="userInfo.profile" alt="头像" @click="jumpHome()">
-      <div id="popLayer" :class="{showPublishBox: !showPublishBox}"></div>
-      <PublishBox :showPublishBox="showPublishBox" @cancelPublish="cancelPublish" @transferDataAndPublish="transferDataAndPublish"></PublishBox>
-  </div>
+    <div id="writeHeader">
+        <div class="logo">校园信息共享系统</div>
+        <div class="title">写问题</div>
+        <div class="returnIndex" @click="returnIndex()">首页</div>
+        <img class="userImg" :src="userInfo.profile" alt="头像" @click="jumpHome()">
+    </div>
 </template>
 
 <script>
 
-    import PublishBox from './PublishBox'
-
     export default {
-        name: 'WriteHeader',
+        name: 'QuestionHeader',
         components: {
-            PublishBox
         },
         props: {
-            userInfo: Object,
-            showPublishBox: Boolean
+            userInfo: Object
         },
         data() {
             return {
@@ -34,7 +27,7 @@
             },
             jumpHome() {
                 // 跳转到主页
-                window.location.href = 'home.html#/' + this.userInfo.username 
+                window.location.href = 'home.html#/' + this.userInfo.username
             },
             publish() {
                 this.$emit('modifyShowPublishBox', true)
@@ -78,7 +71,7 @@
         font-size: 22px;
     }
 
-    #writeHeader .publishBtn, .returnIndex {
+    #writeHeader .returnIndex {
         float: left;
         height: 36px;
         width: 80px;
@@ -94,7 +87,7 @@
     }
 
     #writeHeader .returnIndex {
-        margin-left: 50px !important;
+        margin-left: 500px !important;
         background-color: #ec3413;
         border: 1px solid #ec3413;
     }
@@ -102,11 +95,6 @@
     #writeHeader .returnIndex:hover {
         cursor: pointer;
         background-color: #d98927;
-    }
-
-    #writeHeader .publishBtn:hover {
-        cursor: pointer;
-        background-color: #005ce6;
     }
 
     #writeHeader .userImg {
@@ -119,19 +107,5 @@
 
     #writeHeader .userImg:hover {
         cursor: pointer;
-    }
-
-    #writeHeader #popLayer {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 1600;
-        background-color: rgba(136, 132, 132, 0.9);
-    }
-
-    .showPublishBox {
-        display: none;
     }
 </style>
