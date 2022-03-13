@@ -42,8 +42,8 @@
                         window.location.href = 'home.html#/' + this.userInfo.username
                     } else if(target === 'article') {
                         window.location.href = 'write.html'
-                    } else {
-                        window.location.href = 'write.html'
+                    } else if(target === 'question') {
+                        window.location.href = 'question.html'
                     }
                 }
             }

@@ -93,7 +93,7 @@
         line-height: 30px;
         text-align: center;
         margin: 45px auto;
-        border-radius: 12px;
+        border-radius: 4px;
         font-size: 14px;
         color: #fff;
         background-color: #0066FF;

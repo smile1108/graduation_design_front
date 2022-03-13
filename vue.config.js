@@ -34,6 +34,13 @@ module.exports = {
             filename: "article.html", // 打包后的html文件名称
             title: "文章",
             faviconPath: "favicon.ico"
+        },
+        question: {
+            entry: "./src/views/question/question.js", // 配置入口js文件
+            template: "./src/views/question/question.html", // 主页面
+            filename: "question.html", // 打包后的html文件名称
+            title: "写问题",
+            faviconPath: "favicon.ico"
         }
     }
   }
