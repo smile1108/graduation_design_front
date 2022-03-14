@@ -4,7 +4,7 @@
         <div class="statisticsMessage">
             <span class="publishDate">发布于{{this.formatDate}}</span>
             <span class="answerCount">10人回答</span>
-            <div v-if="this.showPersonalMessage" class="deleteQuestionBtn">删除</div>
+            <div v-if="this.showPersonalMessage" class="deleteQuestionBtn" @click="deleteQuestion()">删除</div>
         </div>
     </div>
 </template>
@@ -15,6 +15,11 @@
         props: {
             questionObj: Object,
             showPersonalMessage: Boolean
+        },
+        methods: {
+            deleteQuestion() {
+                this.$emit('deleteQuestion', this.questionObj)
+            }
         },
         computed: {
             formatDate() { 

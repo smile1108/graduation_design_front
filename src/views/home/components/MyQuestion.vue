@@ -1,7 +1,7 @@
 <template>
     <div id="myQuestion">
         <MyQuestionItem v-for="questionObj in myQuestionList" :key="questionObj.id" :questionObj="questionObj"
-        :showPersonalMessage="showPersonalMessage"></MyQuestionItem>
+        :showPersonalMessage="showPersonalMessage" @deleteQuestion="deleteQuestion"></MyQuestionItem>
         <Page :pageMax="pageMax" @changePage="changePage"></Page>
     </div>
 </template>
@@ -39,6 +39,26 @@
                         window.location.href = 'login.html'
                     }
                 })
+            },
+            deleteQuestion(question) {
+                if(confirm("您确定要删除吗?")) {
+                    if(this.userInfo == null || this.userInfo == undefined) {
+                        alert("需要您先登录")
+                        window.location.href = "login.html"
+                    } else {
+                        let deleteQuestionUrl = "http://localhost:9527/article/question/deleteQuestion?id=" + question.id + "&username=" + this.userInfo.username
+                        axios.get(deleteQuestionUrl).then(res => {
+                            if(res.data.code === 200) {
+                                this.$router.go(0)
+                            } else if(res.data.code === 519) {
+                                alert("用户登录认证信息已过期, 请重新登录")
+                                window.location.href = "login.html"
+                            } else {
+                                alert(res.data.msg)
+                            }
+                        })
+                    }
+                }
             }
         },
         mounted() {
