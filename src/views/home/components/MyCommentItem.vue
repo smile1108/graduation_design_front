@@ -11,7 +11,7 @@
             <span class="commentContent">{{commentObj.content}}</span>
         </div>
         <div class="bottomFunctional">
-            <div class="detailBtn">查看详情</div>
+            <div class="detailBtn" @click="checkDetail()">查看详情</div>
             <div v-if="this.userInfo.username == this.loginUser.username" class="deleteBtn" @click="deleteComment()">删除评论</div>
         </div>
     </div>
@@ -43,6 +43,11 @@
                         }
                     })
                 }
+            },
+            checkDetail() {
+                // 当点击查看详情按钮时 跳转到对应的文章页面
+                let href = "article.html#/" + this.commentObj.articleVo.id
+                window.open(href, "_blank")
             }
         },
         computed: {
