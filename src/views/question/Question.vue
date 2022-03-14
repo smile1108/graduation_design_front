@@ -4,7 +4,7 @@
       <WriteQuestion :userInfo="userInfo" @modifyQuestionContent="modifyQuestionContent"></WriteQuestion>
       <div class="publishDiv">
           <input type="text" class="questionTitleInput" placeholder="请输入问题标题" v-model="questionTitle"/>
-          <div class="publishBtn">发布</div>
+          <div class="publishBtn" @click="publishQuestion()">发布</div>
       </div>
   </div>
 </template>
@@ -13,6 +13,7 @@
 
     import QuestionHeader from './components/QuestionHeader'
     import WriteQuestion from './components/WriteQuestion'
+    import axios from 'axios'
 
     export default {
         name: 'Question',
@@ -32,6 +33,20 @@
             modifyQuestionContent(content) {
                 this.questionContent = content
             },
+            publishQuestion() {
+                let url = "http://localhost:9527/article/question/addQuestion"
+                let formData = new FormData()
+                formData.append('title', this.questionTitle)
+                formData.append('content', this.questionContent)
+                formData.append('username', this.userInfo.username)
+                axios.post(url, formData).then(res => {
+                    if(res.data.code === 200) {
+                        alert("发布成功")
+                    } else {
+                        alert(res.data.msg)
+                    }
+                })
+            }
         },
         mounted() {
             // 当页面渲染完成之后自动从sessionStorage中获取userInfo

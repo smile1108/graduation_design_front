@@ -20,7 +20,7 @@
         },
         data() {
             return {
-                content: '# Header'
+                content: ''
             }
         },
         methods: {
