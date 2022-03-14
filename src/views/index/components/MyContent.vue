@@ -1,7 +1,7 @@
 <template>
   <div id="content">
       <MySelector :articleClassify="articleClassify" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"></MySelector>
-      <MyArticleList :articles="articles" :sumPage="sumPage" :userInfo="userInfo" @changePage="changePage"
+      <MyArticleList :articles="articles" :articleSumPage="articleSumPage" :userInfo="userInfo" @changePage="changePage"
       @refreshArticles="refreshArticles"></MyArticleList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
@@ -22,7 +22,7 @@
             userInfo: Object,
             todoList: Array,
             articles: Array,
-            sumPage: Number,
+            articleSumPage: Number,
             classifyFilter: Set
         },
         data() {
@@ -42,6 +42,7 @@
                     sessionStorage.setItem('articleClassify', JSON.stringify(res.data.data))
                 }
             })
+            this.$emit('refreshArticles')
         },
         methods: {
             addClassify(classify) {

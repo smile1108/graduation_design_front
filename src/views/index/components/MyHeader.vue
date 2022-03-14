@@ -7,7 +7,7 @@
       </ul>
       <div class="search">
           <input class="inputText" type="text" v-model="searchContent" placeholder="请输入搜索关键字">
-          <button class="btn" @click="searchArticle"><span class="iconfont">&#xe600; 搜索</span></button>
+          <button class="btn" @click="search"><span class="iconfont">&#xe600; 搜索</span></button>
           <button class="questionBtn">提问</button>
       </div>
       <div class="userInfo">
@@ -49,8 +49,13 @@
                 // 当点击Header中的头像时 跳转到自己的主页
                 window.location.href = 'home.html#/' + this.userInfo.username
             },
-            searchArticle() {
-                this.$emit('searchArticle', this.searchContent)
+            search() {
+                if(this.$route.path == '/home') {
+                    this.$emit('searchArticle', this.searchContent)
+                } else if(this.$route.path == '/problem') {
+                    this.$emit('searchQuestion', this.searchContent)
+                }
+                
             }
         }
     }

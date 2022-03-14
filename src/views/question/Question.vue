@@ -43,7 +43,7 @@
                     if(res.data.code === 200) {
                         alert("发布成功")
                     } else {
-                        alert(res.data.msg)
+                        alert(res.data.msg)            
                     }
                 })
             }

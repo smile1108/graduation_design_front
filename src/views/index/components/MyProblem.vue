@@ -1,22 +1,32 @@
 <template>
   <div id="problem">
-      <MyArticleList></MyArticleList>
+      <MyProblemList :questions="questions" :questionSumPage="questionSumPage" @changePage="changePage"></MyProblemList>
       <RightFunction :userInfo="userInfo" :todoList="todoList"></RightFunction>
   </div>
 </template>
 
 <script>
     import RightFunction from './RightFunction'
-    import MyArticleList from './MyArticleList'
+    import MyProblemList from './MyProblemList'
 
     export default {
         name: 'MyProblem',
         components: {
-            RightFunction, MyArticleList
+            RightFunction, MyProblemList
         },
         props: {
             userInfo: Object,
-            todoList: Array
+            todoList: Array,
+            questions: Array,
+            questionSumPage: Number
+        },
+        methods: {
+            changePage(page) {
+                this.$emit('changePage', page)
+            }
+        },
+        mounted() {
+            this.$emit('refreshQuestions')
         }
     }
 </script>

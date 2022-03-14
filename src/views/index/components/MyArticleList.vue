@@ -17,10 +17,10 @@
               </div>
           </div>
       </div>
-      <div v-if="sumPage < 1" class="articleListTip">
+      <div v-if="articleSumPage < 1" class="articleListTip">
           没有找到你需要的文章
       </div>
-      <PageComponent :pageMax="sumPage" @changePage="changePage"></PageComponent>
+      <PageComponent :pageMax="articleSumPage" @changePage="changePage"></PageComponent>
   </div>
 </template>
 
@@ -35,7 +35,7 @@
         },
         props: {
             articles: Array,
-            sumPage: Number,
+            articleSumPage: Number,
             userInfo: Object
         },
         data() {

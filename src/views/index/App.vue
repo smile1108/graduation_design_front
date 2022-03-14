@@ -1,10 +1,11 @@
 <template>
   <div>
-    <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo" @searchArticle="searchArticle"></MyHeader>
+    <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo" @searchArticle="searchArticle"
+    @searchQuestion="searchQuestion"></MyHeader>
     <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
       @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted" :articles="articles"
-      :sumPage="sumPage" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"
-      @changePage="changePage" @refreshArticles="refreshArticles"></router-view>
+      :articleSumPage="articleSumPage" :questionSumPage="questionSumPage" :questions="questions" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"
+      @changePage="changePage" @refreshArticles="refreshArticles" @refreshQuestions="refreshQuestions"></router-view>
   </div>
 </template>
 
@@ -24,7 +25,10 @@
         ],
         articles: [
         ],
-        sumPage: undefined,
+        questions: [
+        ],
+        articleSumPage: 0,
+        questionSumPage: 0,
         classifyFilter: new Set(),
         searchContent: ""
       }
@@ -172,7 +176,7 @@
               if(res.data.code === 200) {
                   // 成功请求 设置文章的数组
                   this.articles = res.data.data.lists
-                  this.sumPage = res.data.data.sumPage
+                  this.articleSumPage = res.data.data.sumPage
               }
         })
       },
@@ -192,7 +196,7 @@
             if(res.data.code === 200) {
                 // 成功请求 设置文章的数组
                 this.articles = res.data.data.lists
-                this.sumPage = res.data.data.sumPage
+                this.articleSumPage = res.data.data.sumPage
             }
         })
       },
@@ -218,8 +222,18 @@
             if(res.data.code === 200) {
                 // 成功请求 设置文章的数组
                 this.articles = res.data.data.lists
-                this.sumPage = res.data.data.sumPage
+                this.articleSumPage = res.data.data.sumPage
             }
+        })
+      },
+      searchQuestion(keyword) {
+        this.searchContent = keyword
+        let searchQuestionUrl = "http://localhost:9527/article/question/searchQuestion?keyword=" + keyword
+        axios.get(searchQuestionUrl).then(res => {
+          if(res.data.code === 200) {
+            this.questions = res.data.data.lists
+            this.questionSumPage = res.data.data.sumPage
+          }
         })
       },
       searchArticleMounted() {
@@ -233,31 +247,47 @@
             if(res.data.code === 200) {
                 // 成功请求 设置文章的数组
                 this.articles = res.data.data.lists
-                this.sumPage = res.data.data.sumPage
+                this.articleSumPage = res.data.data.sumPage
             }
         })
       },
       changePage(page) {
-        // 当改变页数的时候 重新请求获取文章列表的接口
-        let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
-        let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr
-        if(this.searchContent != null && this.searchContent != "") {
-          url = url + "&keyword=" + this.searchContent
-        } 
-        if(this.userInfo != null) {
-          url = url + "&username=" + this.userInfo.username
-        }
-        url = url + "&page=" + (page - 1)
-        axios.get(url).then(res => {
+        // 根据路由判断当前需要改变文章列表 还是 问题列表
+        if(this.$route.path === '/home') {
+          // 当改变页数的时候 重新请求获取文章列表的接口
+          let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
+          let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr
+          if(this.searchContent != null && this.searchContent != "") {
+            url = url + "&keyword=" + this.searchContent
+          } 
+          if(this.userInfo != null) {
+            url = url + "&username=" + this.userInfo.username
+          }
+          url = url + "&page=" + (page - 1)
+          axios.get(url).then(res => {
+              if(res.data.code === 200) {
+                  // 成功请求 设置文章的数组
+                  this.articles = res.data.data.lists
+                  this.articleSumPage = res.data.data.sumPage
+              }
+          })
+        } else if(this.$route.path === '/problem') {
+          // 改变问题列表
+          let changeQuestionListUrl = "http://localhost:9527/article/question/searchQuestion?keyword=" + this.searchContent
+          changeQuestionListUrl = changeQuestionListUrl + "&page=" + (page - 1)
+          axios.get(changeQuestionListUrl).then(res => {
             if(res.data.code === 200) {
-                // 成功请求 设置文章的数组
-                this.articles = res.data.data.lists
-                this.sumPage = res.data.data.sumPage
+              this.questions = res.data.data.lists
+              this.questionSumPage = res.data.data.sumPage
             }
-        })
+          })
+        }
       },
       refreshArticles() {
         this.searchArticleMounted()
+      },
+      refreshQuestions() {
+        this.searchQuestion("")
       }
     },
     mounted() {// 当页面dom渲染好之后 进行自动登录的请求
@@ -265,6 +295,7 @@
       // 然后调用 获取所有待办事项的方法
       this.getAllBacklog()
       setTimeout(this.searchArticleMounted, 300)
+      this.searchQuestion("")
       // 搜索文章接口 刚开始页面渲染完成 没有关键字 也没有文章分类的筛选
     }
   }
