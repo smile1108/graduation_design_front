@@ -2,6 +2,7 @@
     <div class="articleFooter">
         <div class="classify">{{this.articleObj.classifyVo.name}}</div>
         <span class="likeContent">{{this.articleObj.likeCount}}人喜欢</span>
+        <span class="commentCount">{{this.articleObj.commentCount}}条评论</span>
         <span class="publishDate">发布于 {{this.formatDate}}</span>
         <div v-if="this.showPersonalMessage" class="deleteBtn" @click="deleteArticle()">删除</div>
     </div>
@@ -52,6 +53,11 @@
 
     .articleFooter .likeContent {
         margin-left: 50px;
+        color: rgb(94, 61, 102);
+    }
+
+    .articleFooter .commentCount {
+        margin-left: 8px;
         color: rgb(94, 61, 102);
     }
 
