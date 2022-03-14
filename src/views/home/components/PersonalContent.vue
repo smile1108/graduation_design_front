@@ -5,6 +5,7 @@
             <router-link class="contentItem" :to="{path: '/myLike/' + this.$route.params.username}" active-class="active">{{this.person}}的喜欢<span class="sumStatistics">{{this.likeSum}}</span></router-link>
             <router-link class="contentItem" :to="{path: '/myFollow/' + this.$route.params.username}" active-class="active">{{this.person}}的关注<span class="sumStatistics">{{this.followSum}}</span></router-link>
             <router-link class="contentItem" :to="{path: '/myComment/' + this.$route.params.username}" active-class="active">{{this.person}}的评论<span class="sumStatistics">{{this.commentSum}}</span></router-link>
+            <router-link class="contentItem" :to="{path: '/myQuestion/' + this.$route.params.username}" active-class="active">{{this.person}}的问题<span class="sumStatistics">{{this.questionSum}}</span></router-link>
             <router-link class="contentItem" :class="{showPersonalMessage: !this.showPersonalMessage}" :to="{path: '/myMessage/' + this.$route.params.username}" active-class="active">个人信息</router-link>
         </ul>
     </div>
@@ -28,7 +29,8 @@
                 articleSum: undefined,
                 likeSum: undefined,
                 followSum: undefined,
-                commentSum: undefined
+                commentSum: undefined,
+                questionSum: undefined
             }
         },
         mounted() {
@@ -37,6 +39,7 @@
             let countLikeUrl = "http://localhost:9527/article/countLikeByUser?username=" + this.$route.params.username
             let countFollowUrl = "http://localhost:9527/user/countFollow?username=" + this.$route.params.username
             let countCommentUrl = "http://localhost:9527/comment/countCommentByUser?username=" + this.$route.params.username
+            let countQuestionUrl = "http://localhost:9527/article/question/countQuestionByUser?username=" + this.$route.params.username
             axios.get(countArticleUrl).then(res => {
                 if(res.data.code === 200) {
                     // 代表请求成功
@@ -56,6 +59,11 @@
             axios.get(countCommentUrl).then(res => {
                 if(res.data.code === 200) {
                     this.commentSum = res.data.data
+                }
+            })
+            axios.get(countQuestionUrl).then(res => {
+                if(res.data.code === 200) {
+                    this.questionSum = res.data.data
                 }
             })
         }
