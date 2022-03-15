@@ -84,7 +84,7 @@
         line-height: 40px;
         text-align: center;
         margin-top: 10px;
-        margin-left: 700px;
+        margin-left: 400px;
         width: 140px;
         color: #06f;
         border: 1px solid #06f;
