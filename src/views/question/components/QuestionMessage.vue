@@ -4,6 +4,7 @@
         <QuestionContent :question="question"></QuestionContent>
         <AuthorMessage :article="question" :articleNumber="articleNumber" :likeNumber="likeNumber"
         :followerNumber="followerNumber"></AuthorMessage>
+        <QuestionAnswer></QuestionAnswer>
     </div>
 </template>
 
@@ -12,11 +13,12 @@
     import QuestionTopMessage from './QuestionTopMessage'
     import QuestionContent from './QuestionContent'
     import AuthorMessage from '../../article/components/AuthorMessage'
+    import QuestionAnswer from './QuestionAnswer'
 
     export default {
         name: "QuestionMessage",
         components: {
-            QuestionContent, QuestionTopMessage, AuthorMessage
+            QuestionContent, QuestionTopMessage, AuthorMessage, QuestionAnswer
         },
         props: {
             question: Object,
