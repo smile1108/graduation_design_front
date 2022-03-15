@@ -1,5 +1,5 @@
 <template>
-    <div id="problemItem">
+    <div id="problemItem" @click="jumpQuestion()">
         <div class="questionTopMessage clearfix">
             <img :src="questionObj.userVo.profile" alt="头像" class="profile">
             <div class="nickname">{{questionObj.userVo.nickname}} 的提问</div>
@@ -38,6 +38,12 @@
                 }
             }
         },
+        methods: {
+            jumpQuestion() {
+                let href = "question.html#/" + this.questionObj.id
+                window.open(href, "_blank")
+            }
+        }
     }
 </script>
 
@@ -54,6 +60,11 @@
         padding: 4px;
         margin-top: 6px;
         border-bottom: 1px solid rgb(240, 242, 247);
+    }
+
+    #problemItem:hover {
+        cursor: pointer;
+        background-color: rgb(233, 232, 232);
     }
 
     #problemItem .questionTopMessage {
