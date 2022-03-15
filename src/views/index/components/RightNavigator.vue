@@ -14,7 +14,7 @@
                 <div class="writeArticleTitle">写文章</div>
               </div>
           </a>
-          <a @click="clickJump('question')">
+          <a @click="clickJump('ask')">
               <div class="ask">
                 <div class="iconfont">&#xe6e2;</div>
                 <div class="askTitle">提问</div>
@@ -42,8 +42,8 @@
                         window.location.href = 'home.html#/' + this.userInfo.username
                     } else if(target === 'article') {
                         window.location.href = 'write.html'
-                    } else if(target === 'question') {
-                        window.location.href = 'question.html'
+                    } else if(target === 'ask') {
+                        window.location.href = 'ask.html'
                     }
                 }
             }
