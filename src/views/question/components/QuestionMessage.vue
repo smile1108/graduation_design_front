@@ -5,7 +5,7 @@
         <AuthorMessage :article="question" :articleNumber="articleNumber" :likeNumber="likeNumber"
         :followerNumber="followerNumber"></AuthorMessage>
         <QuestionAnswer :question="question" :userInfo="userInfo" :answerList="answerList"
-        :answerTotal="answerTotal" :answerCount="answerCount"></QuestionAnswer>
+        :answerTotal="answerTotal" :answerCount="answerCount" @showMoreAnswer="showMoreAnswer"></QuestionAnswer>
     </div>
 </template>
 
@@ -30,6 +30,11 @@
             answerList: Array,
             answerTotal: Number,
             answerCount: Number
+        },
+        methods: {
+            showMoreAnswer() {
+                this.$emit('showMoreAnswer')
+            }
         }
     }
 </script>

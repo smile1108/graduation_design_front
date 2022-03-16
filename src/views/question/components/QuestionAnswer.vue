@@ -3,7 +3,8 @@
         <mavon-editor ref=md v-model="content" @imgAdd="imgAdd" @imgDel="imgDel"></mavon-editor>
         <div class="publishAnswerBtn" @click="publishAnswer()">发布回答</div>
         <div class="totalAnswerCount">总回答数 ( {{this.answerTotal}} )</div>
-        <AnswerList :answerList="answerList" :answerTotal="answerTotal" :answerCount="answerCount"></AnswerList>
+        <AnswerList :answerList="answerList" :answerTotal="answerTotal" :answerCount="answerCount"
+        @showMoreAnswer="showMoreAnswer"></AnswerList>
     </div>
 </template>
 
@@ -30,6 +31,9 @@
             }
         },
         methods: {
+            showMoreAnswer() {
+                this.$emit('showMoreAnswer')
+            },
             imgAdd(pos, $file) {
                 // 然后调用后端的接口 上传这个图片
                 var formData = new FormData()

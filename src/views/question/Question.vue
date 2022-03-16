@@ -3,7 +3,7 @@
       <QuestionHeader :question="question" :userInfo="userInfo"></QuestionHeader>
       <QuestionMessage :question="question" :userInfo="userInfo" :articleNumber="articleNumber"
       :likeNumber="likeNumber" :followerNumber="followerNumber" :answerList="answerList"
-      :answerTotal="answerTotal" :answerCount="answerCount"></QuestionMessage>
+      :answerTotal="answerTotal" :answerCount="answerCount" @showMoreAnswer="showMoreAnswer"></QuestionMessage>
   </div>
 </template>
 
@@ -31,8 +31,12 @@
             }
         },
         methods: {
+            showMoreAnswer() {
+                this.answerCount += 5
+                this.getQuestionAnswerList()
+            },
             getQuestionAnswerList() {
-                let getQuestionAnswerListUrl = "http://localhost:9527/comment/answer/getAnswerListByQuestion?questionId=" + this.question.id
+                let getQuestionAnswerListUrl = "http://localhost:9527/comment/answer/getAnswerListByQuestion?questionId=" + this.question.id + "&number=" + this.answerCount
                 axios.get(getQuestionAnswerListUrl).then(res => {
                     if(res.data.code === 200) {
                         this.answerList = JSON.parse(JSON.stringify(res.data.data.lists))

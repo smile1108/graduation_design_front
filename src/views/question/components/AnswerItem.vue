@@ -48,7 +48,7 @@
     }
 
     #answerItem .content {
-        font-size: 12px;
+        font-size: 14px;
         padding: 0 20px;
         box-sizing: border-box;
     }
