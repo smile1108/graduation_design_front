@@ -4,7 +4,7 @@
         <QuestionContent :question="question"></QuestionContent>
         <AuthorMessage :article="question" :articleNumber="articleNumber" :likeNumber="likeNumber"
         :followerNumber="followerNumber"></AuthorMessage>
-        <QuestionAnswer></QuestionAnswer>
+        <QuestionAnswer :question="question" :userInfo="userInfo"></QuestionAnswer>
     </div>
 </template>
 

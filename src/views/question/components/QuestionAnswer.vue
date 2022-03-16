@@ -11,6 +11,10 @@
 
     export default {
         name: "QuestionAnswer",
+        props: {
+            question: Object,
+            userInfo: Object
+        },
         data() {
             return {
                 content: ''
@@ -40,6 +44,28 @@
                         alert("文件不存在")
                     }
                 })
+            },
+            publishAnswer() {
+                if(this.userInfo == null) {
+                    alert("请您先登录")
+                    window.location.href = "login.html"
+                } else {
+                    // 调用添加回答的接口
+                    let addAnswerUrl = "http://localhost:9527/comment/answer/addAnswer"
+                    let formData = new FormData()
+                    formData.append('content', this.content)
+                    formData.append('username', this.userInfo.username)
+                    formData.append('questionId', this.question.id)
+                    axios.post(addAnswerUrl, formData).then(res => {
+                        if(res.data.code === 200) {
+                            alert("添加成功")
+                            // 清空回答区内容
+                            this.content = ''
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
+                }
             }
         }
     }
