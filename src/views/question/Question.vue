@@ -24,9 +24,22 @@
                 articleNumber: 0,
                 likeNumber: 0,
                 followerNumber: 0,
+                answerList: [],
+                answerTotal: Number
             }
         },
         methods: {
+            getQuestionAnswerList() {
+                let getQuestionAnswerListUrl = "http://localhost:9527/comment/answer/getAnswerListByQuestion?questionId=" + this.question.id
+                axios.get(getQuestionAnswerListUrl).then(res => {
+                    if(res.data.code === 200) {
+                        this.answerList = JSON.parse(JSON.stringify(res.data.data.lists))
+                        this.answerTotal = res.data.data.count
+                    } else {
+                        alert(res.data.msg)
+                    }
+                })
+            },
             statistics() {
                 // 当页面渲染完成之后调用统计作者相关数量的接口
                 let countArticle = "http://localhost:9527/article/countArticleByUser?username=" + this.question.userVo.username
@@ -63,6 +76,7 @@
                 if(res.data.code === 200) {
                     this.question = JSON.parse(JSON.stringify(res.data.data))
                     document.title = this.question.title
+                    this.getQuestionAnswerList()
                     this.statistics()
                 } else {
                     alert(res.data.msg)
