@@ -12,7 +12,7 @@
             </div>
             <div v-if="question.userVo.username != this.userInfo.username" @click="followOrUnfollow()" class="followBtn" :class="[{follow: !question.follow}, {unfollow: question.follow}]">{{question.follow ? "取消关注" : "关注作者"}}</div>
         </div>
-        <div class="answerCount">10 人回答</div>
+        <div class="answerCount">{{this.answerTotal}} 条回答</div>
     </div>
 </template>
 
@@ -24,7 +24,8 @@
         name: "QuestionTopMessage",
         props: {
             question: Object,
-            userInfo: Object
+            userInfo: Object,
+            answerTotal: Number
         },
         methods: {
             followOrUnfollow() {

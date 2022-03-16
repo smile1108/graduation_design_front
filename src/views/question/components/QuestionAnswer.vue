@@ -2,18 +2,27 @@
     <div id="questionAnswer">
         <mavon-editor ref=md v-model="content" @imgAdd="imgAdd" @imgDel="imgDel"></mavon-editor>
         <div class="publishAnswerBtn" @click="publishAnswer()">发布回答</div>
+        <div class="totalAnswerCount">总回答数 ( {{this.answerTotal}} )</div>
+        <AnswerList :answerList="answerList" :answerTotal="answerTotal" :answerCount="answerCount"></AnswerList>
     </div>
 </template>
 
 <script>
 
+    import AnswerList from './AnswerList'
     import axios from 'axios'
 
     export default {
         name: "QuestionAnswer",
         props: {
             question: Object,
-            userInfo: Object
+            userInfo: Object,
+            answerList: Array,
+            answerTotal: Number,
+            answerCount: Number
+        },
+        components: {
+            AnswerList
         },
         data() {
             return {
@@ -61,6 +70,8 @@
                             alert("添加成功")
                             // 清空回答区内容
                             this.content = ''
+                            // 然后刷新页面
+                            this.$router.go(0)
                         } else {
                             alert(res.data.msg)
                         }

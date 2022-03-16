@@ -2,7 +2,8 @@
   <div id="question">
       <QuestionHeader :question="question" :userInfo="userInfo"></QuestionHeader>
       <QuestionMessage :question="question" :userInfo="userInfo" :articleNumber="articleNumber"
-      :likeNumber="likeNumber" :followerNumber="followerNumber"></QuestionMessage>
+      :likeNumber="likeNumber" :followerNumber="followerNumber" :answerList="answerList"
+      :answerTotal="answerTotal" :answerCount="answerCount"></QuestionMessage>
   </div>
 </template>
 
@@ -25,7 +26,8 @@
                 likeNumber: 0,
                 followerNumber: 0,
                 answerList: [],
-                answerTotal: Number
+                answerTotal: 0,
+                answerCount: 5
             }
         },
         methods: {

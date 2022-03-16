@@ -1,10 +1,11 @@
 <template>
     <div id="questionMessage" class="clearfix">
-        <QuestionTopMessage :question="question" :userInfo="userInfo"></QuestionTopMessage>
+        <QuestionTopMessage :question="question" :userInfo="userInfo" :answerTotal="answerTotal"></QuestionTopMessage>
         <QuestionContent :question="question"></QuestionContent>
         <AuthorMessage :article="question" :articleNumber="articleNumber" :likeNumber="likeNumber"
         :followerNumber="followerNumber"></AuthorMessage>
-        <QuestionAnswer :question="question" :userInfo="userInfo"></QuestionAnswer>
+        <QuestionAnswer :question="question" :userInfo="userInfo" :answerList="answerList"
+        :answerTotal="answerTotal" :answerCount="answerCount"></QuestionAnswer>
     </div>
 </template>
 
@@ -26,6 +27,9 @@
             articleNumber: Number,
             likeNumber: Number,
             followerNumber: Number,
+            answerList: Array,
+            answerTotal: Number,
+            answerCount: Number
         }
     }
 </script>
