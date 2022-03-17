@@ -10,7 +10,7 @@
                     <span class="college">{{question.userVo.college}}</span>
                 </div>
             </div>
-            <div v-if="question.userVo.username != this.userInfo.username" @click="followOrUnfollow()" class="followBtn" :class="[{follow: !question.follow}, {unfollow: question.follow}]">{{question.follow ? "取消关注" : "关注作者"}}</div>
+            <div v-if="this.userInfo == null || question.userVo.username != this.userInfo.username" @click="followOrUnfollow()" class="followBtn" :class="[{follow: !question.follow}, {unfollow: question.follow}]">{{question.follow ? "取消关注" : "关注作者"}}</div>
         </div>
         <div class="answerCount">{{this.answerTotal}} 条回答</div>
     </div>

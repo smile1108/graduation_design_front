@@ -7,7 +7,7 @@
       </ul>
       <div class="search">
           <input class="inputText" type="text" v-model="searchContent" placeholder="请输入搜索关键字">
-          <button class="btn" @click="search"><span class="iconfont">&#xe600; 搜索</span></button>
+          <button class="btn" @click="search()"><span class="iconfont">&#xe600;</span>搜索</button>
           <button class="questionBtn">提问</button>
       </div>
       <div class="userInfo">
@@ -141,21 +141,21 @@
         border-right: none;
         text-indent: 16px;
         font-size: 14px;
-        border-radius: 16px 0 0 16px;
+        border-radius: 6px 0 0 6px;
         box-sizing: border-box;
     }
 
     #header .search .btn {
-        vertical-align: middle;
         border: 1px solid #0066FF;
         height: 34px;
         width: 80px;
+        font-size: 17px;
         text-align: center;
-        line-height: 34px;
+        line-height: 28px;
         box-sizing: border-box;
         color: #fff;
         background-color: #0066FF;
-        border-radius: 0 16px 16px 0;
+        border-radius: 0 6px 6px 0;
     }
 
     #header .search .btn:hover {
