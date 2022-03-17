@@ -8,7 +8,7 @@
             <span class="articleTitle">{{answerObj.questionVo.title}}</span>
         </div>
         <div class="answerMessage">
-            <span class="answerContent">{{answerObj.content}}</span>
+            <span class="answerContent">{{answerObj.textContent}}</span>
         </div>
         <div class="bottomFunctional">
             <div class="detailBtn" @click="checkDetail()">查看详情</div>
