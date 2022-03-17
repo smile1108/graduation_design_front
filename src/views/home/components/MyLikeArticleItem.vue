@@ -1,5 +1,5 @@
 <template>
-    <div id="likeArticleItem">
+    <div id="likeArticleItem" @click="jumpArticle()">
         <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
         <MyArticleContent :articleContent="articleObj.textContent"></MyArticleContent>
         <MyLikeArticleFooter :articleObj="articleObj" :userInfo="userInfo"></MyLikeArticleFooter>
@@ -20,6 +20,12 @@
         props: {
             articleObj: Object,
             userInfo: Object
+        },
+        methods: {
+            jumpArticle() {
+                let href = "article.html#/" + this.articleObj.id
+                window.open(href, "_blank")
+            }
         }
     }
 </script>

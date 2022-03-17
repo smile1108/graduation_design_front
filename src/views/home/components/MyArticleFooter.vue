@@ -4,7 +4,7 @@
         <span class="likeContent">{{this.articleObj.likeCount}}人喜欢</span>
         <span class="commentCount">{{this.articleObj.commentCount}}条评论</span>
         <span class="publishDate">发布于 {{this.formatDate}}</span>
-        <div v-if="this.showPersonalMessage" class="deleteBtn" @click="deleteArticle()">删除</div>
+        <div v-if="this.showPersonalMessage" class="deleteBtn" @click.stop="deleteArticle()">删除</div>
     </div>
 </template>
 

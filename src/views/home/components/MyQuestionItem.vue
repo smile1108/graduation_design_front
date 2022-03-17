@@ -1,10 +1,10 @@
 <template>
-    <div id="myQuestionItem">
+    <div id="myQuestionItem" @click="jumpQuestion()">
         <div class="titleMessage">{{questionObj.title}}</div>
         <div class="statisticsMessage">
             <span class="publishDate">发布于{{this.formatDate}}</span>
             <span class="answerCount">10人回答</span>
-            <div v-if="this.showPersonalMessage" class="deleteQuestionBtn" @click="deleteQuestion()">删除</div>
+            <div v-if="this.showPersonalMessage" class="deleteQuestionBtn" @click.stop="deleteQuestion()">删除</div>
         </div>
     </div>
 </template>
@@ -19,6 +19,10 @@
         methods: {
             deleteQuestion() {
                 this.$emit('deleteQuestion', this.questionObj)
+            },
+            jumpQuestion() {
+                let href = "question.html#/" + this.questionObj.id
+                window.open(href, "_blank")
             }
         },
         computed: {
@@ -44,6 +48,11 @@
         padding: 15px;
         box-sizing: border-box;
         border-bottom: 1px solid rgb(240, 242, 247);
+    }
+
+    #myQuestionItem:hover {
+        cursor: pointer;
+        background-color: rgb(233, 232, 232);
     }
 
     #myQuestionItem .titleMessage {

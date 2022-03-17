@@ -1,5 +1,5 @@
 <template>
-    <div id="articleItem">
+    <div id="articleItem" @click="jumpArticle()">
         <MyArticleHeader :articleTitle="articleObj.title"></MyArticleHeader>
         <MyArticleContent :articleContent="articleObj.textContent"></MyArticleContent>
         <MyArticleFooter :articleObj="articleObj" @deleteArticle="deleteArticle" :showPersonalMessage="showPersonalMessage"></MyArticleFooter>
@@ -24,6 +24,10 @@
         methods: {
             deleteArticle() {
                 this.$emit('deleteArticle', this.articleObj)
+            },
+            jumpArticle() {
+                let href = "article.html#/" + this.articleObj.id
+                window.open(href, "_blank")
             }
         }
     }
