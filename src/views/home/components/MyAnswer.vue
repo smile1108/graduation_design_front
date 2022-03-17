@@ -1,19 +1,42 @@
 <template>
     <div id="myAnswer">
-        answer
+        <MyAnswerItem v-for="answerObj in myAnswerList" :key="answerObj.id" :answerObj="answerObj" :userInfo="userInfo"></MyAnswerItem>
+        <Page :pageMax="pageMax" @changePage="changePage"></Page>
     </div>
 </template>
 
 <script>
 
+    import MyAnswerItem from './MyAnswerItem'
+    import Page from '../../index/components/pageComponent'
     import axios from 'axios'
 
     export default {
         name: "MyAnswer",
+        props: {
+            userInfo: Object
+        },
+        components: {
+            MyAnswerItem, Page
+        },
         data() {
             return {
                 myAnswerList: [],
                 pageMax: undefined
+            }
+        },
+        methods: {
+            changePage(page) {
+                let url = "http://localhost:9527/comment/answer/getUserAnswerList?username=" + this.$route.params.username + "&page=" + (page - 1)
+                axios.get(url).then(res => {
+                    if(res.data.code === 200) {
+                        this.myAnswerList = res.data.data.lists
+                        this.pageMax = res.data.data.sumPage
+                    } else if(res.data.code === 519) {
+                        alert("用户身份认证过期, 请重新登录")
+                        window.location.href = 'login.html'
+                    }
+                })
             }
         },
         mounted() {
