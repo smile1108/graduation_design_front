@@ -15,6 +15,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: 'PersonalContent',
@@ -37,12 +38,12 @@
         },
         mounted() {
             // 当这个组件渲染完成之后调用统计 用户文章以及喜欢文章数量的接口
-            let countArticleUrl = "http://localhost:9527/article/countArticleByUser?username=" + this.$route.params.username
-            let countLikeUrl = "http://localhost:9527/article/countLikeByUser?username=" + this.$route.params.username
-            let countFollowUrl = "http://localhost:9527/user/countFollow?username=" + this.$route.params.username
-            let countCommentUrl = "http://localhost:9527/comment/countCommentByUser?username=" + this.$route.params.username
-            let countQuestionUrl = "http://localhost:9527/article/question/countQuestionByUser?username=" + this.$route.params.username
-            let countAnswerUrl = "http://localhost:9527/comment/answer/countUserAnswer?username=" + this.$route.params.username
+            let countArticleUrl = API.BASE_URL + API.countArticleByUser + "?username=" + this.$route.params.username
+            let countLikeUrl = API.BASE_URL + API.countLikeByUser + "?username=" + this.$route.params.username
+            let countFollowUrl = API.BASE_URL + API.countFollow + "?username=" + this.$route.params.username
+            let countCommentUrl = API.BASE_URL + API.countCommentByUser + "?username=" + this.$route.params.username
+            let countQuestionUrl = API.BASE_URL + API.countQuestionByUser + "?username=" + this.$route.params.username
+            let countAnswerUrl = API.BASE_URL + API.countUserAnswer + "?username=" + this.$route.params.username
             axios.get(countArticleUrl).then(res => {
                 if(res.data.code === 200) {
                     // 代表请求成功

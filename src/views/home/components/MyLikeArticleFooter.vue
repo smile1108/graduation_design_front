@@ -12,6 +12,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyLikeArticleFooter",
@@ -42,7 +43,7 @@
             unlike() {
                 // 用户取消喜欢的方法
                 if(confirm("您确定要取消收藏该文章吗?")) {
-                    let url = "http://localhost:9527/article/unlike?username=" + this.userInfo.username + "&articleId=" + this.articleObj.id
+                    let url = API.BASE_URL + API.unlike + "?username=" + this.userInfo.username + "&articleId=" + this.articleObj.id
                     axios.get(url).then(res => {
                         if(res.data.code === 200) {
                             this.$router.go(0)

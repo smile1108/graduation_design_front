@@ -12,6 +12,7 @@
 
     import AnswerList from './AnswerList'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "QuestionAnswer",
@@ -38,7 +39,7 @@
                 // 然后调用后端的接口 上传这个图片
                 var formData = new FormData()
                 formData.append('file', $file)
-                axios.post('http://localhost:9527/article/uploadImage', formData).then(res => {
+                axios.post(API.BASE_URL + API.uploadImage, formData).then(res => {
                     if(res.data.code === 200) {
                         // 表示成功 这时候返回的String 就是图片的url
                         this.$refs.md.$imglst2Url([[pos, res.data.data]])
@@ -49,7 +50,7 @@
                 // 调用后端的删除图片的接口 删除在服务器中存储的图片 防止浪费空间
                 var formData = new FormData()
                 formData.append('filename', filename)
-                axios.post('http://localhost:9527/article/deleteImage', formData).then(res => {
+                axios.post(API.BASE_URL + API.deleteImage, formData).then(res => {
                     if(res.data.code === 200) {
                         alert("删除图片成功")
                     } else if(res.data.code === 520) {
@@ -64,7 +65,7 @@
                     window.location.href = "login.html"
                 } else {
                     // 调用添加回答的接口
-                    let addAnswerUrl = "http://localhost:9527/comment/answer/addAnswer"
+                    let addAnswerUrl = API.BASE_URL + API.addAnswer
                     let formData = new FormData()
                     formData.append('content', this.content)
                     formData.append('username', this.userInfo.username)

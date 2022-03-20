@@ -10,6 +10,7 @@
     import WriteArticle from './components/WriteArticle'
     import WriteHeader from './components/WriteHeader'
     import axios from 'axios'
+    import {API} from '../api'
 
     export default {
         name: 'Write',
@@ -40,7 +41,7 @@
                 formData.append('content', this.articleContent)
                 formData.append('username', JSON.parse(sessionStorage.getItem('userInfo')).username)
                 // 然后调用后端发布接口
-                axios.post('http://localhost:9527/article/addArticle', formData).then(res => {
+                axios.post(API.BASE_URL + API.addArticle, formData).then(res => {
                     if(res.data.code === 200) {
                         alert('文章发布成功')
                         // 成功之后 将发布框设置为不展示

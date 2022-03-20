@@ -19,6 +19,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "QuestionTopMessage",
@@ -37,7 +38,7 @@
                     // 根据当前是否关注来进行对应的操作
                     if(this.article.follow) {
                         // 这时候应该调用取消关注的api
-                        let url = "http://localhost:9527/user/unfollow?username=" + this.userInfo.username + "&followUsername=" + this.article.userVo.username
+                        let url = API.BASE_URL + API.unfollow + "?username=" + this.userInfo.username + "&followUsername=" + this.article.userVo.username
                         axios.get(url).then(res => {
                             if(res.data.code === 200) {
                                 this.$router.go(0)
@@ -46,7 +47,7 @@
                             }
                         })
                     } else {
-                        let url = "http://localhost:9527/user/follow?username=" + this.userInfo.username + "&followUsername=" + this.article.userVo.username
+                        let url = API.BASE_URL + API.follow + "?username=" + this.userInfo.username + "&followUsername=" + this.article.userVo.username
                         axios.get(url).then(res => {
                             if(res.data.code === 200) {
                                 this.$router.go(0)

@@ -12,6 +12,7 @@
 <script>
   import MyHeader from './components/MyHeader'
   import axios from 'axios'
+  import {API} from '../api'
 
   export default {
     name: 'App',
@@ -35,7 +36,7 @@
     },
     methods: {
       autoTakeUserInfo() {
-        axios.get("http://localhost:9527/user/autoLogin").then(response => {
+        axios.get(API.BASE_URL + API.autoLogin).then(response => {
           if(response.data.code == 200) {
             if(response.data.data === null) {
               this.userInfo = null
@@ -64,7 +65,7 @@
         }
         // 否则就调用获取待办事项的接口
         // 先拼接对应的url
-        const url = "http://localhost:9527/backlog/getAllBacklogs?username=" + userInfo.username
+        const url = API.BASE_URL + API.getAllBacklogs + "?username=" + userInfo.username
         axios.get(url).then(res => {
           if(res.data.code == 200) {
             // 设置todoList
@@ -79,7 +80,7 @@
         let formData = new FormData()
         formData.append('title', title)
         formData.append('username', JSON.parse(sessionStorage.getItem('userInfo')).username)
-        axios.post('http://localhost:9527/backlog/addBacklog', formData).then(res => {
+        axios.post(API.BASE_URL + API.addBacklog, formData).then(res => {
           if(res.data.code === 200) {
             // 成功之后 重新刷新todoList 即再次调用获取所有待办事项的方法
             this.getAllBacklog()
@@ -96,7 +97,7 @@
         let formData = new FormData()
         formData.append('id', id)
         formData.append('username', JSON.parse(sessionStorage.getItem('userInfo')).username)
-        axios.post('http://localhost:9527/backlog/deleteBacklog', formData).then(res => {
+        axios.post(API.BASE_URL + API.deleteBacklog, formData).then(res => {
           if(res.data.code === 200) {
             // 成功之后 刷新list
             this.getAllBacklog()
@@ -108,7 +109,7 @@
         })
       },
       undone(id) {
-        let url = 'http://localhost:9527/backlog/undone?id=' + id + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
+        let url = API.BASE_URL + API.undone + '?id=' + id + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
         axios.get(url).then(res => {
           if(res.data.code === 200) {
             // 成功 刷新list
@@ -121,7 +122,7 @@
         })
       },
       done(id) {
-        let url = 'http://localhost:9527/backlog/done?id=' + id + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
+        let url = API.BASE_URL + API.done + '?id=' + id + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
         axios.get(url).then(res => {
           if(res.data.code === 200) {
             // 成功 刷新list
@@ -134,7 +135,7 @@
         })
       },
       checkAllOrNone(done) {
-        let url = 'http://localhost:9527/backlog/checkAllOrNone?done=' + done + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
+        let url = API.BASE_URL + API.checkAllOrNone + '?done=' + done + '&username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
         axios.get(url).then(res => {
           if(res.data.data === true) {
             // 刷新list
@@ -147,7 +148,7 @@
         })
       },
       clearCompleted() {
-        let url = 'http://localhost:9527/backlog/clearCompleted?username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
+        let url = API.BASE_URL + API.clearCompleted + '?username=' + JSON.parse(sessionStorage.getItem('userInfo')).username
         axios.get(url).then(res => {
           if(res.data.data === true) {
             // 刷新list
@@ -165,7 +166,7 @@
           let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
           // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
           // 这时候需要添加一个参数 即 分类筛选的参数
-          let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr 
+          let url = API.BASE_URL + API.searchArticle + '?classify=' + classifyStr 
           if(this.searchContent != null) {
             url = url + "&keyword=" + this.searchContent
           }
@@ -185,7 +186,7 @@
         let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
         // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
         // 这时候需要添加一个参数 即 分类筛选的参数
-        let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr 
+        let url = API.BASE_URL + API.searchArticle + '?classify=' + classifyStr 
         if(this.searchContent != null) {
             url = url + "&keyword=" + this.searchContent
           }
@@ -214,7 +215,7 @@
         // 当添加一个新的筛选条件的时候 重新调用searchArticle的接口
         // 这时候需要添加一个参数 即 分类筛选的参数
         let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
-        let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr + "&keyword=" + keyword
+        let url = API.BASE_URL + API.searchArticle + '?classify=' + classifyStr + "&keyword=" + keyword
         if(this.userInfo != null) {
           url = url + "&username=" + this.userInfo.username
         }
@@ -228,7 +229,7 @@
       },
       searchQuestion(keyword) {
         this.searchContent = keyword
-        let searchQuestionUrl = "http://localhost:9527/article/question/searchQuestion?keyword=" + keyword
+        let searchQuestionUrl = API.BASE_URL + API.searchQuestion + "?keyword=" + keyword
         axios.get(searchQuestionUrl).then(res => {
           if(res.data.code === 200) {
             this.questions = res.data.data.lists
@@ -238,7 +239,7 @@
       },
       searchArticleMounted() {
         let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
-        let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr
+        let url = API.BASE_URL + API.searchArticle + '?classify=' + classifyStr
         if(this.userInfo != null) {
           url = url + "&username=" + this.userInfo.username
         }
@@ -256,7 +257,7 @@
         if(this.$route.path === '/home') {
           // 当改变页数的时候 重新请求获取文章列表的接口
           let classifyStr = this.transferClassifyArrayToStr(this.classifyFilter)
-          let url = 'http://localhost:9527/article/searchArticle?classify=' + classifyStr
+          let url = API.BASE_URL + API.searchArticle + '?classify=' + classifyStr
           if(this.searchContent != null && this.searchContent != "") {
             url = url + "&keyword=" + this.searchContent
           } 
@@ -273,7 +274,7 @@
           })
         } else if(this.$route.path === '/problem') {
           // 改变问题列表
-          let changeQuestionListUrl = "http://localhost:9527/article/question/searchQuestion?keyword=" + this.searchContent
+          let changeQuestionListUrl = API.BASE_URL + API.searchQuestion + "?keyword=" + this.searchContent
           changeQuestionListUrl = changeQuestionListUrl + "&page=" + (page - 1)
           axios.get(changeQuestionListUrl).then(res => {
             if(res.data.code === 200) {

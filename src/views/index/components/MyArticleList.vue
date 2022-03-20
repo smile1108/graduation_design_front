@@ -27,6 +27,7 @@
 <script>
     import PageComponent from './pageComponent'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: 'MyArticleList',
@@ -118,7 +119,7 @@
                 }
             },
             callUnfollow(username, article) {
-                let url = "http://localhost:9527/user/unfollow?username=" + username + "&followUsername=" + article.userVo.username
+                let url = API.BASE_URL + API.unfollow + "?username=" + username + "&followUsername=" + article.userVo.username
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         this.$emit('refreshArticles')
@@ -130,7 +131,7 @@
                 })
             },
             callFollow(username, article) {
-                let url = "http://localhost:9527/user/follow?username=" + username + "&followUsername=" + article.userVo.username
+                let url = API.BASE_URL + API.follow + "?username=" + username + "&followUsername=" + article.userVo.username
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         this.$emit('refreshArticles')
@@ -143,7 +144,7 @@
             },
             callUnlike(username, article) {
                 // 代表当前是喜欢的状态 就调用不喜欢的接口
-                let url = "http://localhost:9527/article/unlike?username=" + username + "&articleId=" + article.id
+                let url = API.BASE_URL + API.unlike + "?username=" + username + "&articleId=" + article.id
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         article.like = !article.like
@@ -155,7 +156,7 @@
                 })
             },
             callLike(username, article) {
-                let url = "http://localhost:9527/article/like?username=" + username + "&articleId=" + article.id
+                let url = API.BASE_URL + API.like + "?username=" + username + "&articleId=" + article.id
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         article.like = !article.like

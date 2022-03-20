@@ -13,6 +13,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: 'RegistryModule',
@@ -110,7 +111,7 @@
                     formData.append('username', username);
                     formData.append('password', password);
                     formData.append('confirmPwd', confirmPwd);
-                    axios.post('http://localhost:9527/user/register',formData).then((response) => {
+                    axios.post(API.BASE_URL + API.register,formData).then((response) => {
                         if(response.data.code == 200){
                             window.alert('注册成功')
                             // 跳转到登录页面

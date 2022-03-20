@@ -38,6 +38,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: 'MyMessage',
@@ -144,7 +145,7 @@
                 formData.append('specialty', this.specialty)
                 formData.append('gender', this.gender)
                 formData.append('resume', this.resume)
-                axios.post('http://localhost:9527/user/modifyMessage', formData).then((response) => {
+                axios.post(API.BASE_URL + API.modifyMessage, formData).then((response) => {
                     if(response.data.code == 200) {
                         sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))
                         this.userInfo = JSON.stringify(response.data.data)

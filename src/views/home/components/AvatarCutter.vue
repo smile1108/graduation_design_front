@@ -56,6 +56,7 @@
 <script>
 import { VueCropper }  from 'vue-cropper'
 import axios from 'axios'
+import {API} from '../../api'
 
 export default {
   props: {
@@ -142,7 +143,7 @@ export default {
           // 发数据传递到后端,注意这里请根据自己的后端逻辑进行处理，我是将用户名保存在Vuex中，可以直接进行命名
           formData.append('username', this.userInfo.username);
           formData.append('file',data);
-          axios.post('http://localhost:9527/user/uploadAvatar',formData).then(function(response){
+          axios.post(API.BASE_URL + API.uploadAvatar,formData).then(function(response){
             if(response.data.code == 200){
               // 重新存储新的用户信息
               sessionStorage.setItem('userInfo', JSON.stringify(response.data.data))

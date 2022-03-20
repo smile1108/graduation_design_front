@@ -20,6 +20,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyAnswerItem",
@@ -44,7 +45,7 @@
         methods: {
             deleteAnswer() {
                 if(confirm("您确定要删除回答吗?")) {
-                    let deleteAnswerUrl = "http://localhost:9527/comment/answer/deleteAnswer?id=" + this.answerObj.id + "&username=" + this.userInfo.username
+                    let deleteAnswerUrl = API.BASE_URL + API.deleteAnswer + "?id=" + this.answerObj.id + "&username=" + this.userInfo.username
                     axios.get(deleteAnswerUrl).then(res => {
                         if(res.data.code === 200) {
                             alert("删除成功")

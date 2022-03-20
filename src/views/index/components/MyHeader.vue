@@ -22,6 +22,7 @@
 
 <script>
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyHeader",
@@ -39,7 +40,7 @@
         methods: {
             logout() {
                 // 发送退出登录的请求 到后端 后端删除对应的userCookie
-                axios.get("http://localhost:9527/user/logout?username=" + this.userInfo.username).then(res => {
+                axios.get(API.BASE_URL + API.logout + "?username=" + this.userInfo.username).then(res => {
                     if(res.data.code == 200) {
                         this.$emit("deleteUserInfo")
                     }

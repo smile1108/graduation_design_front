@@ -11,6 +11,7 @@
     import MyLikeArticleItem from './MyLikeArticleItem'
     import Page from '../../index/components/pageComponent'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: 'MyLike',
@@ -28,7 +29,7 @@
         },
         mounted() {
             // 获取对应用户喜欢的文章列表
-            let url = "http://localhost:9527/article/getLikeListByUser?username=" + this.$route.params.username
+            let url = API.BASE_URL + API.getLikeListByUser + "?username=" + this.$route.params.username
             axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     // 代表请求成功 然后赋值给当前页面的data数据
@@ -42,7 +43,7 @@
         },
         methods: {
             changePage(page) {
-                let url = "http://localhost:9527/article/getLikeListByUser?username=" + this.$route.params.username + "&page=" + (page - 1)
+                let url = API.BASE_URL + API.getLikeListByUser + "?username=" + this.$route.params.username + "&page=" + (page - 1)
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         this.likeArticles = res.data.data.lists

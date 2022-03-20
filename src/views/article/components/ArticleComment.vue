@@ -12,6 +12,7 @@
 
     import CommentList from './CommentList'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "ArticleComment",
@@ -39,7 +40,7 @@
                     alert("请先登录")
                     window.location.href = "login.html"
                 } else {
-                    let addCommentUrl = "http://localhost:9527/comment/addComment"
+                    let addCommentUrl = API.BASE_URL + API.addComment
                     let formData = new FormData()
                     formData.append('content', this.commentContent)
                     formData.append('username', this.userInfo.username)

@@ -14,6 +14,7 @@
     import QuestionHeader from './components/QuestionHeader'
     import WriteQuestion from './components/WriteQuestion'
     import axios from 'axios'
+    import {API} from '../api'
 
     export default {
         name: 'Question',
@@ -34,7 +35,7 @@
                 this.questionContent = content
             },
             publishQuestion() {
-                let url = "http://localhost:9527/article/question/addQuestion"
+                let url = API.BASE_URL + API.addQuestion
                 let formData = new FormData()
                 formData.append('title', this.questionTitle)
                 formData.append('content', this.questionContent)

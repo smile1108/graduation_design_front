@@ -10,6 +10,7 @@
     import MyAnswerItem from './MyAnswerItem'
     import Page from '../../index/components/pageComponent'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyAnswer",
@@ -27,7 +28,7 @@
         },
         methods: {
             changePage(page) {
-                let url = "http://localhost:9527/comment/answer/getUserAnswerList?username=" + this.$route.params.username + "&page=" + (page - 1)
+                let url = API.BASE_URL + API.getUserAnswerList + "?username=" + this.$route.params.username + "&page=" + (page - 1)
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         this.myAnswerList = res.data.data.lists
@@ -41,7 +42,7 @@
         },
         mounted() {
             // 当页面渲染完成之后 调用获取自己问题列表的接口
-            let getUserAnswerListUrl = "http://localhost:9527/comment/answer/getUserAnswerList?username=" + this.$route.params.username
+            let getUserAnswerListUrl = API.BASE_URL + API.getUserAnswerList + "?username=" + this.$route.params.username
             axios.get(getUserAnswerListUrl).then(res => {
                 if(res.data.code === 200) {
                     this.myAnswerList = res.data.data.lists

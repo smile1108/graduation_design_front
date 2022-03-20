@@ -11,6 +11,7 @@
     import MyCommentItem from './MyCommentItem'
     import Page from '../../index/components/pageComponent'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyComment",
@@ -29,7 +30,7 @@
         },
         methods: {
             changePage(page) {
-                let url = "http://localhost:9527/comment/getCommentListByUser?username=" + this.$route.params.username + "&page=" + (page - 1)
+                let url = API.BASE_URL + API.getCommentListByUser + "?username=" + this.$route.params.username + "&page=" + (page - 1)
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         this.commentList = res.data.data.lists
@@ -43,7 +44,7 @@
         },
         mounted() {
             // 当页面渲染完成之后调用获取用户评论的接口
-            let getUserCommentListUrl = "http://localhost:9527/comment/getCommentListByUser?username=" + this.$route.params.username
+            let getUserCommentListUrl = API.BASE_URL + API.getCommentListByUser + "r?username=" + this.$route.params.username
             axios.get(getUserCommentListUrl).then(res => {
                 if(res.data.code === 200) {
                     this.commentList = res.data.data.lists

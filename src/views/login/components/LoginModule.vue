@@ -10,6 +10,7 @@
 
 <script>
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: 'LoginModule',
@@ -86,7 +87,7 @@
                     let formData = new FormData();
                     formData.append('username', username);
                     formData.append('password', password);
-                    axios.post('http://localhost:9527/user/login',formData).then((response) => {
+                    axios.post(API.BASE_URL + API.login,formData).then((response) => {
                         if(response.data.code == 200){
                             // 使用SessionStorage存储用户信息 和 用户信息的过期时间 方便后续判断cookie是否过期 来限制路由
                             sessionStorage.setItem('userInfo', JSON.stringify(response.data.data.userVo))

@@ -11,6 +11,7 @@
     import MyQuestionItem from './MyQuestionItem'
     import Page from '../../index/components/pageComponent'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyQuestion",
@@ -29,7 +30,7 @@
         },
         methods: {
             changePage(page) {
-                let url = "http://localhost:9527/article/question/getUserQuestionList?username=" + this.userInfo.username + "&page=" + (page - 1)
+                let url = API.BASE_URL + API.getUserQuestionList + "?username=" + this.userInfo.username + "&page=" + (page - 1)
                 axios.get(url).then(res => {
                     if(res.data.code === 200) {
                         this.myQuestionList = res.data.data.lists
@@ -46,7 +47,7 @@
                         alert("需要您先登录")
                         window.location.href = "login.html"
                     } else {
-                        let deleteQuestionUrl = "http://localhost:9527/article/question/deleteQuestion?id=" + question.id + "&username=" + this.userInfo.username
+                        let deleteQuestionUrl = API.BASE_URL + API.deleteQuestion + "?id=" + question.id + "&username=" + this.userInfo.username
                         axios.get(deleteQuestionUrl).then(res => {
                             if(res.data.code === 200) {
                                 this.$router.go(0)
@@ -63,7 +64,7 @@
         },
         mounted() {
             // 当页面渲染完成之后 调用获取自己问题列表的接口
-            let getUserQuestionListUrl = "http://localhost:9527/article/question/getUserQuestionList?username=" + this.$route.params.username
+            let getUserQuestionListUrl = API.BASE_URL + API.getUserQuestionList + "?username=" + this.$route.params.username
             axios.get(getUserQuestionListUrl).then(res => {
                 if(res.data.code === 200) {
                     this.myQuestionList = res.data.data.lists

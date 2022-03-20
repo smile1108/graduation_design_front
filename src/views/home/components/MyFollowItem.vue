@@ -19,6 +19,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyFollowItem",
@@ -39,7 +40,7 @@
             unfollow() {
                 if(confirm("您确定要取消关注吗?")) {
                     // 取消关注的方法
-                    let url = "http://localhost:9527/user/unfollow?username=" + this.userInfo.username + "&followUsername=" + this.followUserObj.username
+                    let url = API.BASE_URL + API.unfollow + "?username=" + this.userInfo.username + "&followUsername=" + this.followUserObj.username
                     axios.get(url).then(res => {
                         if(res.data.code === 200) {
                             // 代表取消关注成功 然后刷新页面

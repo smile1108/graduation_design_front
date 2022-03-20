@@ -11,6 +11,7 @@
     import MyArticleItem from './MyArticleItem'
     import Page from '../../index/components/pageComponent'
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: 'MyArticle',
@@ -36,7 +37,7 @@
                         alert("进行此操作,需要您先登录")
                         window.location.href = 'login.html'
                     } else {
-                        let url = "http://localhost:9527/article/deleteArticle"
+                        let url = API.BASE_URL + API.deleteArticle
                         let formData = new FormData()
                         formData.append("id", article.id)
                         formData.append("username", this.userInfo.username)
@@ -54,7 +55,7 @@
                 }
             },
             changePage(page) {
-                let url = "http://localhost:9527/article/getArticleListByUsername?username=" + this.userInfo.username + "&page=" + (page - 1)
+                let url = API.BASE_URL + API.getArticleListByUsername + "?username=" + this.userInfo.username + "&page=" + (page - 1)
                 axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     this.myArticleList = res.data.data.lists
@@ -68,7 +69,7 @@
         },
         mounted() {
             // 当页面渲染完成之后 请求获取自己文章的接口
-            let url = "http://localhost:9527/article/getArticleListByUsername?username=" + this.$route.params.username
+            let url = API.BASE_URL + API.getArticleListByUsername + "?username=" + this.$route.params.username
             axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     this.myArticleList = res.data.data.lists

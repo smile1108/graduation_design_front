@@ -12,6 +12,7 @@
     import ArticleMessage from './components/ArticleMessage'
     import ArticleHeader from './components/ArticleHeader'
     import axios from 'axios'
+    import {API} from '../api'
 
     export default {
         name: 'Article',
@@ -36,7 +37,7 @@
                 this.getCommentList()
             },
             getCommentList() {
-                let getCommentList = "http://localhost:9527/comment/getCommentListByArticleId?articleId=" + this.article.id + "&number=" + this.commentNumber
+                let getCommentList = API.BASE_URL + API.getCommentListByArticleId + "?articleId=" + this.article.id + "&number=" + this.commentNumber
                 axios.get(getCommentList).then(res => {
                     if(res.data.code === 200) {
                         this.commentList = JSON.parse(JSON.stringify(res.data.data.lists))
@@ -46,9 +47,9 @@
             },
             statistics() {
                 // 当页面渲染完成之后调用统计作者相关数量的接口
-                let countArticle = "http://localhost:9527/article/countArticleByUser?username=" + this.article.userVo.username
-                let countLike = "http://localhost:9527/article/countLikeByUser?username=" + this.article.userVo.username
-                let countFollower = "http://localhost:9527/user/countFollowed?followUsername=" + this.article.userVo.username
+                let countArticle = API.BASE_URL + API.countArticleByUser + "?username=" + this.article.userVo.username
+                let countLike = API.BASE_URL + API.countLikeByUser + "?username=" + this.article.userVo.username
+                let countFollower = API.BASE_URL + API.countFollowed + "?followUsername=" + this.article.userVo.username
                 axios.get(countArticle).then(res => {
                     if(res.data.code === 200) {
                         this.articleNumber = res.data.data
@@ -74,7 +75,7 @@
         },
         created() {
             // 当页面渲染完成之后 请求获取文章信息的接口
-            let url = "http://localhost:9527/article/getArticleMessageById?articleId=" + this.$route.params.articleId
+            let url = API.BASE_URL + API.getArticleMessageById + "?articleId=" + this.$route.params.articleId
             this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
             if(this.userInfo != null) {
                 url = url + "&username=" + this.userInfo.username

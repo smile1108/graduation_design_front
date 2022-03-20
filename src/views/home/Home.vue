@@ -10,6 +10,7 @@
     import PersonalMessage from './components/PersonalMessage'
     import PersonalContent from './components/PersonalContent'
     import axios from 'axios'
+    import {API} from '../api'
 
     export default {
         name: 'Home',
@@ -20,7 +21,7 @@
             // 使用动态路由的参数之后 就不需要通过sessionStorage中是否存在visitUser来判断了 
             // 这时候动态参数传递进来的就是访问的用户的username
             // 然后通过这个动态参数 请求后端的接口 获取对应的用户信息
-            let url = "http://localhost:9527/user/getUserByUsername?username=" + this.$route.params.username
+            let url = API.BASE_URL + API.getUserByUsername + "?username=" + this.$route.params.username
             axios.get(url).then(res => {
                 if(res.data.code === 200) {
                     // 如果请求成功 就设置userInfo为获取到的用户信息

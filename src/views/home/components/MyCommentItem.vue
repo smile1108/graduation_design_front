@@ -20,6 +20,7 @@
 <script>
 
     import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "MyCommentItem",
@@ -30,7 +31,7 @@
         methods: {
             deleteComment() {
                 if(confirm("您确定要删除评论吗?")) {
-                    let deleteCommentUrl = "http://localhost:9527/comment/deleteComment?commentId=" + this.commentObj.id + "&username=" + this.userInfo.username
+                    let deleteCommentUrl = API.BASE_URL + API.deleteComment + "?commentId=" + this.commentObj.id + "&username=" + this.userInfo.username
                     axios.get(deleteCommentUrl).then(res => {
                         if(res.data.code === 200) {
                             alert("删除成功")
