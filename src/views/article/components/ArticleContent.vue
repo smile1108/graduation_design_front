@@ -32,4 +32,12 @@
         max-width: 590px;
         max-height: 590px;
     }
+
+    #articleContent pre {
+        background-color: #FFF;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 24px;
+        overflow: auto;
+    }
 </style>
