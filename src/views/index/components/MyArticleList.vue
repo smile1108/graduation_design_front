@@ -8,7 +8,7 @@
               <div class="authorName">{{article.userVo.nickname}}</div>
               <div class="userOperator">
                   <div class="likeDiv">
-                      <span class="iconfont" :class="{colorRed: article.like}" @click="clickIcon(article)">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click="clickFont(article)">{{article.like ? "取消喜欢" : "喜欢"}}</span>
+                      <span class="iconfont" :class="{colorRed: article.like}" @click.stop="clickIcon(article)">{{article.like ? "&#xe86f;" : "&#xe870;"}}</span><span class="like" :class="{colorRed: article.like}" @click.stop="clickFont(article)">{{article.like ? "取消喜欢" : "喜欢"}}</span>
                   </div>
                   <div class="classifyDiv">{{article.classifyVo.name}}</div>
                   <div class="publishDate">发布于{{formatDate(article.publishDate)}}</div>
