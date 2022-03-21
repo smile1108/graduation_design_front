@@ -23,7 +23,7 @@ export let API = {
     getArticleListByUsername: "/article/getArticleListByUsername",
     getCommentListByUser: "/comment/getCommentListByUser",
     deleteComment: "/comment/deleteComment",
-    getFollowList: "/article/getFollowList",
+    getFollowList: "/user/getFollowList",
     getLikeListByUser: "/article/getLikeListByUser",
     unlike: "/article/unlike",
     like: "/article/like",

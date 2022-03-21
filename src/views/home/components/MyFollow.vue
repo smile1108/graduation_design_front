@@ -24,8 +24,7 @@
         },
         data() {
             return {
-                myFollowList: [{username: '201801001113', nickname: '一只小菜鸡', profile: 'http://localhost/images/ek9flm7ehlicbjoopodq.jpg',
-                school: '山西大学', gender: 'male', college: '计算机与信息技术学院', specialty: '计算机科学与技术', followSum: 10, articleSum: 6}],
+                myFollowList: [],
                 pageMax: undefined
             }
         },
