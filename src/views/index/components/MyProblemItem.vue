@@ -10,7 +10,7 @@
         </div>
         <div class="questionStatisticsMessage clearfix">
             <div class="tip">试试帮Ta解答</div>
-            <div class="answerCount">10人回答</div>
+            <div class="answerCount">{{questionObj.answerCount}} 条回答</div>
             <div class="followCount">{{questionObj.followCount}} 人关注了作者</div>
         </div>
     </div>

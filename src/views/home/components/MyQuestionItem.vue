@@ -3,7 +3,7 @@
         <div class="titleMessage">{{questionObj.title}}</div>
         <div class="statisticsMessage">
             <span class="publishDate">发布于{{this.formatDate}}</span>
-            <span class="answerCount">10人回答</span>
+            <span class="answerCount">{{questionObj.answerCount}} 条回答</span>
             <div v-if="this.showPersonalMessage" class="deleteQuestionBtn" @click.stop="deleteQuestion()">删除</div>
         </div>
     </div>
