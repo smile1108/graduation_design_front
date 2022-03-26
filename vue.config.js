@@ -4,7 +4,7 @@ module.exports = {
             entry: "./src/views/index/main.js",
             template: "./src/views/index/index.html",
             filename: "index.html",
-            title: "校园信息共享系统",
+            title: "校园学习分享平台",
             faviconPath: "favicon.ico"
         },
         login: {
