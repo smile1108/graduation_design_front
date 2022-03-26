@@ -118,6 +118,7 @@
                 let password = this.password
                 let confirmPwd = this.confirmPwd
                 let email = this.email
+                let code = this.code
                 let usernameDom = this.$refs.username
                 let passwordDom = this.$refs.password
                 let confirmPwdDom = this.$refs.confirmPwd
@@ -177,6 +178,8 @@
                     formData.append('username', username);
                     formData.append('password', password);
                     formData.append('confirmPwd', confirmPwd);
+                    formData.append('email', email);
+                    formData.append('code', code)
                     axios.post(API.BASE_URL + API.register,formData).then((response) => {
                         if(response.data.code == 200){
                             window.alert('注册成功')
@@ -187,6 +190,8 @@
                             this.username = ''
                             this.password = ''
                             this.confirmPwd = ''
+                            this.email = ''
+                            this.code = ''
                         }
                     })
                 }
