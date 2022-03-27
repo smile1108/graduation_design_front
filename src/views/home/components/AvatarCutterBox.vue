@@ -24,7 +24,6 @@
         },
         methods: {
             closeBox() {
-                this.showAvatar = false
                 this.$emit("changeShowAvatar", false)
             }
         }

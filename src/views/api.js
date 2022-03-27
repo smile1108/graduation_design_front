@@ -48,5 +48,6 @@ export let API = {
     getAnswerListByQuestion: "/comment/answer/getAnswerListByQuestion",
     getQuestionMessageById: "/article/question/getQuestionMessageById",
     addArticle: "/article/addArticle",
-    getCode: "/user/getCode"
+    getCode: "/user/getCode",
+    modifyPassword: "/user/modifyPassword"
 }

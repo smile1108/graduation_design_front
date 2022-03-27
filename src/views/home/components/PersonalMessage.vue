@@ -12,21 +12,24 @@
                 <span class="school">{{userInfo.school}}</span>
             </div>
             <div class="functionalButton">
+                <div class="modifyPassword" :class="{showPersonalMessage: !this.showPersonalMessage}" @click="showModifyBox()">修改密码</div>
                 <div class="modifyAvatar" :class="{showPersonalMessage: !this.showPersonalMessage}" @click="showAvatarBox()">修改头像</div>
             </div>
         </div>
-        <div id="popLayer" :class="{active: !showAvatar}"></div>
+        <div id="popLayer" :class="{active: !this.showAvatar && !showModify}"></div>
         <AvatarCutterBox :showAvatar="showAvatar" @changeShowAvatar="changeShowAvatar" :userInfo="userInfo"></AvatarCutterBox>
+        <ModifyPasswordBox :showModify="showModify" @changeShowModify="changeShowModify" :userInfo="userInfo"></ModifyPasswordBox>
     </div>
 </template>
 
 <script>
     import AvatarCutterBox from './AvatarCutterBox'
+    import ModifyPasswordBox from './ModifyPasswordBox'
 
     export default {
         name: 'PersonalMessage',
         components: {
-            AvatarCutterBox
+            AvatarCutterBox, ModifyPasswordBox
         },  
         props: {
             userInfo: Object,
@@ -35,6 +38,7 @@
         data() {
             return {
                 showAvatar: false,
+                showModify: false,
                 loginUser: Object
             }
         },
@@ -42,8 +46,14 @@
             showAvatarBox() {
                 this.showAvatar= true
             },
+            showModifyBox() {
+                this.showModify = true
+            },
             changeShowAvatar(param) {
                 this.showAvatar = param
+            },
+            changeShowModify(param) {
+                this.showModify = param
             },
             returnIndex() {
                 window.location.href = 'index.html'
@@ -185,8 +195,12 @@
         background-color: #005ce6;
     }
 
-    #personalMsg .bottomDiv .functionalButton .modifyAvatar {
-        margin-left: 600px;
+    #personalMsg .bottomDiv .functionalButton .modifyPassword {
+        margin-left: 500px;
         margin-right: 50px;
     }
+
+    /* #personalMsg .bottomDiv .functionalButton .modifyAvatar {
+        
+    } */
 </style>

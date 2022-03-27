@@ -1,33 +1,37 @@
 <template>
     <div id="myMessage">
+        <div id="email">
+            <span class="msgTitle">邮箱</span>
+            <input class="emailMsg" type="text" v-model="this.userInfo.email" disabled>
+        </div>
         <div id="nickname">
             <span class="msgTitle">昵称</span>
-            <input class="nicknameMsg" type="text" v-model="nickname" placeholder="请输入用户昵称" :disabled="!canEdit" ref="nickname">
+            <input class="nicknameMsg" type="text" v-model="this.userInfo.nickname" placeholder="请输入用户昵称" :disabled="!canEdit" ref="nickname">
             <span class="errorMsg" ref="nicknameError">{{nicknameErrorMsg}}</span>
         </div>
         <div id="school">
             <span class="msgTitle">学校</span>
-            <input class="schoolMsg" type="text" v-model="school" placeholder="请输入用户学校" :disabled="!canEdit" ref="school">
+            <input class="schoolMsg" type="text" v-model="this.userInfo.school" placeholder="请输入用户学校" :disabled="!canEdit" ref="school">
             <span class="errorMsg" ref="schoolError">{{schoolErrorMsg}}</span>
         </div>
         <div id="college">
             <span class="msgTitle">学院</span>
-            <input class="collegeMsg" type="text" v-model="college" placeholder="请输入用户所在学院" :disabled="!canEdit" ref="college">
+            <input class="collegeMsg" type="text" v-model="this.userInfo.college" placeholder="请输入用户所在学院" :disabled="!canEdit" ref="college">
             <span class="errorMsg" ref="collegeError">{{collegeErrorMsg}}</span>
         </div>
         <div id="specialty">
             <span class="msgTitle">专业</span>
-            <input class="specialtyMsg" type="text" v-model="specialty" placeholder="请输入用户专业" :disabled="!canEdit" ref="specialty">
+            <input class="specialtyMsg" type="text" v-model="this.userInfo.specialty" placeholder="请输入用户专业" :disabled="!canEdit" ref="specialty">
             <span class="errorMsg" ref="specialtyError">{{specialtyErrorMsg}}</span>
         </div>
         <div id="gender">
             <span class="msgTitle">性别</span>
-            <label><input class="gender" name="gender" type="radio" value="male" :checked="isMale" :disabled="!canEdit" v-model="gender"/><span class="maleRadio">男</span></label>
-            <label><input class="gender" name="gender" type="radio" value="female" :checked="isFemale" :disabled="!canEdit" v-model="gender"/><span class="femaleRadio">女</span></label>
+            <label><input class="gender" name="gender" type="radio" value="male" :checked="isMale" :disabled="!canEdit" v-model="this.userInfo.gender"/><span class="maleRadio">男</span></label>
+            <label><input class="gender" name="gender" type="radio" value="female" :checked="isFemale" :disabled="!canEdit" v-model="this.userInfo.gender"/><span class="femaleRadio">女</span></label>
         </div>
         <div id="individualResume">
             <span class="msgTitle">简介</span>
-            <textarea class="individualText" placeholder="请输入简短的自我介绍" :disabled="!canEdit" v-model="resume" ref="resume"></textarea>
+            <textarea class="individualText" placeholder="请输入简短的自我介绍" :disabled="!canEdit" v-model="this.userInfo.resume" ref="resume"></textarea>
             <span class="errorMsg" ref="resumeError">{{resumeErrorMsg}}</span>
         </div>
         <div id="editBtn" @click="editMsg()">{{editBtnValue}}</div>
@@ -55,10 +59,12 @@
             this.specialty = this.userInfo.specialty
             this.resume = this.userInfo.resume
             this.gender = this.userInfo.gender
+            this.email = this.userInfo.email
         },
         data() {
             return {
                 canEdit: false,
+                email: '',
                 nickname: '',
                 school: '',
                 college: '',
