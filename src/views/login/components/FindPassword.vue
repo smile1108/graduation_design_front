@@ -1,10 +1,12 @@
 <template>
     <div id="findPassword">
+        <input class="username" type="text" placeholder="请输入学号" ref="username" v-model="username" @focus="inputFocus('username')">
+        <div class="errorMsg" ref="usernameError">{{usernameErrorMsg}}</div>
         <input class="email" type="text" placeholder="请输入账号绑定的邮箱" ref="email" v-model="email" @focus="inputFocus('email')">
         <div class="errorMsg" ref="emailError">{{emailErrorMsg}}</div>
         <input class="code" type="text" placeholder="请输入验证码" v-model="code">
         <button class="getCodeBtn" @click="getCode()" ref="getCodeBtn" :disabled="gotit" :class="{getCodeDisabled: gotit}">{{this.gotit ? gotitMessage : codeBtnMessage}}</button>
-        <button class="findPasswordBtn" @click="register()">找回密码</button>
+        <button class="findPasswordBtn" @click="findPassword()">找回密码</button>
     </div>
 </template>
 
@@ -18,7 +20,9 @@
         data() {
             return {
                 email: '',
+                username: '',
                 emailErrorMsg: '',
+                usernameErrorMsg: '',
                 codeBtnMessage: '获取验证码',
                 gotit: false,
                 code: '',
@@ -34,10 +38,15 @@
         methods: {
             inputFocus(dom) {
                 let emailDom = this.$refs.email;
+                let usernameDom = this.$refs.username;
                 let emailErrorDom = this.$refs.emailError
+                let usernameErrorDom = this.$refs.usernameError
                 if(dom === 'email') {
                     emailDom.style.setProperty('border-bottom', '1px solid #ebebeb')
                     emailErrorDom.style.setProperty('visibility', 'hidden')
+                } else if(dom === 'username') {
+                    usernameDom.style.setProperty('border-bottom', '1px solid #ebebeb')
+                    usernameErrorDom.style.setProperty('visibility', 'hidden')
                 }
             },
             getCode() {
@@ -71,13 +80,44 @@
                 }
                 
             },
+            findPassword() {
+                if(this.username.length > 20 || this.username.length < 8 || this.username == null || this.username == "") {
+                    let usernameDom = this.$refs.username;
+                    let usernameErrorDom = this.$refs.usernameError
+                    usernameDom.style.setProperty('border-bottom', '2px solid red')
+                    usernameErrorDom.style.setProperty('visibility', 'visible')
+                    this.username = ''
+                    this.usernameErrorMsg = '学号长度必须大于8位并且小于20位'
+                } else {
+                    let findPasswordUrl = API.BASE_URL + API.findPassword
+                    let formData = new FormData()
+                    formData.append('username', this.username)
+                    formData.append('email', this.email)
+                    formData.append('code', this.code)
+                    axios.post(findPasswordUrl, formData).then(res => {
+                        if(res.data.code === 200) {
+                            this.$router.push('/login')
+                        } else {
+                            alert(res.data.msg)
+                        }
+                    })
+                }
+            }
         }
     }
 </script>
 
 <style>
 
-    #findPassword .email {
+    .getCodeDisabled {
+        background-color: gray!important; 
+    }
+
+    .getCodeDisabled:hover {
+        cursor: no-drop!important;
+    }
+
+    #findPassword .email, .username {
         display: block;
         width: 70%;
         height: 30px;
@@ -88,6 +128,10 @@
         text-indent: 14px;
         font-size: 18px;
         border-bottom: 1px solid #ebebeb;
+    }
+
+    #findPassword .email {
+        margin-top: 20px !important;
     }
 
     #findPassword .code {
