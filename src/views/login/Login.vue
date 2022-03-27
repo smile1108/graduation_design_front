@@ -2,6 +2,7 @@
   <div id="header">
       <router-link class="loginHeader" active-class="active" to="/login">登录</router-link>
       <router-link class="registryHeader" active-class="active" to="/registry">注册</router-link>
+      <router-link class="findPasswordHeader" active-class="active" to="/findPassword">找回密码</router-link>
       <router-view></router-view>
   </div>
 </template>
@@ -34,9 +35,9 @@
         border-bottom: 6px solid #0066FF !important;
     }
 
-    #header .loginHeader, .registryHeader {
+    #header .loginHeader, .registryHeader, .findPasswordHeader {
         float: left;
-        width: 50%;
+        width: 33%;
         height: 50px;
         line-height: 40px;
         text-align: center;
