@@ -48,6 +48,13 @@ module.exports = {
             filename: "question.html", // 打包后的html文件名称
             title: "问题",
             faviconPath: "favicon.ico"
+        },
+        chat: {
+            entry: "./src/views/chat/chat.js", // 配置入口js文件
+            template: "./src/views/chat/chat.html", // 主页面
+            filename: "chat.html", // 打包后的html文件名称
+            title: "私信",
+            faviconPath: "favicon.ico"
         }
     }
   }

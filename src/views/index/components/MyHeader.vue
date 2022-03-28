@@ -14,7 +14,7 @@
           <a href="login.html" v-if="userInfo === null"><button class="loginBtn">登录 / 注册</button></a>
           <div class="userFunction" v-else>
               <div class="messageCenter">
-                  <span class="iconfont">&#xe665;</span>
+                  <span class="iconfont" @click="jumpChat()">&#xe665;</span>
                   <span class="messageNumber">99+</span>
               </div>
               <img class="userImg" :src="userInfo.profile" alt="头像" @click="jumpToHome()">
@@ -49,6 +49,10 @@
                         this.$emit("deleteUserInfo")
                     }
                 })
+            },
+            jumpChat() {
+                let href = "chat.html/"
+                window.open(href, "_blank")
             },
             jumpToHome() {
                 // 当点击Header中的头像时 跳转到自己的主页
