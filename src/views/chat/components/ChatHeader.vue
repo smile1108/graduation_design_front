@@ -28,7 +28,7 @@
         line-height: 60px;
         padding: 0 180px;
         position: relative;
-        margin-bottom: 40px;
+        margin-bottom: 10px;
     }
 
     #chatHeader .tip {
