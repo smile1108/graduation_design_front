@@ -13,6 +13,10 @@
       <div class="userInfo">
           <a href="login.html" v-if="userInfo === null"><button class="loginBtn">登录 / 注册</button></a>
           <div class="userFunction" v-else>
+              <div class="messageCenter">
+                  <span class="iconfont">&#xe665;</span>
+                  <span class="messageNumber">99+</span>
+              </div>
               <img class="userImg" :src="userInfo.profile" alt="头像" @click="jumpToHome()">
               <div class="iconfont logout" @click="logout()">&#xe60e; 退出登录</div>
           </div>
@@ -96,6 +100,7 @@
         width: 100%;
         height: 52px;
         background-color: #fff;
+        position: relative;
     }
 
     #header .tabs {
@@ -206,8 +211,35 @@
         line-height: 100%;
     }
 
+    #header .userInfo .userFunction .messageCenter {
+        margin-top: 14px;
+        float: left;
+        position: relative;
+    }
+
+    #header .userInfo .userFunction .messageCenter .iconfont {
+        font-size: 32px;
+        color: #8590A6;
+    }
+
+    #header .userInfo .userFunction .messageCenter .iconfont:hover {
+        cursor: pointer;
+        color: #4d4b4b;
+    }
+
+    #header .userInfo .userFunction .messageCenter .messageNumber {
+        color: #FFF;
+        font-size: 10px;
+        padding: 2px;
+        border-radius: 50%;
+        position: absolute;
+        left: 20px;
+        top: -13px;
+        background-color: red;
+    }
+
     #header .userInfo .userFunction .userImg {
-        margin-left: 100px;
+        margin-left: 40px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
