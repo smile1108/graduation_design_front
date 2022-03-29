@@ -1,12 +1,15 @@
 <template>
     <div id="chatTitle">
-        <div class="titleContent">title</div>
+        <div class="titleContent">{{currentChatUser.nickname}}</div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "ChatTitle"
+        name: "ChatTitle",
+        props: {
+            currentChatUser: Object
+        }
     }
 </script>
 
@@ -21,8 +24,8 @@
 
     #chatTitle .titleContent {
         margin: 0 auto;
-        width: 100px;
-        font-size: 24px;
+        width: 200px;
+        font-size: 22px;
         text-align: center;
     }
 </style>

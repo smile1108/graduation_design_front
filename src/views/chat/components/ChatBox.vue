@@ -1,7 +1,7 @@
 <template>
     <div id="chatBox">
         <div v-if="this.currentChatUser != undefined && this.currentChatUser != null">
-            <ChatTitle></ChatTitle>
+            <ChatTitle :currentChatUser="currentChatUser"></ChatTitle>
             <ChatContent></ChatContent>
             <ChatInput :webSocketObj="webSocketObj"></ChatInput>
         </div>
