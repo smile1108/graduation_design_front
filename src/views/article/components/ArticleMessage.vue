@@ -3,7 +3,7 @@
         <ArticleTopMessage :article="article" :userInfo="userInfo"></ArticleTopMessage>
         <ArticleContent :article="article"></ArticleContent>
         <AuthorMessage :article="article" :articleNumber="articleNumber" :likeNumber="likeNumber"
-        :followerNumber="followerNumber"></AuthorMessage>
+        :followerNumber="followerNumber" :userInfo="userInfo"></AuthorMessage>
         <ArticleComment :article="article" :commentList="commentList" :commentTotal="commentTotal" :commentNumber="commentNumber"
         @showMoreComment="showMoreComment" :userInfo="userInfo"></ArticleComment>
     </div>

@@ -1,8 +1,8 @@
 <template>
   <div id="articleList">
       <div class="articleDiv" v-for="article in articles" :key="article.id" @click="jumpArticle(article.id)">
-          <h2 class="articleTitle" @click="jumpArticle(article.id)">{{article.title}}</h2>
-          <div class="articleContent" @click="jumpArticle(article.id)">{{article.textContent}}</div>
+          <h2 class="articleTitle" @click.stop="jumpArticle(article.id)">{{article.title}}</h2>
+          <div class="articleContent" @click.stop="jumpArticle(article.id)">{{article.textContent}}</div>
           <div class="authorMsg">
               <img :src="article.userVo.profile" alt="头像" @click="jumpAuthorHome(article.userVo)">
               <div class="authorName">{{article.userVo.nickname}}</div>

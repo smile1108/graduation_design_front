@@ -1,8 +1,13 @@
 <template>
     <div id="chatBox">
-        <ChatTitle></ChatTitle>
-        <ChatContent></ChatContent>
-        <ChatInput></ChatInput>
+        <div v-if="this.currentChatUser != undefined && this.currentChatUser != null">
+            <ChatTitle></ChatTitle>
+            <ChatContent></ChatContent>
+            <ChatInput></ChatInput>
+        </div>
+        <div class="withoutCurrentChat" v-else>
+            <div class="iconfont">&#xe665;</div>
+        </div>
     </div>
 </template>
 
@@ -14,20 +19,53 @@
 
     export default {
         name: "ChatBox",
+        props: {
+            currentChatUser: Object
+        },
         components: {
             ChatTitle, ChatContent, ChatInput
+        },
+        data() {
+            return {
+                
+            }
         }
     }
 </script>
 
 <style>
+
+    @font-face {
+    font-family: 'iconfont';
+    src: url('../icon/iconfont.woff2?t=1636981770201') format('woff2'),
+        url('../icon/iconfont.woff?t=1636981770201') format('woff'),
+        url('../icon/iconfont.ttf?t=1636981770201') format('truetype');
+    }
+
+    .iconfont {
+        font-family: "iconfont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
     #chatBox {
-        border: 1px solid black;
         position: absolute;
         left: 288px;
         top: 1px;
         min-height: 600px;
         min-width: 710px;
         box-sizing: border-box;
+    }
+
+    #chatBox .withoutCurrentChat {
+        line-height: 600px;
+        text-align: center;
+    }
+
+    #chatBox .withoutCurrentChat .iconfont {
+        font-size: 160px;
+        color: #8590A6;
     }
 </style>

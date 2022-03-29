@@ -5,11 +5,11 @@ import ChatArea from '../components/ChatArea'
 export default new VueRouter({
     routes: [
         {
-            path: '/',
-            redirect: 'chat'
+            path: '/:toUser',
+            redirect: '/chat/:toUser'
         },
         {
-            path: '/chat',
+            path: '/chat/:toUser',
             component: ChatArea
         }
     ]

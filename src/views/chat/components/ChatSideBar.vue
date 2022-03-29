@@ -3,16 +3,36 @@
         <div class="chatSearch">
             <input type="text" class="chatSearchInput" placeholder="搜索联系人">
         </div>
+        <div class="chatList">
+            <div class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" :class="{currentChat: chatUserObj.username == currentChatUser.username}">
+                <img :src="chatUserObj.profile" alt="头像" class="userProfile">
+                <div class="userNickname">{{chatUserObj.nickname}}</div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "ChatSideBar"
+        name: "ChatSideBar",
+        props: {
+            chatUserList: Array,
+            currentChatUser: Object
+        },
+        data() {
+            return {
+                
+            }
+        }
     }
 </script>
 
 <style>
+
+    .currentChat {
+        background-color: #f6f6f6;
+    }
+
     #chatSideBar {
         position: relative;
         width: 286px;
@@ -38,5 +58,35 @@
         border-radius: 3px;
         border: 1px solid #e7eaf1;
         background-color: #f7f8fa;
+    }
+
+    #chatSideBar .chatList .chatUser {
+        position: relative;
+        padding: 10px;
+        box-sizing: border-box;
+        height: 70px;
+        width: 90%;
+        line-height: 70px;
+        margin: 0 auto;
+        border-bottom: 1px solid #f7f8fa;
+    }
+
+    #chatSideBar .chatList .chatUser:hover {
+        cursor: pointer;
+    }
+
+    #chatSideBar .chatList .chatUser .userProfile {
+        height: 46px;
+        width: 46px;
+        border-radius: 50%;
+    }
+
+    #chatSideBar .chatList .chatUser .userNickname {
+        height: 30px;
+        line-height: 30px;
+        position: absolute;
+        left: 70px;
+        top: 18px;
+        font-size: 18px;
     }
 </style>

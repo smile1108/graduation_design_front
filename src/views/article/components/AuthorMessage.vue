@@ -22,8 +22,12 @@
                 <div class="followerNumber">{{this.followerNumber}}</div>
             </div>
         </div>
-        <div class="functionalDiv">
-            <div class="homeBtn">去Ta主页</div>
+        <div class="functionalDiv" v-if="this.userInfo != null && this.userInfo.username == article.userVo.username">
+            <div class="homeBtn" @click="jumpHome()">我的主页</div>
+        </div>
+        <div class="functionalDiv" v-else>
+            <div class="otherHomeBtn" @click="jumpHome()">Ta的主页</div>
+            <div class="chatBtn" @click="chat()">私信Ta</div>
         </div>
     </div>
 </template>
@@ -36,7 +40,8 @@
             article: Object,
             articleNumber: Number,
             likeNumber: Number,
-            followerNumber: Number
+            followerNumber: Number,
+            userInfo: Object
         },
         data() {
             return {
@@ -44,7 +49,13 @@
             }
         },
         methods: {
-            
+            jumpHome() {
+                window.location.href = "home.html#/" + this.article.userVo.username
+            },
+            chat() {
+                let href = "chat.html#/" + this.article.userVo.username 
+                window.open(href, "_blank")
+            }
         }
     }
 </script>
@@ -197,6 +208,30 @@
     }
 
     #authorMessage .functionalDiv .homeBtn:hover {
+        cursor: pointer;
+        background-color: #005ce6;
+    }
+
+    #authorMessage .functionalDiv .otherHomeBtn, .chatBtn {
+        height: 30px;
+        line-height: 30px;
+        width: 100px;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 6px;
+        background-color: #0066FF;
+        border: 1px solid #0066FF;
+        color: #fff;
+        display: inline-block;
+        margin-left: 16px;
+    }
+
+    #authorMessage .functionalDiv .otherHomeBtn:hover {
+        cursor: pointer;
+        background-color: #005ce6;
+    }
+
+    #authorMessage .functionalDiv .chatBtn:hover {
         cursor: pointer;
         background-color: #005ce6;
     }
