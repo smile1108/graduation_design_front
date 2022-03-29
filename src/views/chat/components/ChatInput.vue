@@ -18,9 +18,14 @@
                 image: null
             }
         },
+        props: {
+            webSocketObj: Object
+        },
         methods: {
             sendMessage() {
-                
+                if(this.webSocketObj.readyState === 1) {
+                    this.sendTextMessage(this.$route.params.toUser, this.inputContent)
+                }
             },
             onPickFile() {
                 this.$refs.fileInput.click()
@@ -38,7 +43,14 @@
                 })
                 fileReader.readAsDataURL(files[0])
                 this.image = files[0]
-            } 
+            },
+            sendTextMessage(to, content) {
+                this.webSocketObj.send(JSON.stringify({
+                    to: to,
+                    content: content,
+                    type: "text"
+                }))
+            }
         }
     }
 </script>

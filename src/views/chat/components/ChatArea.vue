@@ -1,7 +1,7 @@
 <template>
     <div id="chatArea">
         <ChatSideBar :chatUserList="chatUserList" :currentChatUser="currentChatUser"></ChatSideBar>
-        <ChatBox :currentChatUser="currentChatUser"></ChatBox>
+        <ChatBox :currentChatUser="currentChatUser" :webSocketObj="webSocketObj"></ChatBox>
     </div>
 </template>
 
@@ -16,6 +16,9 @@
         name: "ChatArea",
         components: {
             ChatSideBar, ChatBox
+        },
+        props: {
+            webSocketObj: Object
         },
         data() {
             return {

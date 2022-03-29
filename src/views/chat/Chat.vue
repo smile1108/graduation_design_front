@@ -1,7 +1,7 @@
 <template>
     <div id="chat">
         <ChatHeader :userInfo="userInfo"></ChatHeader>
-        <ChatArea></ChatArea>
+        <ChatArea :webSocketObj="webSocketObj"></ChatArea>
     </div>
 </template>
 
@@ -34,10 +34,7 @@
                 }  
             },
             onOpen() {
-                if (this.webSocketObj.readyState === 1) {
-                    //- readyState 等于1 的时候建立链接成功
-                    this.webSocketObj.send("13123123");
-                }
+                
             },
             // timingHeart() {
             //     // 心跳检测  每4.5分钟发送一次 
@@ -48,8 +45,8 @@
             //         this.timingHeart();
             //     }, 100 * 1000); // 100s心跳
             // },
-            onMessage() {
-                
+            onMessage(event) {
+                alert(event.data)
             },
             onError() {
                 
