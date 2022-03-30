@@ -1,7 +1,7 @@
 <template>
     <div id="chat">
         <ChatHeader :userInfo="userInfo"></ChatHeader>
-        <ChatArea :webSocketObj="webSocketObj"></ChatArea>
+        <ChatArea :webSocketObj="webSocketObj" :userInfo="userInfo"></ChatArea>
     </div>
 </template>
 

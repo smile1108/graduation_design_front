@@ -9,6 +9,10 @@
 </template>
 
 <script>
+
+    import axios from 'axios'
+    import {API} from '../../api'
+
     export default {
         name: "ChatInput",
         data() {
@@ -19,36 +23,48 @@
             }
         },
         props: {
-            webSocketObj: Object
+            webSocketObj: Object,
+            userInfo: Object
         },
         methods: {
             sendMessage() {
                 if(this.webSocketObj.readyState === 1) {
-                    this.sendTextMessage(this.$route.params.toUser, this.inputContent)
+                    this.sendTextMessage(this.userInfo.username, this.$route.params.toUser, this.inputContent)
                 }
             },
             onPickFile() {
                 this.$refs.fileInput.click()
             },
             getFile (event) {
-                alert("getFile")
-                const files = event.target.files
-                let filename = files[0].name          //只有一个文件
-                if ( filename.lastIndexOf('.') <= 0 ) {
-                    return alert("Please add a valid image!")        //判断图片是否有效
-                }
-                const fileReader = new FileReader()                //内置方法new FileReader()   读取文件
-                    fileReader.addEventListener('load',() => {
-                    this.imageUrl = fileReader.result
+                // 然后调用后端的接口上传图片
+                let formData = new FormData()
+                formData.append('file', event.target.files[0])
+                let config = {
+                    headers:{'Content-Type':'multipart/form-data'}
+                };
+                let uploadChatImageUrl = API.BASE_URL + API.uploadChatImage
+                axios.post(uploadChatImageUrl, formData, config).then(res => {
+                    if(res.data.code === 200) {
+                        // 如果成功请求 返回的数据就是前端访问该图片的url 这时将这条消息发送给对方
+                        this.sendImageMessage(this.userInfo.username, this.$route.params.toUser, res.data.data)
+                    }
                 })
-                fileReader.readAsDataURL(files[0])
-                this.image = files[0]
+
             },
-            sendTextMessage(to, content) {
+            sendTextMessage(from, to, content) {
                 this.webSocketObj.send(JSON.stringify({
+                    from: from,
                     to: to,
                     content: content,
                     type: "text"
+                }))
+            },
+            sendImageMessage(from, to, content) {
+                this.webSocketObj.send(JSON.stringify({
+                    from: from,
+                    to: to,
+                    content: content,
+                    type: "image"
                 }))
             }
         }

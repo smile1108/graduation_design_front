@@ -3,7 +3,7 @@
         <div v-if="this.currentChatUser != undefined && this.currentChatUser != null">
             <ChatTitle :currentChatUser="currentChatUser"></ChatTitle>
             <ChatContent></ChatContent>
-            <ChatInput :webSocketObj="webSocketObj"></ChatInput>
+            <ChatInput :webSocketObj="webSocketObj" :userInfo="userInfo"></ChatInput>
         </div>
         <div class="withoutCurrentChat" v-else>
             <div class="iconfont">&#xe665;</div>
@@ -21,7 +21,8 @@
         name: "ChatBox",
         props: {
             currentChatUser: Object,
-            webSocketObj: Object
+            webSocketObj: Object,
+            userInfo: Object
         },
         components: {
             ChatTitle, ChatContent, ChatInput
