@@ -24,7 +24,10 @@
         data() {
             return {
                 chatUserList: [],
-                currentChatUser: null
+                currentChatUser: null,
+                chatMessageList: [],
+                currentMessageNumber: 5,
+                messageTotalNumber: null
             }
         },
         methods: {
@@ -51,6 +54,9 @@
                                 this.addItemToChatList()
                             }
                         }
+                    } else if(res.data.code === 519) {
+                        alert("用户登录认证信息已过期, 请重新登录")
+                        window.location.href = "login.html"
                     }
                 })
             },
@@ -67,6 +73,15 @@
         },
         mounted() {
             this.getChatList()
+            if(this.$route.params.toUser) {
+                let getChatMessageListUrl = API.BASE_URL + API.getChatMessageList + "?username1=" + this.userInfo.username + "&username2=" + this.$route.params.toUser + "&number=" + this.currentMessageNumber
+                axios.get(getChatMessageListUrl).then(res => {
+                    if(res.data.code === 200) {
+                        this.chatMessageList = JSON.parse(JSON.stringify(res.data.data.lists))
+                        this.messageTotalNumber = res.data.data.count
+                    }
+                })
+            }
         }
     }
 </script>

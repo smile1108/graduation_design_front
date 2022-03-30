@@ -52,5 +52,6 @@ export let API = {
     modifyPassword: "/user/modifyPassword",
     findPassword: "/user/findPassword",
     uploadChatImage: "/chat/uploadImage",
-    getChatList: "/chat/getChatList"
+    getChatList: "/chat/getChatList",
+    getChatMessageList: "/chat/getChatMessageList"
 }

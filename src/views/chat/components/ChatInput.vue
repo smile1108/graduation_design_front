@@ -2,7 +2,7 @@
     <div id="chatInput">
         <textarea class="chatInputTextArea" v-model="inputContent" placeholder="请输入消息内容"></textarea>
         <div class="sendTip">按Enter发送消息</div>
-        <button class="sendBtn" :disabled="inputContent == ''" :class="{sendDisabled: inputContent == ''}" @click="sendMessage()">发送</button>
+        <button class="sendBtn" :disabled="inputContent == ''" :class="{sendDisabled: inputContent == ''}" @click="sendMessage()" @keyup.enter="sendMessage()">发送</button>
         <button class="uploadImage" @click="onPickFile()">发送图片</button>
         <input type="file" ref="fileInput" accept="image/*" @change="getFile" style="display: none"> 
     </div>
