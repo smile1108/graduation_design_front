@@ -55,7 +55,7 @@
                 this.webSocketObj && this.webSocketObj.close && this.webSocketObj.close();
             },
         },
-        mounted() {
+        beforeMount() {
             // 当页面渲染完成之后自动从sessionStorage中获取userInfo
             this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
             this.initWebsocket()

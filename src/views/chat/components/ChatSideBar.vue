@@ -4,7 +4,7 @@
             <input type="text" class="chatSearchInput" placeholder="搜索联系人">
         </div>
         <div class="chatList">
-            <div class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" :class="{currentChat: chatUserObj.username == currentChatUser.username}">
+            <div class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" :class="{currentChat: currentChatUser != null && chatUserObj.username == currentChatUser.username}">
                 <img :src="chatUserObj.profile" alt="头像" class="userProfile">
                 <div class="userNickname">{{chatUserObj.nickname}}</div>
             </div>

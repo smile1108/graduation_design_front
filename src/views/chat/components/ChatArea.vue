@@ -27,15 +27,46 @@
                 currentChatUser: null
             }
         },
+        methods: {
+            getChatList() {
+                let getChatListUrl = API.BASE_URL + API.getChatList + "?username=" + this.userInfo.username
+                axios.get(getChatListUrl).then(res => {
+                    if(res.data.code === 200) {
+                        this.chatUserList = JSON.parse(JSON.stringify(res.data.data))
+                        // 然后判断当前路由中有没有正在聊天的用户
+                        if(!this.$route.params.toUser) {
+                            // 代表没有正在聊天的用户
+                            this.currentChatUser = null
+                        } else {
+                            // 代表路由中有对应的用户 此时需要判断 chatList中有没有该用户 如果没有需要添加
+                            let exist = false
+                            this.chatUserList.forEach(chatUserObj => {
+                                if(chatUserObj.username === this.$route.params.toUser) {
+                                    this.currentChatUser = chatUserObj
+                                    exist = true
+                                }
+                            })
+                            if(!exist) {
+                                // 如果遍历完数组都没有找到 就需要添加这个聊天用户到列表中
+                                this.addItemToChatList()
+                            }
+                        }
+                    }
+                })
+            },
+            addItemToChatList() {
+                let getUserMessageUrl = API.BASE_URL + API.getUserByUsername + "?username=" + this.$route.params.toUser
+                axios.get(getUserMessageUrl).then(res => {
+                    if(res.data.code === 200) {
+                        let userObj = JSON.parse(JSON.stringify(res.data.data))
+                        this.chatUserList.unshift(userObj)
+                        this.currentChatUser = userObj
+                    }
+                })
+            }
+        },
         mounted() {
-            let getUserMessageUrl = API.BASE_URL + API.getUserByUsername + "?username=" + this.$route.params.toUser
-            axios.get(getUserMessageUrl).then(res => {
-                if(res.data.code === 200) {
-                    let userObj = JSON.parse(JSON.stringify(res.data.data))
-                    this.chatUserList.unshift(userObj)
-                    this.currentChatUser = userObj
-                }
-            })
+            this.getChatList()
         }
     }
 </script>
