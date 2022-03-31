@@ -4,10 +4,10 @@
             <input type="text" class="chatSearchInput" placeholder="搜索联系人">
         </div>
         <div class="chatList">
-            <div class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" :class="{currentChat: currentChatUser != null && chatUserObj.username == currentChatUser.username}" @click="toggleChatUser(chatUserObj)" >
+            <router-link :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat">
                 <img :src="chatUserObj.profile" alt="头像" class="userProfile">
                 <div class="userNickname">{{chatUserObj.nickname}}</div>
-            </div>
+            </router-link>
         </div>
     </div>
 </template>
@@ -25,10 +25,7 @@
             }
         },
         methods: {
-            toggleChatUser(userObj) {
-                this.$router.push('/chat/' + userObj.username)
-                this.$router.go(0)
-            }
+            
         }
     }
 </script>
@@ -67,6 +64,7 @@
     }
 
     #chatSideBar .chatList .chatUser {
+        display: block;
         position: relative;
         padding: 10px;
         box-sizing: border-box;

@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router'
-import ChatArea from '../components/ChatArea'
+import ChatBox from '../components/ChatBox'
 
 // 创建并暴露一个路由器
 export default new VueRouter({
@@ -10,7 +10,7 @@ export default new VueRouter({
         },
         {
             path: '/chat/:toUser',
-            component: ChatArea
+            component: ChatBox
         }
     ]
 })

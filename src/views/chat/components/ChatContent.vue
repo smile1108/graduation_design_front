@@ -25,19 +25,40 @@
             messageTotalNumber: Number,
             userInfo: Object
         },
+        watch: {
+            'chatMessageList.length': {
+                handler(newValue, oldValue) {
+                    if (newValue !== oldValue) {
+                        // 操作
+                        this.scrollToBottom()
+                    }
+                }
+            }
+        },
         computed: {
             formatDate() {  
                 return function(publishDate) {
-                    const arr = publishDate.split('T');
-                    const d = arr[0];
+                    if(typeof publishDate == 'string') {
+                        const arr = publishDate.split('T');
+                        const d = arr[0];
 
-                    const t = arr[1];
-                    const tarr = t.split('.000');
-                    const marr = tarr[0].split(':');
+                        const t = arr[1];
+                        const tarr = t.split('.000');
+                        const marr = tarr[0].split(':');
 
-                    const dd = d + ' ' + marr[0] + ':' + marr[1] + ':' + marr[2].split('.')[0]
+                        const dd = d + ' ' + marr[0] + ':' + marr[1] + ':' + marr[2].split('.')[0]
 
-                    return dd;
+                        return dd;
+                    } else {
+                        var date = new Date(publishDate)
+                        const Y = date.getFullYear() + '-';
+                        const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                        const D = date.getDate() + ' ';
+                        const h = date.getHours() + ':';
+                        const m = date.getMinutes() + ':';
+                        const s = date.getSeconds();
+                        return Y + M + D + h + m + s
+                    }
                 }
             }
         },

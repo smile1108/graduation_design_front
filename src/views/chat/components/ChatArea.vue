@@ -1,34 +1,32 @@
 <template>
     <div id="chatArea">
-        <ChatSideBar :chatUserList="chatUserList" :currentChatUser="currentChatUser"></ChatSideBar>
-        <ChatBox :currentChatUser="currentChatUser" :webSocketObj="webSocketObj" :userInfo="userInfo"
-        :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"></ChatBox>
+        <ChatSideBar :chatUserList="chatUserList"></ChatSideBar>
+        <router-view :webSocketObj="webSocketObj" :userInfo="userInfo"
+        :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"></router-view>
     </div>
 </template>
 
 <script>
 
     import ChatSideBar from './ChatSideBar'
-    import ChatBox from './ChatBox'
     import {API} from '../../api'
     import axios from 'axios'
 
     export default {
         name: "ChatArea",
         components: {
-            ChatSideBar, ChatBox
+            ChatSideBar
         },
         props: {
-            webSocketObj: Object,
             userInfo: Object
         },
         data() {
             return {
                 chatUserList: [],
-                currentChatUser: null,
                 chatMessageList: [],
                 currentMessageNumber: 5,
-                messageTotalNumber: null
+                messageTotalNumber: null,
+                webSocketObj: null
             }
         },
         methods: {
@@ -38,15 +36,11 @@
                     if(res.data.code === 200) {
                         this.chatUserList = JSON.parse(JSON.stringify(res.data.data))
                         // 然后判断当前路由中有没有正在聊天的用户
-                        if(!this.$route.params.toUser) {
-                            // 代表没有正在聊天的用户
-                            this.currentChatUser = null
-                        } else {
+                        if(this.$route.params.toUser) {
                             // 代表路由中有对应的用户 此时需要判断 chatList中有没有该用户 如果没有需要添加
                             let exist = false
                             this.chatUserList.forEach(chatUserObj => {
                                 if(chatUserObj.username === this.$route.params.toUser) {
-                                    this.currentChatUser = chatUserObj
                                     exist = true
                                 }
                             })
@@ -67,22 +61,59 @@
                     if(res.data.code === 200) {
                         let userObj = JSON.parse(JSON.stringify(res.data.data))
                         this.chatUserList.unshift(userObj)
-                        this.currentChatUser = userObj
                     }
                 })
-            }
+            },
+            getChatMessageList() {
+                if(this.$route.params.toUser) {
+                    let getChatMessageListUrl = API.BASE_URL + API.getChatMessageList + "?username1=" + this.userInfo.username + "&username2=" + this.$route.params.toUser + "&number=" + this.currentMessageNumber
+                    axios.get(getChatMessageListUrl).then(res => {
+                        if(res.data.code === 200) {
+                            this.chatMessageList = JSON.parse(JSON.stringify(res.data.data.lists))
+                            this.messageTotalNumber = res.data.data.count
+                        }
+                    })
+                }
+            },
+            initWebsocket(){
+                if (typeof WebSocket != 'undefined') {
+                    this.webSocketObj = new WebSocket(
+                        "ws://localhost:8005/chat/" + this.userInfo.username
+                    );
+                    this.webSocketObj.onmessage = this.onMessage
+                    this.webSocketObj.onopen = this.onOpen
+                    this.webSocketObj.onerror = this.onError
+                    this.webSocketObj.onclose = this.onClose
+                }  
+            },
+            onOpen() {
+                
+            },
+            // timingHeart() {
+            //     // 心跳检测  每4.5分钟发送一次 
+            //     if (this.wsHeartflag) {
+            //         this.webSocketObj.send('123123123');
+            //     }
+            //     this.wsHeart = setTimeout(() => {
+            //         this.timingHeart();
+            //     }, 100 * 1000); // 100s心跳
+            // },
+            onMessage(event) {
+                let messageObj = JSON.parse(event.data)
+                this.chatMessageList.push(messageObj)
+                this.messageTotalNumber++
+            },
+            onError() {
+                
+            },
+            onClose() {
+                this.webSocketObj && this.webSocketObj.close && this.webSocketObj.close();
+            },
         },
         mounted() {
+            this.initWebsocket()
             this.getChatList()
-            if(this.$route.params.toUser) {
-                let getChatMessageListUrl = API.BASE_URL + API.getChatMessageList + "?username1=" + this.userInfo.username + "&username2=" + this.$route.params.toUser + "&number=" + this.currentMessageNumber
-                axios.get(getChatMessageListUrl).then(res => {
-                    if(res.data.code === 200) {
-                        this.chatMessageList = JSON.parse(JSON.stringify(res.data.data.lists))
-                        this.messageTotalNumber = res.data.data.count
-                    }
-                })
-            }
+            this.getChatMessageList()
         }
     }
 </script>

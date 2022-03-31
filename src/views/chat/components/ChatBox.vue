@@ -17,11 +17,12 @@
     import ChatTitle from './ChatTitle'
     import ChatContent from './ChatContent'
     import ChatInput from './ChatInput'
+    import axios from 'axios'
+    import {API} from '../../api'
 
     export default {
         name: "ChatBox",
         props: {
-            currentChatUser: Object,
             webSocketObj: Object,
             userInfo: Object,
             chatMessageList: Array,
@@ -32,8 +33,21 @@
         },
         data() {
             return {
-                
+                currentChatUser: null
             }
+        },
+        methods: {
+            getCurrentChatUserMessage() {
+                let getUserUrl = API.BASE_URL + API.getUserByUsername + "?username=" + this.$route.params.toUser
+                axios.get(getUserUrl).then(res => {
+                    if(res.data.code === 200) {
+                        this.currentChatUser = JSON.parse(JSON.stringify(res.data.data))
+                    }
+                })
+            }
+        },
+        mounted() {
+            this.getCurrentChatUserMessage()
         }
     }
 </script>
