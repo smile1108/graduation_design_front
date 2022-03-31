@@ -10,7 +10,9 @@
                 <div class="message" :class="[{floatLeftMessage: chatMessageObj.fromUserVo.username != userInfo.username},
                 {floatRightMessage: chatMessageObj.fromUserVo.username == userInfo.username}]">
                     <div class="messageText" v-if="chatMessageObj.type == 'text'">{{chatMessageObj.content}}</div>
-                    <img v-else :src="chatMessageObj.content" alt="消息图片" class="messageImage">
+                    <div class="imageDiv" v-else>
+                        <img :src="chatMessageObj.content" alt="消息图片" class="messageImage">
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,6 +172,10 @@
         border-radius: 6px;
         background-color: #f6f6f6;
         color: #444;
+    }
+
+    #chatContent .chatMessageDiv .messageContent .message .imageDiv {
+        min-height: 200px;
     }
 
     #chatContent .chatMessageDiv .messageContent .message .messageImage {
