@@ -1,7 +1,8 @@
 <template>
     <div id="chatArea">
         <ChatSideBar :chatUserList="chatUserList" :currentChatUser="currentChatUser"></ChatSideBar>
-        <ChatBox :currentChatUser="currentChatUser" :webSocketObj="webSocketObj" :userInfo="userInfo"></ChatBox>
+        <ChatBox :currentChatUser="currentChatUser" :webSocketObj="webSocketObj" :userInfo="userInfo"
+        :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"></ChatBox>
     </div>
 </template>
 
