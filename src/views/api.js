@@ -54,5 +54,6 @@ export let API = {
     uploadChatImage: "/chat/uploadImage",
     getChatList: "/chat/getChatList",
     getChatMessageList: "/chat/getChatMessageList",
-    getUserChatMessage: "/chat/getUserChatMessage"
+    getUserChatMessage: "/chat/getUserChatMessage",
+    countAllUnread: "/chat/countAllUnread"
 }

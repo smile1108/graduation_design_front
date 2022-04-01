@@ -1,7 +1,7 @@
 <template>
   <div>
     <MyHeader :userInfo="userInfo" @deleteUserInfo="deleteUserInfo" @searchArticle="searchArticle"
-    @searchQuestion="searchQuestion"></MyHeader>
+    @searchQuestion="searchQuestion" :unreadCount="unreadCount"></MyHeader>
     <router-view :userInfo="userInfo" :todoList="todoList" @addBacklog="addBacklog" @deleteBacklog="deleteBacklog"
       @undone="undone" @done="done" @checkAllOrNone="checkAllOrNone" @clearCompleted="clearCompleted" :articles="articles"
       :articleSumPage="articleSumPage" :questionSumPage="questionSumPage" :questions="questions" :classifyFilter="classifyFilter" @addClassify="addClassify" @deleteClassify="deleteClassify"
@@ -31,7 +31,8 @@
         articleSumPage: 0,
         questionSumPage: 0,
         classifyFilter: new Set(),
-        searchContent: ""
+        searchContent: "",
+        unreadCount: 0
       }
     },
     methods: {
@@ -44,6 +45,7 @@
               this.userInfo = JSON.parse(JSON.stringify(response.data.data.userVo))
               sessionStorage.setItem('userInfo', JSON.stringify(response.data.data.userVo))
               sessionStorage.setItem('expireTimestamp', response.data.data.expireTimestamp)
+              this.countAllUnread()
             }
           }
         })
@@ -289,15 +291,23 @@
       },
       refreshQuestions() {
         this.searchQuestion("")
+      },
+      countAllUnread() {
+        let countAllUnreadUrl = API.BASE_URL + API.countAllUnread + "?username=" + this.userInfo.username
+        axios.get(countAllUnreadUrl).then(res => {
+          if(res.data.code === 200) {
+            this.unreadCount = res.data.data
+          }
+        })
       }
     },
     mounted() {// 当页面dom渲染好之后 进行自动登录的请求
       this.autoTakeUserInfo()
       // 然后调用 获取所有待办事项的方法
       this.getAllBacklog()
+      // 搜索文章接口 刚开始页面渲染完成 没有关键字 也没有文章分类的筛选
       setTimeout(this.searchArticleMounted, 300)
       this.searchQuestion("")
-      // 搜索文章接口 刚开始页面渲染完成 没有关键字 也没有文章分类的筛选
     }
   }
 </script>

@@ -15,7 +15,7 @@
           <div class="userFunction" v-else>
               <div class="messageCenter">
                   <span class="iconfont" @click="jumpChat()">&#xe665;</span>
-                  <span class="messageNumber">99+</span>
+                  <span class="messageNumber">{{unreadCount > 99 ? "99+" : unreadCount}}</span>
               </div>
               <img class="userImg" :src="userInfo.profile" alt="头像" @click="jumpToHome()">
               <div class="iconfont logout" @click="logout()">&#xe60e; 退出登录</div>
@@ -35,6 +35,7 @@
         },
         props: {
             userInfo: Object,
+            unreadCount: Number
         },
         data() {
             return {
@@ -239,6 +240,9 @@
         position: absolute;
         left: 20px;
         top: -13px;
+        width: 20px;
+        line-height: 20px;
+        text-align: center;
         background-color: red;
     }
 
