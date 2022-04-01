@@ -110,8 +110,16 @@
             // },
             onMessage(event) {
                 let messageObj = JSON.parse(event.data)
-                this.chatMessageList.push(messageObj)
-                this.messageTotalNumber++
+                if(messageObj.fromUserVo.username == this.$route.params.toUser || 
+                messageObj.fromUserVo.username == this.userInfo.username) {
+                    console.log("是当前聊天的用户")
+                    this.chatMessageList.push(messageObj)
+                    this.messageTotalNumber++
+                    this.currentMessageNumber++
+                    if(messageObj.fromUserVo.username == this.$route.params.toUser) {
+                        this.clearUnreadCount(messageObj.fromUserVo.username)
+                    }
+                }
             },
             onError() {
                 
