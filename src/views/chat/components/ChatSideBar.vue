@@ -4,7 +4,7 @@
             <input type="text" class="chatSearchInput" placeholder="搜索联系人">
         </div>
         <div class="chatList">
-            <router-link :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" @click.native="changeChatMessage()" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat">
+            <router-link :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat" @click.native="changeChatMessage(chatUserObj)" >
                 <img :src="chatUserObj.profile" alt="头像" class="userProfile">
                 <div class="userNickname">{{chatUserObj.nickname}}</div>
                 <div class="unreadCount" v-if="chatUserObj.unreadCount > 0">{{chatUserObj.unreadCount > 99 ? "99+" : chatUserObj.unreadCount}}</div>
@@ -26,8 +26,10 @@
             }
         },
         methods: {
-            changeChatMessage() {
+            changeChatMessage(userObj) {
+                userObj.unreadCount = 0
                 this.$emit('getChatMessageList')
+                this.$emit('clearUnreadCount', userObj.username)
             }
         }
     }

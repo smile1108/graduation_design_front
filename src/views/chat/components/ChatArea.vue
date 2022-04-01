@@ -1,6 +1,7 @@
 <template>
     <div id="chatArea">
-        <ChatSideBar :chatUserList="chatUserList" @getChatMessageList="getChatMessageList"></ChatSideBar>
+        <ChatSideBar :chatUserList="chatUserList" @getChatMessageList="getChatMessageList"
+        @clearUnreadCount="clearUnreadCount"></ChatSideBar>
         <router-view :webSocketObj="webSocketObj" :userInfo="userInfo"
         :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
         @getChatMessageList="getChatMessageList"></router-view>
@@ -76,6 +77,14 @@
                     })
                 }
             },
+            clearUnreadCount(fromUser) {
+                let clearUnreadCountUrl = API.BASE_URL + API.clearUnreadCount + "?fromUser=" + fromUser + "&toUser=" + this.userInfo.username
+                axios.get(clearUnreadCountUrl).then(res => {
+                    if(res.data.code === 200) {
+                        console.log("清除成功")
+                    }
+                })
+            },
             initWebsocket(){
                 if (typeof WebSocket != 'undefined') {
                     this.webSocketObj = new WebSocket(
@@ -113,6 +122,10 @@
         },
         mounted() {
             this.initWebsocket()
+            // 当页面加载时 如果路由中参数不为空 就先清除未读消息 再查询
+            if(this.$route.params.toUser) {
+                this.clearUnreadCount(this.$route.params.toUser)
+            }
             this.getChatList()
             this.getChatMessageList()
         }
