@@ -44,10 +44,15 @@
                         this.currentChatUser = JSON.parse(JSON.stringify(res.data.data))
                     }
                 })
+            },
+            getChatMessageList() {
+                this.$emit('getChatMessageList')
             }
         },
         mounted() {
             this.getCurrentChatUserMessage()
+            // 然后获取该用户的聊天记录
+            this.getChatMessageList()
         }
     }
 </script>

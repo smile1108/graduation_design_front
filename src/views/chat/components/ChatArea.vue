@@ -2,7 +2,8 @@
     <div id="chatArea">
         <ChatSideBar :chatUserList="chatUserList"></ChatSideBar>
         <router-view :webSocketObj="webSocketObj" :userInfo="userInfo"
-        :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"></router-view>
+        :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
+        @getChatMessageList="getChatMessageList"></router-view>
     </div>
 </template>
 
