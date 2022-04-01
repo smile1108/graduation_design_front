@@ -1,6 +1,6 @@
 <template>
     <div id="chatArea">
-        <ChatSideBar :chatUserList="chatUserList"></ChatSideBar>
+        <ChatSideBar :chatUserList="chatUserList" @getChatMessageList="getChatMessageList"></ChatSideBar>
         <router-view :webSocketObj="webSocketObj" :userInfo="userInfo"
         :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
         @getChatMessageList="getChatMessageList"></router-view>
@@ -57,7 +57,7 @@
                 })
             },
             addItemToChatList() {
-                let getUserMessageUrl = API.BASE_URL + API.getUserByUsername + "?username=" + this.$route.params.toUser
+                let getUserMessageUrl = API.BASE_URL + API.getUserChatMessage + "?username=" + this.$route.params.toUser
                 axios.get(getUserMessageUrl).then(res => {
                     if(res.data.code === 200) {
                         let userObj = JSON.parse(JSON.stringify(res.data.data))

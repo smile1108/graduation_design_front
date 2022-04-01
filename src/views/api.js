@@ -53,5 +53,6 @@ export let API = {
     findPassword: "/user/findPassword",
     uploadChatImage: "/chat/uploadImage",
     getChatList: "/chat/getChatList",
-    getChatMessageList: "/chat/getChatMessageList"
+    getChatMessageList: "/chat/getChatMessageList",
+    getUserChatMessage: "/chat/getUserChatMessage"
 }

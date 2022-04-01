@@ -4,9 +4,10 @@
             <input type="text" class="chatSearchInput" placeholder="搜索联系人">
         </div>
         <div class="chatList">
-            <router-link :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat">
+            <router-link :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" @click.native="changeChatMessage()" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat">
                 <img :src="chatUserObj.profile" alt="头像" class="userProfile">
                 <div class="userNickname">{{chatUserObj.nickname}}</div>
+                <div class="unreadCount" v-if="chatUserObj.unreadCount > 0">{{chatUserObj.unreadCount > 99 ? "99+" : chatUserObj.unreadCount}}</div>
             </router-link>
         </div>
     </div>
@@ -25,7 +26,9 @@
             }
         },
         methods: {
-            
+            changeChatMessage() {
+                this.$emit('getChatMessageList')
+            }
         }
     }
 </script>
@@ -92,5 +95,19 @@
         left: 70px;
         top: 18px;
         font-size: 18px;
+    }
+
+    #chatSideBar .chatList .chatUser .unreadCount {
+        color: #FFF;
+        font-size: 10px;
+        padding: 2px;
+        border-radius: 50%;
+        position: absolute;
+        left: 190px;
+        width: 20px;
+        line-height: 20px;
+        text-align: center;
+        top: 20px;
+        background-color: red;
     }
 </style>
