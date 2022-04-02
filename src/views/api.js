@@ -56,5 +56,6 @@ export let API = {
     getChatMessageList: "/chat/getChatMessageList",
     getUserChatMessage: "/chat/getUserChatMessage",
     countAllUnread: "/chat/countAllUnread",
-    clearUnreadCount: "/chat/clearUnreadCount"
+    clearUnreadCount: "/chat/clearUnreadCount",
+    searchUser: "/user/searchUser"
 }

@@ -1,7 +1,14 @@
 <template>
     <div id="chatSideBar">
         <div class="chatSearch">
-            <input type="text" class="chatSearchInput" placeholder="搜索联系人">
+            <input type="text" class="chatSearchInput" placeholder="搜索联系人" v-model="searchContent" @blur="blurInput()" @focus="focusInput()">
+            <div class="userListDiv" ref="userListDiv">
+                <div class="noUser" v-if="userList.length == 0">没有查询结果</div>
+                <div class="searchUserObj" v-else v-for="searchUserObj in userList" :key="searchUserObj.username" @mousedown="jumpTargetUser(searchUserObj)">
+                    <img :src="searchUserObj.profile" alt="头像" class="userProfile">
+                    <div class="userNickname">{{searchUserObj.nickname}}</div>
+                </div>
+            </div>
         </div>
         <div class="chatList">
             <router-link :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat" @click.native="changeChatMessage(chatUserObj)" >
@@ -14,15 +21,32 @@
 </template>
 
 <script>
+
+    import axios from 'axios'
+    import {API} from '../../api'
+
     export default {
         name: "ChatSideBar",
         props: {
             chatUserList: Array,
-            currentChatUser: Object
+            currentChatUser: Object,
+            userInfo: Object
         },
         data() {
             return {
-                
+                searchContent: '',
+                userList: []
+            }
+        },
+        watch: {
+            searchContent: function(newVal) {
+                // 当搜索框中值改变时 进行搜索
+                let searchUserUrl = API.BASE_URL + API.searchUser + "?keyword=" + newVal + "&username=" + this.userInfo.username
+                axios.get(searchUserUrl).then(res => {
+                    if(res.data.code === 200) {
+                        this.userList = JSON.parse(JSON.stringify(res.data.data))
+                    }
+                })
             }
         },
         methods: {
@@ -30,6 +54,18 @@
                 userObj.unreadCount = 0
                 this.$emit('getChatMessageList')
                 this.$emit('clearUnreadCount', userObj.username)
+            },
+            blurInput() {
+                let userListDivDom = this.$refs.userListDiv
+                userListDivDom.style.setProperty('display', 'none')
+            },
+            focusInput() {
+                let userListDivDom = this.$refs.userListDiv
+                userListDivDom.style.setProperty('display', 'block')
+            },
+            jumpTargetUser(userObj) {
+                this.$router.push('/chat/' + userObj.username)
+                this.$router.go(0)
             }
         }
     }
@@ -68,6 +104,57 @@
         background-color: #f7f8fa;
     }
 
+    #chatSideBar .chatSearch .userListDiv {
+        position: absolute;
+        width: 256px;
+        border-radius: 3px;
+        padding: 10px;
+        box-sizing: border-box;
+        background-color: #fff;
+        border: 1px solid #ebebeb;
+        z-index: 10;
+        display: none;
+        height: 170px;
+        overflow: auto;
+    }
+
+    #chatSideBar .chatSearch .userListDiv .noUser {
+        font-size: 13px;
+        width: 120px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    #chatSideBar .chatSearch .userListDiv .searchUserObj {
+        position: relative;
+        padding: 5px 10px;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    #chatSideBar .chatSearch .userListDiv .searchUserObj:hover {
+        background-color: #f6f6f6;
+        cursor: pointer;
+    }
+
+    #chatSideBar .chatSearch .userListDiv .searchUserObj .userProfile {
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+    }
+
+    #chatSideBar .chatSearch .userListDiv .searchUserObj .userNickname {
+        height: 30px;
+        line-height: 30px;
+        position: absolute;
+        left: 60px;
+        top: 10px;
+        font-size: 18px;
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     #chatSideBar .chatList .chatUser {
         display: block;
         position: relative;
@@ -97,6 +184,10 @@
         left: 70px;
         top: 18px;
         font-size: 18px;
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     #chatSideBar .chatList .chatUser .unreadCount {
@@ -105,7 +196,7 @@
         padding: 2px;
         border-radius: 50%;
         position: absolute;
-        left: 190px;
+        left: 230px;
         width: 20px;
         line-height: 20px;
         text-align: center;
