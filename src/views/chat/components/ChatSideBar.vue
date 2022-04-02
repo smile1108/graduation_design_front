@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="chatList">
-            <router-link :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat" @click.native="changeChatMessage(chatUserObj)" >
+            <router-link :ref="chatUserObj.username" :to="{path: '/chat/' + chatUserObj.username}" class="chatUser" v-for="chatUserObj in chatUserList" :key="chatUserObj.username" active-class="currentChat" @click.native="changeChatMessage(chatUserObj)" >
                 <img :src="chatUserObj.profile" alt="头像" class="userProfile">
                 <div class="userNickname">{{chatUserObj.nickname}}</div>
                 <div class="unreadCount" v-if="chatUserObj.unreadCount > 0">{{chatUserObj.unreadCount > 99 ? "99+" : chatUserObj.unreadCount}}</div>
@@ -30,12 +30,15 @@
         props: {
             chatUserList: Array,
             currentChatUser: Object,
-            userInfo: Object
+            userInfo: Object,
+            bulingUsername: String
         },
         data() {
             return {
                 searchContent: '',
-                userList: []
+                userList: [],
+                buling: this.bulingUsername,
+                timer: null
             }
         },
         watch: {
@@ -47,9 +50,35 @@
                         this.userList = JSON.parse(JSON.stringify(res.data.data))
                     }
                 })
+            },
+            bulingUsername: function(newVal) {
+                this.buling = newVal
+                this.bulingbuling(newVal)
+            },
+            buling: function() {
+                this.$emit('resetBulineUsername')
             }
         },
         methods: {
+            bulingbuling(username) {
+                // 当监听到新的值 就闪烁
+                let dom = this.$refs[username]
+                if(dom[0]) {
+                    if(!this.timer) {
+                        let countdown = 6;
+                        this.timer = setInterval(() => {
+                            if (countdown > 0 && countdown <= 60) {
+                                countdown--;
+                                dom[0].$el.style.setProperty('background-color', countdown % 2 ? "#f6f6f6" : "rgb(255, 150, 4)")
+                            } else {
+                                clearInterval(this.timer);
+                                this.timer = null;
+                                dom[0].$el.style.setProperty('background-color', "#fff")
+                            }
+                        }, 300)
+                    }
+                }
+            },
             changeChatMessage(userObj) {
                 userObj.unreadCount = 0
                 this.$emit('getChatMessageList')
@@ -114,7 +143,7 @@
         border: 1px solid #ebebeb;
         z-index: 10;
         display: none;
-        height: 170px;
+        max-height: 170px;
         overflow: auto;
     }
 

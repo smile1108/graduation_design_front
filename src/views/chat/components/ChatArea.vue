@@ -1,7 +1,8 @@
 <template>
     <div id="chatArea">
         <ChatSideBar :chatUserList="chatUserList" @getChatMessageList="getChatMessageList"
-        @clearUnreadCount="clearUnreadCount" :userInfo="userInfo"></ChatSideBar>
+        @clearUnreadCount="clearUnreadCount" :userInfo="userInfo" :bulingUsername="bulingUsername"
+        @resetBulineUsername="resetBulineUsername"></ChatSideBar>
         <router-view :webSocketObj="webSocketObj" :userInfo="userInfo"
         :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
         @getChatMessageList="getChatMessageList"></router-view>
@@ -28,10 +29,45 @@
                 chatMessageList: [],
                 currentMessageNumber: 5,
                 messageTotalNumber: null,
-                webSocketObj: null
+                webSocketObj: null,
+                bulingUsername: null
             }
         },
         methods: {
+            resetBulineUsername() {
+                this.bulingUsername = null
+            },
+            changeUnreadCount(fromUser) {
+                let fromUserObj = null
+                let changeIndex = 0
+                for(let index = 0; index < this.chatUserList.length; index++) {
+                    if(this.chatUserList[index].username == fromUser) {
+                        fromUserObj = this.chatUserList[index]
+                        changeIndex = index
+                    }
+                }
+                fromUserObj.unreadCount++
+                this.chatUserList.splice(changeIndex, 1, fromUserObj)
+            },
+            addItemAndUnreadCountToChatList(username) {
+                let getUserMessageUrl = API.BASE_URL + API.getUserChatMessage + "?username=" + username
+                axios.get(getUserMessageUrl).then(res => {
+                    if(res.data.code === 200) {
+                        let userObj = JSON.parse(JSON.stringify(res.data.data))
+                        userObj.unreadCount++
+                        this.chatUserList.unshift(userObj)
+                    }
+                })
+            },
+            judgeUserExistInChatList(username) {
+                let exist = false
+                this.chatUserList.forEach(chatUserObj => {
+                    if(chatUserObj.username == username) {
+                        exist = true
+                    }
+                })
+                return exist
+            },
             getChatList() {
                 let getChatListUrl = API.BASE_URL + API.getChatList + "?username=" + this.userInfo.username
                 axios.get(getChatListUrl).then(res => {
@@ -40,15 +76,10 @@
                         // 然后判断当前路由中有没有正在聊天的用户
                         if(this.$route.params.toUser) {
                             // 代表路由中有对应的用户 此时需要判断 chatList中有没有该用户 如果没有需要添加
-                            let exist = false
-                            this.chatUserList.forEach(chatUserObj => {
-                                if(chatUserObj.username === this.$route.params.toUser) {
-                                    exist = true
-                                }
-                            })
+                            let exist = this.judgeUserExistInChatList(this.$route.params.toUser)
                             if(!exist) {
                                 // 如果遍历完数组都没有找到 就需要添加这个聊天用户到列表中
-                                this.addItemToChatList()
+                                this.addItemToChatList(this.$route.params.toUser)
                             }
                         }
                     } else if(res.data.code === 519) {
@@ -57,8 +88,8 @@
                     }
                 })
             },
-            addItemToChatList() {
-                let getUserMessageUrl = API.BASE_URL + API.getUserChatMessage + "?username=" + this.$route.params.toUser
+            addItemToChatList(username) {
+                let getUserMessageUrl = API.BASE_URL + API.getUserChatMessage + "?username=" + username
                 axios.get(getUserMessageUrl).then(res => {
                     if(res.data.code === 200) {
                         let userObj = JSON.parse(JSON.stringify(res.data.data))
@@ -110,14 +141,37 @@
             // },
             onMessage(event) {
                 let messageObj = JSON.parse(event.data)
-                if(messageObj.fromUserVo.username == this.$route.params.toUser || 
-                messageObj.fromUserVo.username == this.userInfo.username) {
-                    console.log("是当前聊天的用户")
+                if(messageObj.fromUserVo.username == this.userInfo.username) {
+                    // 代表这个客户端是发送消息的客户端
                     this.chatMessageList.push(messageObj)
                     this.messageTotalNumber++
                     this.currentMessageNumber++
-                    if(messageObj.fromUserVo.username == this.$route.params.toUser) {
-                        this.clearUnreadCount(messageObj.fromUserVo.username)
+                } else {
+                    // 代表是接受消息的客户端
+                    // 然后要判断接受消息的客户端中有没有该用户的聊天项
+                    if(this.judgeUserExistInChatList(messageObj.fromUserVo.username)) {
+                        // 代表存在 该用户
+                        if(messageObj.fromUserVo.username == this.$route.params.toUser) {
+                            // 存在的话判断是不是当前聊天的用户 如果是的话 要添加消息 并且清除未读消息
+                            this.chatMessageList.push(messageObj)
+                            this.messageTotalNumber++
+                            this.currentMessageNumber++
+                            this.clearUnreadCount(messageObj.fromUserVo.username)
+                        } else {
+                            console.log("不是正在聊天的")
+                            // 代表不是正在聊天的用户 此时只需要改变未读消息总数 并闪烁提示
+                            this.changeUnreadCount(messageObj.fromUserVo.username)
+                            // 闪烁
+                            this.bulingUsername = messageObj.fromUserVo.username
+                        }
+                    } else {
+                        // 不存在 就添加
+                        this.addItemAndUnreadCountToChatList(messageObj.fromUserVo.username)
+                        if(!this.$route.params.toUser) {
+                            // 如果当前没有正在聊天的用户 直接跳转到新发消息的用户
+                            this.$router.push('/chat/' + messageObj.fromUserVo.username)
+                            this.$router.go(0)
+                        }
                     }
                 }
             },
