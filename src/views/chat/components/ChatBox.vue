@@ -3,7 +3,8 @@
         <div v-if="this.currentChatUser != undefined && this.currentChatUser != null">
             <ChatTitle :currentChatUser="currentChatUser"></ChatTitle>
             <ChatContent :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
-            :userInfo="userInfo"></ChatContent>
+            :userInfo="userInfo" @showMoreMessage="showMoreMessage" :isShowMore="isShowMore"
+            @changeIsShowMore="changeIsShowMore"></ChatContent>
             <ChatInput :webSocketObj="webSocketObj" :userInfo="userInfo"></ChatInput>
         </div>
         <div class="withoutCurrentChat" v-else>
@@ -26,7 +27,8 @@
             webSocketObj: Object,
             userInfo: Object,
             chatMessageList: Array,
-            messageTotalNumber: Number
+            messageTotalNumber: Number,
+            isShowMore: Boolean
         },
         components: {
             ChatTitle, ChatContent, ChatInput
@@ -47,6 +49,12 @@
             },
             getChatMessageList() {
                 this.$emit('getChatMessageList')
+            },
+            showMoreMessage() {
+                this.$emit('showMoreMessage')
+            },
+            changeIsShowMore(isShowMore) {
+                this.$emit('changeIsShowMore', isShowMore)
             }
         },
         mounted() {

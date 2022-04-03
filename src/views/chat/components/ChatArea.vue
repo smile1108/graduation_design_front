@@ -5,7 +5,8 @@
         @resetBulineUsername="resetBulineUsername"></ChatSideBar>
         <router-view :webSocketObj="webSocketObj" :userInfo="userInfo"
         :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
-        @getChatMessageList="getChatMessageList"></router-view>
+        @getChatMessageList="getChatMessageList" @showMoreMessage="showMoreMessage" :isShowMore="isShowMore"
+        @changeIsShowMore="changeIsShowMore"></router-view>
     </div>
 </template>
 
@@ -30,10 +31,18 @@
                 currentMessageNumber: 5,
                 messageTotalNumber: null,
                 webSocketObj: null,
-                bulingUsername: null
+                bulingUsername: null,
+                isShowMore: false
             }
         },
         methods: {
+            changeIsShowMore(isShowMore) {
+                this.isShowMore = isShowMore
+            },
+            showMoreMessage() {
+                this.currentMessageNumber += 5
+                this.getChatMessageList()
+            },
             resetBulineUsername() {
                 this.bulingUsername = null
             },
@@ -140,6 +149,7 @@
             //     }, 100 * 1000); // 100s心跳
             // },
             onMessage(event) {
+                this.isShowMore = false
                 let messageObj = JSON.parse(event.data)
                 if(messageObj.fromUserVo.username == this.userInfo.username) {
                     // 代表这个客户端是发送消息的客户端
@@ -158,7 +168,6 @@
                             this.currentMessageNumber++
                             this.clearUnreadCount(messageObj.fromUserVo.username)
                         } else {
-                            console.log("不是正在聊天的")
                             // 代表不是正在聊天的用户 此时只需要改变未读消息总数 并闪烁提示
                             this.changeUnreadCount(messageObj.fromUserVo.username)
                             // 闪烁

@@ -1,7 +1,7 @@
 <template>
     <div id="chatContent">
-        <div class="checkMoreMessage" :class="[{showMoreBtn: chatMessageList.length != messageTotalNumber},
-        {noMore: chatMessageList.length == messageTotalNumber}]">{{chatMessageList.length == messageTotalNumber ? '没有更多消息了' : '查看更多历史消息 '}}</div>
+        <div class="checkMoreMessage showMoreBtn" @click="showMoreMessage()" v-if="chatMessageList.length != messageTotalNumber">查看更多历史消息</div>
+        <div class="checkMoreMessage" v-else>没有更多消息了</div>
         <div class="chatMessageDiv" v-for="chatMessageObj in chatMessageList" :key="chatMessageObj.id">
             <div class="messagePublishDate">{{formatDate(chatMessageObj.publishDate)}}</div>
             <div class="messageContent clearfix">
@@ -25,7 +25,13 @@
         props: {
             chatMessageList: Array,
             messageTotalNumber: Number,
-            userInfo: Object
+            userInfo: Object,
+            isShowMore: Boolean,
+        },
+        data() {
+            return {
+                preHeight: null
+            }
         },
         watch: {
             'chatMessageList.length': {
@@ -78,10 +84,20 @@
                     if(!this.isNull(ele)){
                         console.log(ele.scrollHeight)
                         console.log(ele.scrollTop)
-                        ele.scrollTop = ele.scrollHeight;
+                        if(!this.isShowMore) {
+                            ele.scrollTop = ele.scrollHeight;
+                        } else {
+                            ele.scrollTop = ele.scrollHeight - this.preHeight
+                        }
                     }
                 })
             },
+            showMoreMessage() {
+                let ele = document.getElementById('chatContent');
+                this.preHeight = ele.scrollHeight
+                this.$emit('changeIsShowMore', true)
+                this.$emit('showMoreMessage')
+            }
         },
         mounted() {
             this.scrollToBottom()
