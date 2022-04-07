@@ -1,5 +1,5 @@
 <template>
-    <div id="articleContent" v-html="article.htmlContent"></div>
+    <div id="articleContent" v-html="article.htmlContent" @click="enlargeImage($event)"></div>
 </template>
 
 <script>
@@ -7,10 +7,19 @@
     export default {
         name: "ArticleContent",
         props: {
-            article: Object
+            article: Object,
+            showImageSrc: String
         },
         components: {
             
+        },
+        methods: {
+            enlargeImage($event) {
+                if($event.target.currentSrc) {
+                    this.$emit('changeShowEnlargeImage', true)
+                    this.$emit('changeEnlargeImageSrc', $event.target.currentSrc)
+                }
+            }
         }
     }
 </script>
@@ -31,6 +40,10 @@
         padding:0;
         max-width: 590px;
         max-height: 590px;
+    }
+
+    #articleContent img:hover {
+        cursor: pointer;
     }
 
     #articleContent pre {
