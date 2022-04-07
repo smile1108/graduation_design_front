@@ -4,7 +4,8 @@
         <div class="publishAnswerBtn" @click="publishAnswer()">发布回答</div>
         <div class="totalAnswerCount">总回答数 ( {{this.answerTotal}} )</div>
         <AnswerList :answerList="answerList" :answerTotal="answerTotal" :answerCount="answerCount"
-        @showMoreAnswer="showMoreAnswer"></AnswerList>
+        @showMoreAnswer="showMoreAnswer" :showImageSrc="showImageSrc" @changeEnlargeImageSrc="changeEnlargeImageSrc"
+        @changeShowEnlargeImage="changeShowEnlargeImage"></AnswerList>
     </div>
 </template>
 
@@ -21,7 +22,8 @@
             userInfo: Object,
             answerList: Array,
             answerTotal: Number,
-            answerCount: Number
+            answerCount: Number,
+            showImageSrc: String
         },
         components: {
             AnswerList
@@ -32,6 +34,12 @@
             }
         },
         methods: {
+            changeShowEnlargeImage(show) {
+                this.$emit('changeShowEnlargeImage', show)
+            },
+            changeEnlargeImageSrc(src) {
+                this.$emit('changeEnlargeImageSrc', src)
+            },
             showMoreAnswer() {
                 this.$emit('showMoreAnswer')
             },

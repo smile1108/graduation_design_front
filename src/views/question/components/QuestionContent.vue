@@ -1,5 +1,5 @@
 <template>
-    <div id="questionContent" v-html="question.htmlContent">
+    <div id="questionContent" v-html="question.htmlContent" @click="enlargeImage($event)">
     </div>
 </template>
 
@@ -7,7 +7,16 @@
     export default {
         name: "QuestionContent",
         props: {
-            question: Object
+            question: Object,
+            showImageSrc: String
+        },
+        methods: {
+            enlargeImage($event) {
+                if($event.target.currentSrc) {
+                    this.$emit('changeShowEnlargeImage', true)
+                    this.$emit('changeEnlargeImageSrc', $event.target.currentSrc)
+                }
+            }
         }
     }
 </script>
@@ -28,5 +37,13 @@
         font-size: 16px;
         line-height: 24px;
         overflow: auto;
+    }
+
+    #questionContent img {
+        max-width: 400px;
+    }
+
+    #questionContent img:hover {
+        cursor: pointer;
     }
 </style>

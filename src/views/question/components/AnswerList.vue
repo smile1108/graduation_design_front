@@ -1,6 +1,8 @@
 <template>
     <div id="answerList">
-        <AnswerItem v-for="answerObj in answerList" :key="answerObj.id" :answerObj="answerObj"></AnswerItem>
+        <AnswerItem v-for="answerObj in answerList" :key="answerObj.id" :answerObj="answerObj"
+        :showImageSrc="showImageSrc" @changeEnlargeImageSrc="changeEnlargeImageSrc"
+        @changeShowEnlargeImage="changeShowEnlargeImage"></AnswerItem>
         <div @click="showMoreAnswer()" :class="[{showMoreBtn: (answerList.length != 0 && answerTotal > answerCount)},
         {noMore: (answerList.length == 0 || answerTotal <= answerCount)}]">{{(answerList.lenght == 0 || answerTotal &lt;= answerCount) ? "已经没有更多回答了" : "查看更多回答..."}}</div>
     </div>
@@ -18,9 +20,16 @@
         props: {
             answerList: Array,
             answerTotal: Number,
-            answerCount: Number
+            answerCount: Number,
+            showImageSrc: String
         },
         methods: {
+            changeShowEnlargeImage(show) {
+                this.$emit('changeShowEnlargeImage', show)
+            },
+            changeEnlargeImageSrc(src) {
+                this.$emit('changeEnlargeImageSrc', src)
+            },
             showMoreAnswer() {
                 if(this.answerList.length != 0 && this.answerTotal > this.answerCount) {
                     this.$emit('showMoreAnswer')

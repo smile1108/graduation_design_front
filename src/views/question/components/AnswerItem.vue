@@ -5,7 +5,7 @@
             <div class="nickname">{{answerObj.userVo.nickname}}</div>
             <div class="publishTime">发布于 {{formatDate(answerObj.publishDate)}}</div>
         </div>
-        <div class="content" v-html="answerObj.htmlContent"></div>
+        <div class="content" v-html="answerObj.htmlContent" @click="enlargeImage($event)"></div>
     </div>
 </template>
 
@@ -13,7 +13,8 @@
     export default {
         name: "AnswerItem",
         props: {
-            answerObj: Object
+            answerObj: Object,
+            showImageSrc: String
         },
         computed: {
             formatDate() {  
@@ -31,6 +32,14 @@
                 }
             }
         },
+        methods: {
+            enlargeImage($event) {
+                if($event.target.currentSrc) {
+                    this.$emit('changeShowEnlargeImage', true)
+                    this.$emit('changeEnlargeImageSrc', $event.target.currentSrc)
+                }
+            }
+        }
     }
 </script>
 
@@ -55,6 +64,10 @@
 
     #answerItem .content img {
         max-width: 400px;
+    }
+
+    #answerItem .content img:hover {
+        cursor: pointer;
     }
 
     #answerItem .answerTopMessage .profile {
