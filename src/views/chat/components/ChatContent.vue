@@ -11,7 +11,7 @@
                 {floatRightMessage: chatMessageObj.fromUserVo.username == userInfo.username}]">
                     <div class="messageText" v-if="chatMessageObj.type == 'text'">{{chatMessageObj.content}}</div>
                     <div class="imageDiv" v-else>
-                        <img :src="chatMessageObj.content" alt="消息图片" class="messageImage">
+                        <img :src="chatMessageObj.content" alt="消息图片" class="messageImage" @click="enlargeImage(chatMessageObj.content)">
                     </div>
                 </div>
             </div>
@@ -27,6 +27,7 @@
             messageTotalNumber: Number,
             userInfo: Object,
             isShowMore: Boolean,
+            showImageSrc: String
         },
         data() {
             return {
@@ -97,6 +98,10 @@
                 this.preHeight = ele.scrollHeight
                 this.$emit('changeIsShowMore', true)
                 this.$emit('showMoreMessage')
+            },
+            enlargeImage(imageSrc) {
+                this.$emit('changeEnlargeImage', true)
+                this.$emit('changeImageSrc', imageSrc)
             }
         },
         mounted() {
@@ -197,5 +202,9 @@
     #chatContent .chatMessageDiv .messageContent .message .messageImage {
         max-width: 280px;
         border-radius: 6px;
+    }
+
+    #chatContent .chatMessageDiv .messageContent .message .messageImage:hover {
+        cursor: pointer;
     }
 </style>

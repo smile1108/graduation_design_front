@@ -6,7 +6,8 @@
         <router-view :webSocketObj="webSocketObj" :userInfo="userInfo"
         :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
         @getChatMessageList="getChatMessageList" @showMoreMessage="showMoreMessage" :isShowMore="isShowMore"
-        @changeIsShowMore="changeIsShowMore"></router-view>
+        @changeIsShowMore="changeIsShowMore" @changeEnlargeImage="changeEnlargeImage"
+        @changeImageSrc="changeImageSrc" :showImageSrc="showImageSrc"></router-view>
     </div>
 </template>
 
@@ -22,7 +23,8 @@
             ChatSideBar
         },
         props: {
-            userInfo: Object
+            userInfo: Object,
+            showImageSrc: String
         },
         data() {
             return {
@@ -36,6 +38,12 @@
             }
         },
         methods: {
+            changeImageSrc(src) {
+                this.$emit('changeImageSrc', src)
+            },
+            changeEnlargeImage(show) {
+                this.$emit('changeEnlargeImage', show)
+            },
             changeIsShowMore(isShowMore) {
                 this.isShowMore = isShowMore
             },

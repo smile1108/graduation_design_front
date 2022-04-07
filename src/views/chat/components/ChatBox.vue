@@ -4,7 +4,8 @@
             <ChatTitle :currentChatUser="currentChatUser"></ChatTitle>
             <ChatContent :chatMessageList="chatMessageList" :messageTotalNumber="messageTotalNumber"
             :userInfo="userInfo" @showMoreMessage="showMoreMessage" :isShowMore="isShowMore"
-            @changeIsShowMore="changeIsShowMore"></ChatContent>
+            @changeIsShowMore="changeIsShowMore" @changeEnlargeImage="changeEnlargeImage"
+            @changeImageSrc="changeImageSrc" :showImageSrc="showImageSrc"></ChatContent>
             <ChatInput :webSocketObj="webSocketObj" :userInfo="userInfo"></ChatInput>
         </div>
         <div class="withoutCurrentChat" v-else>
@@ -28,7 +29,8 @@
             userInfo: Object,
             chatMessageList: Array,
             messageTotalNumber: Number,
-            isShowMore: Boolean
+            isShowMore: Boolean,
+            showImageSrc: String
         },
         components: {
             ChatTitle, ChatContent, ChatInput
@@ -55,6 +57,12 @@
             },
             changeIsShowMore(isShowMore) {
                 this.$emit('changeIsShowMore', isShowMore)
+            },
+            changeEnlargeImage(show) {
+                this.$emit('changeEnlargeImage', show)
+            },
+            changeImageSrc(src) {
+                this.$emit('changeImageSrc', src)
             }
         },
         mounted() {
