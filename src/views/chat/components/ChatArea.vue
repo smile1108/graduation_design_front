@@ -159,8 +159,10 @@
             onMessage(event) {
                 this.isShowMore = false
                 let messageObj = JSON.parse(event.data)
+                // this.userInfo代表当前这个客户端正在登录的用户
                 if(messageObj.fromUserVo.username == this.userInfo.username) {
                     // 代表这个客户端是发送消息的客户端
+                    // 这时只需要在聊天消息列表中添加一条新的消息即可
                     this.chatMessageList.push(messageObj)
                     this.messageTotalNumber++
                     this.currentMessageNumber++
@@ -182,7 +184,7 @@
                             this.bulingUsername = messageObj.fromUserVo.username
                         }
                     } else {
-                        // 不存在 就添加
+                        // 聊天列表中不存在该用户 就添加
                         this.addItemAndUnreadCountToChatList(messageObj.fromUserVo.username)
                         if(!this.$route.params.toUser) {
                             // 如果当前没有正在聊天的用户 直接跳转到新发消息的用户
