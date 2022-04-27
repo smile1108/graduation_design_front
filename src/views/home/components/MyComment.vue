@@ -44,7 +44,7 @@
         },
         mounted() {
             // 当页面渲染完成之后调用获取用户评论的接口
-            let getUserCommentListUrl = API.BASE_URL + API.getCommentListByUser + "r?username=" + this.$route.params.username
+            let getUserCommentListUrl = API.BASE_URL + API.getCommentListByUser + "?username=" + this.$route.params.username
             axios.get(getUserCommentListUrl).then(res => {
                 if(res.data.code === 200) {
                     this.commentList = res.data.data.lists
