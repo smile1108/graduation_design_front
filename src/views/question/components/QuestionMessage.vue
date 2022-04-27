@@ -4,7 +4,7 @@
         <QuestionContent :question="question" :showImageSrc="showImageSrc" @changeEnlargeImageSrc="changeEnlargeImageSrc"
         @changeShowEnlargeImage="changeShowEnlargeImage"></QuestionContent>
         <AuthorMessage :article="question" :articleNumber="articleNumber" :likeNumber="likeNumber"
-        :followerNumber="followerNumber"></AuthorMessage>
+        :followerNumber="followerNumber" :userInfo="userInfo"></AuthorMessage>
         <QuestionAnswer :question="question" :userInfo="userInfo" :answerList="answerList"
         :answerTotal="answerTotal" :answerCount="answerCount" @showMoreAnswer="showMoreAnswer"
         :showImageSrc="showImageSrc" @changeEnlargeImageSrc="changeEnlargeImageSrc"
