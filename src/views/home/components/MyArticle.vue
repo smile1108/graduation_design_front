@@ -44,6 +44,7 @@
                         axios.post(url, formData).then(res => {
                             if(res.data.code === 200) {
                                 // 如果成功 刷新当前页面
+                                alert(JSON.parse(JSON.stringify(res.data.data)).title + "文章删除成功")
                                 this.$router.go(0)
                             } else if(res.data.code === 519) {
                                 // 表示用户身份认证信息 过期 跳转到登录页面
